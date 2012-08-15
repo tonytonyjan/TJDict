@@ -1,6 +1,6 @@
 {
   "name": "TJDict",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "manifest_version": 2,
   "description": "英漢、漢英網路字典之整合字典",
   "homepage_url": "http://github.com/tonytonyjan/TJDict",
