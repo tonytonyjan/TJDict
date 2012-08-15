@@ -4,8 +4,8 @@ function query(q){
 }
 
 function clickContextMenu(info, tab){
-  var query = info.selectionText;
-  query(query);
+  var q = info.selectionText;
+  query(q);
 }
 
 chrome.extension.onMessage.addListener(function(request, sender, sendResponse){
