@@ -1,0 +1,30 @@
+{
+  "name": "TJDict",
+  "version": "0.1",
+  "manifest_version": 2,
+  "description": "A Lingoes-like dictionary.",
+  "homepage_url": "http://github.com/tonytonyjan/TJDict",
+  "permissions": [
+    "<all_urls>",
+    "contextMenus"
+  ],
+  "icons": {
+    "16": "/app/img/icon16.png",
+    "48": "/app/img/icon48.png",
+    "128": "/app/img/icon128.png"
+  },
+  "app": {
+    "launch": {
+      "local_path": "/app/index.html"
+    }
+  },
+  "background": {
+    "scripts": ["/app/js/background.js"]
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["/app/js/content.js"]
+    }
+  ]
+}
