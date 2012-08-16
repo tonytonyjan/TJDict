@@ -12,8 +12,6 @@ TJDict.engines.push({
     var resault = "<h3>釋義</h3>";
     if(def[0]) resault += def[0].outerHTML;
     var wordList = body.find('div.ex_box > ul.word_list');
-    //wordList.find('li > strong:first-child').remove();
-    console.log(wordList);
     if(wordList[0]) resault += wordList[0].outerHTML;
     return resault;
   }

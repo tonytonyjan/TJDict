@@ -59,20 +59,33 @@
             <ul class="nav">
               <li><a class="tooltip-bottom" href="#help-modal" title="使用說明" data-toggle="modal"><i class="icon-info-sign icon-white"></i></a></li>
               <li><a class="tooltip-bottom" href="#about-modal" title="關於" data-toggle="modal"><i class="icon-question-sign icon-white"></i></a></li>
-              <li><a class="tooltip-bottom" href="#options" title="設定頁開發中" class="tooltip"><i class="icon-wrench icon-white"></i></a></li>
+              <li><a class="tooltip-bottom" data-toggle="tab" href="#tab-options" title="設定" class="tooltip"><i class="icon-wrench icon-white"></i></a></li>
             </ul>
             <form class="navbar-search pull-left">
               <input id="search-field" type="text" name="q" class="search-query" placeholder="搜尋">
             </form>
           </div><!--/.nav-collapse -->
+          <!--ul class="nav pull-right">
+            <li><a id="close-link" data-toggle="modal"><i class="icon-remove-sign icon-white"></i> 關閉</a></li>
+          </ul-->
         </div>
       </div>
     </div>
 
-    <div class="container-fluid">
-
-      <div class="row-fluid">
-        <div id="container" class="span12">
+    <div id="content" class="container-fluid">
+      <div class="tab-content">
+        <div class="tab-pane active" id="tab-index"></div>
+        <div class="tab-pane" id="tab-options">
+          <form id="options-form">
+            <label for="opt-display">顯示方式</label>
+            <select name="opt-display" id="opt-display">
+              <option value="iframe">內嵌</option>
+              <option value="tab">視窗</option>
+            </select>
+            <br>
+            <button id="save-btn" class="btn btn-primary" type="button">儲存</button>
+            <button id = "reset-btn" class="btn" type="button">預設</button>
+          </form>
         </div>
       </div>
 
@@ -143,11 +156,16 @@
 
     <script type="text/javascript" src="/vendor/js/jquery-1.8.0.min.js"></script>
     <script type="text/javascript" src="/vendor/js/bootstrap.min.js"></script>
+
+    <script type="text/javascript" src="/app/js/glob.js"></script>
     <script type="text/javascript" src="/app/js/util.js"></script>
+    <script type="text/javascript" src="/app/js/options.js"></script>
+    
     <script type="text/javascript" src="/app/js/TJDict.js"></script>
     <script type="text/javascript" src="/app/js/engines/jukuu.js"></script>
     <script type="text/javascript" src="/app/js/engines/dict.cn.js"></script>
     <script type="text/javascript" src="/app/js/engines/nciku.js"></script>
+    
     <script type="text/javascript" src="/app/js/index.js"></script>
   </body>
 </html>

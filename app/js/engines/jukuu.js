@@ -9,7 +9,7 @@ TJDict.engines.push({
     var trs1 = body.find('tr.e td:nth-child(2)');
     var trs2 = body.find('tr.c td:nth-child(2)');
     var resault = "<ul>";
-    for(var i = 0; i < 10; i++){
+    for(var i = 0; i < trs1.length; i++){
       resault += "<li>" +
       "<p>" + trs1[i].innerHTML + "</p>" +
       "<p style='color:blue'>" + trs2[i].innerHTML + "</p>" +

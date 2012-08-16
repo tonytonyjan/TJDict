@@ -1,30 +1,37 @@
 {
   "name": "TJDict",
-  "version": "0.1.2",
+  "version": "0.3.1",
   "manifest_version": 2,
   "description": "英漢、漢英網路字典之整合字典",
-  "homepage_url": "http://github.com/tonytonyjan/TJDict",
   "permissions": [
     "<all_urls>",
-    "contextMenus"
+    "contextMenus",
+    "tabs",
+    "storage",
+    "notifications"
   ],
   "icons": {
     "16": "app/img/icon16.png",
     "48": "app/img/icon48.png",
     "128": "app/img/icon128.png"
   },
+  "options_page": "app/index.html#options",
   "app": {
     "launch": {
       "local_path": "app/index.html"
     }
   },
   "background": {
-    "scripts": ["app/js/background.js"]
+    "scripts": ["app/js/glob.js", "app/js/background.js"]
   },
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
-      "js": ["app/js/content.js"]
+      "js": ["app/js/glob.js", "app/js/util.js", "app/js/injections/content.js"]
     }
+  ],
+  "web_accessible_resources": [
+    "app/index.html",
+    "app/img/icon48.png"
   ]
 }
