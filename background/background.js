@@ -15,7 +15,7 @@ chrome.storage.sync.get("options", function(data){
 });
 
 function query(q){
-  if(q.match(/^\w+/)){
+  if(q.match(/^[\u4E00-\u9FFF\w]+/)){
     chrome.storage.sync.get("options", function(data){
       if(data.options["opt-display"] == "iframe")
         chrome.tabs.executeScript({file: "/background/popupIframe.js"});
