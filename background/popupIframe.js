@@ -7,6 +7,7 @@ iframe.name = "tjdict-iframe";
 iframe.width = 600;
 iframe.height = 600;
 iframe.style.position = "fixed";
+iframe.style["z-index"] = 100;
 
 var diff;
 if((diff = (coords.x + parseInt(iframe.width) - window.innerWidth)) > 0 && window.innerWidth > parseInt(iframe.width))

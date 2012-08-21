@@ -1,6 +1,6 @@
 {
   "name": "TJDict",
-  "version": "0.3.1",
+  "version": "0.3.3",
   "manifest_version": 2,
   "description": "英漢、漢英網路字典之整合字典",
   "permissions": [
@@ -11,9 +11,9 @@
     "notifications"
   ],
   "icons": {
-    "16": "app/img/icon16.png",
-    "48": "app/img/icon48.png",
-    "128": "app/img/icon128.png"
+    "16": "img/icon16.png",
+    "48": "img/icon48.png",
+    "128": "img/icon128.png"
   },
   "options_page": "app/index.html#options",
   "app": {
@@ -22,16 +22,16 @@
     }
   },
   "background": {
-    "scripts": ["app/js/glob.js", "app/js/background.js"]
+    "scripts": ["background/background.js"]
   },
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
-      "js": ["app/js/glob.js", "app/js/util.js", "app/js/injections/content.js"]
+      "js": ["content_scripts/content.js"]
     }
   ],
   "web_accessible_resources": [
     "app/index.html",
-    "app/img/icon48.png"
+    "img/icon48.png"
   ]
 }

@@ -1,3 +1,13 @@
+var params_cache = {};
+function params(name) {
+  if(params_cache[name])
+    return params_cache[name];
+  else if(match = RegExp(name + '=' + '(.+?)(&|$)').exec(location.search))
+    return (params_cache[name] = match[1]);
+  else
+    return null;
+}
+
 function displayResault(q){
   for(var i in TJDict.engines){
     $.ajax({
@@ -17,12 +27,16 @@ $('.tooltip-bottom').tooltip({
   placement: "bottom"
 });
 
+// 搜尋
 if(params('q')){
   displayResault(params('q'));
   $('#search-field').val(decodeURIComponent(params('q')));
 }else{
   $('#tab-index').html('<p>請輸入關鍵字 :)</p>');
 }
+
+if(location.hash == "#options")
+  $('#options-link').tab('show');
 
 // 避免 Enter 送出表單
 $('#options-form').keypress(function(e) {

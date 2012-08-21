@@ -2,10 +2,8 @@ TJDict.engines.push({
   title: "海詞在線辭典",
   url: function(q){return "http://dict.cn/" + q},
   resault: function(data){
-    var regex = /<body[^>]*>([\S\s]*)<[^<]*body>/;
-    var matches = regex.exec(data);
-    matches[1] = matches[1].replace(/(<\s*img+)(\s*[^>]*\s*)(>)/ig, "$1$3");
-    var body = $(matches[1]);
+    var body = $(TJDict.grepBody(data));
+
     var def = body.find('div.cont-one.shiyi > p');
     var resault = "<h3>釋義</h3>";
     def.each(function(){

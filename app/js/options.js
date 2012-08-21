@@ -1,3 +1,22 @@
+if(typeof jQuery != "undefined"){
+  $.fn.serializeObject = function()
+  {
+    var o = {};
+    var a = this.serializeArray();
+    $.each(a, function() {
+      if (o[this.name] !== undefined) {
+        if (!o[this.name].push) {
+            o[this.name] = [o[this.name]];
+        }
+        o[this.name].push(this.value || '');
+      } else {
+        o[this.name] = this.value || '';
+      }
+    });
+    return o;
+  };
+}
+
 function saveOptions(){
   var new_options = $('#options-form').serializeObject();
   chrome.storage.sync.set({options: new_options}, function(){
@@ -10,8 +29,10 @@ function saveOptions(){
 }
 
 function resetOptions() {
-  for(var key in DEFAULT_OPTIONS)
-    $('#' + key).val(DEFAULT_OPTIONS[key]);
+  chrome.extension.sendMessage({op: "getDefaultOptions"}, function(defaultOptions){
+    for(var key in defaultOptions)
+      $('#' + key).val(defaultOptions[key]);
+  });
 }
 
 chrome.storage.sync.get("options", function(data){

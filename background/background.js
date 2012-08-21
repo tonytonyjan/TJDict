@@ -1,3 +1,8 @@
+var DEFAULT_OPTIONS = {
+  "opt-display": "iframe"
+}
+
+// 設定初始化
 chrome.storage.sync.get("options", function(data){
     if(typeof data.options === "undefined")
       chrome.storage.sync.set({options: DEFAULT_OPTIONS});
@@ -9,28 +14,20 @@ chrome.storage.sync.get("options", function(data){
     }
 });
 
-function iframeDisplay(q){
-  chrome.tabs.executeScript({file: "/app/js/injections/popupIframe.js"});
-}
-
-function tabDisplay(q){
-  chrome.tabs.create({url: "/app/index.html?q=" + q});
-};
-
 function query(q){
   if(q.match(/^\w+/)){
     chrome.storage.sync.get("options", function(data){
-      if(data.options["opt-display"] == "tab")
-        tabDisplay(q);
-      else if(data.options["opt-display"] == "iframe")
-        iframeDisplay(q);
+      if(data.options["opt-display"] == "iframe")
+        chrome.tabs.executeScript({file: "/background/popupIframe.js"});
+      else if(data.options["opt-display"] == "tab")
+        chrome.tabs.create({url: "/app/index.html?q=" + q});
     });
   }
 }
 
 function clickContextMenu(info, tab){
   var q = info.selectionText;
-  tabDisplay(q);
+  query(q);
 }
 
 window.addEventListener("load", function(){
@@ -38,7 +35,7 @@ window.addEventListener("load", function(){
   if (localStorage.ver !== ver){
     if (localStorage.ver){
       var notification = webkitNotifications.createHTMLNotification(
-        '/app/notification.html'
+        '/notifications/update.html'
       );
       notification.show();
     }
@@ -50,11 +47,14 @@ chrome.extension.onMessage.addListener(function(request, sender, sendResponse){
   switch(request.op){
   case "query":
     // q: query string
-    chrome.tabs.executeScript(sender.tab.id, {file: "/app/js/injections/close.js"});
+    chrome.tabs.executeScript(sender.tab.id, {file: "/background/close.js"});
     query(request.q);
     break;
   case "close":
-    chrome.tabs.executeScript(sender.tab.id, {file: "/app/js/injections/close.js"});
+    chrome.tabs.executeScript(sender.tab.id, {file: "/background/close.js"});
+    break;
+  case "getDefaultOptions":
+    sendResponse(DEFAULT_OPTIONS);
     break;
   default:
     console.error('Unkown operation "' + request.op + '"')

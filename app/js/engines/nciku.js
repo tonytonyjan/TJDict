@@ -2,10 +2,7 @@ TJDict.engines.push({
   title: "詞酷線上辭典",
   url: function(q){return "http://www.nciku.com.tw/mini/all/" + q},
   resault: function(data){
-    var regex = /<body[^>]*>([\S\s]*)<[^<]*body>/;
-    var matches = regex.exec(data);
-    matches[1] = matches[1].replace(/(<\s*img+)(\s*[^>]*\s*)(>)/ig, "$1$3");
-    var body = $(matches[1]);
+    var body = $(TJDict.grepBody(data));
     
     var def = body.find('dl > dd > ol');
     def.find('li > div > strong:first-child').remove();

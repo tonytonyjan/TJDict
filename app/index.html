@@ -59,7 +59,7 @@
             <ul class="nav">
               <li><a class="tooltip-bottom" href="#help-modal" title="使用說明" data-toggle="modal"><i class="icon-info-sign icon-white"></i></a></li>
               <li><a class="tooltip-bottom" href="#about-modal" title="關於" data-toggle="modal"><i class="icon-question-sign icon-white"></i></a></li>
-              <li><a class="tooltip-bottom" data-toggle="tab" href="#tab-options" title="設定" class="tooltip"><i class="icon-wrench icon-white"></i></a></li>
+              <li><a id="options-link" class="tooltip-bottom" data-toggle="tab" href="#tab-options" title="設定" class="tooltip"><i class="icon-wrench icon-white"></i></a></li>
             </ul>
             <form class="navbar-search pull-left">
               <input id="search-field" type="text" name="q" class="search-query" placeholder="搜尋">
@@ -104,18 +104,13 @@
       </div>
       <div class="modal-body">
         <div class="row-fluid">
-          <img src="/app/img/icon128.png" alt="TJDict" class="pull-right">
+          <img src="/img/icon128.png" alt="TJDict" class="pull-right">
           <h2>TJDict <small>網路英漢、漢英速查字典</small></h2>
           <p>靈感來自於 Lingoes 這套軟體，TJDict 是一套可以整合網路上各大網路字典且可以日漸擴充的 App。</p>
-          <h3>參與開發</h3>
-          <dl>
-            <dt>Github</dt>
-            <dd><a target="_blank" href="https://github.com/tonytonyjan/TJDict">https://github.com/tonytonyjan/TJDict</a></dd>
-            <dt>Repo</dt>
-            <dd>git@github.com:tonytonyjan/TJDict.git</dd>
-            <dt>Licence</dt>
-            <dd>BSD</dd>
-          </dl>
+          <ul>
+            <li><a target="_blank" href="https://chrome.google.com/webstore/detail/caafmojgjlbflohillejdmnghkpcjjpp/reviews">Google Web Store</a>（給我一點鼓勵和一些星星吧 XD）</li>
+            <li><a target="_blank" href="https://github.com/tonytonyjan/TJDict/issues">問題回報</a></li>
+          </ul>
         </div>
         <hr>
         <div class="row-fluid">
@@ -156,16 +151,14 @@
 
     <script type="text/javascript" src="/vendor/js/jquery-1.8.0.min.js"></script>
     <script type="text/javascript" src="/vendor/js/bootstrap.min.js"></script>
-
-    <script type="text/javascript" src="/app/js/glob.js"></script>
-    <script type="text/javascript" src="/app/js/util.js"></script>
-    <script type="text/javascript" src="/app/js/options.js"></script>
     
     <script type="text/javascript" src="/app/js/TJDict.js"></script>
     <script type="text/javascript" src="/app/js/engines/jukuu.js"></script>
     <script type="text/javascript" src="/app/js/engines/dict.cn.js"></script>
     <script type="text/javascript" src="/app/js/engines/nciku.js"></script>
+    <script type="text/javascript" src="/app/js/engines/yahoo.js"></script>
     
     <script type="text/javascript" src="/app/js/index.js"></script>
+    <script type="text/javascript" src="/app/js/options.js"></script>
   </body>
 </html>
