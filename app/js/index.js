@@ -43,6 +43,12 @@ $('#options-form').keypress(function(e) {
   if(e.which == 13) return false;
 });
 
+// 顯示字典清單
+var dictList = "";
+for(var i in TJDict.engines)
+  dictList += "<li>" + TJDict.engines[i].title + "</li>";
+$('#dict-list').append(dictList);
+
 /*$('#close-link').click(function(){
   if(top == self){
     window.open('', '_self', '');
