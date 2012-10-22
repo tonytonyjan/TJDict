@@ -78,10 +78,12 @@
         <div class="tab-pane" id="tab-options">
           <form id="options-form">
             <label for="opt-display">顯示方式</label>
-            <select name="opt-display" id="opt-display">
+            <select name="opt-display">
               <option value="iframe">內嵌</option>
               <option value="tab">視窗</option>
             </select>
+            <label for="opt-enable-dicts">啟用字典</label>
+            <ul id="opt-enable-dicts-fields"></ul>
             <br>
             <button id="save-btn" class="btn btn-primary" type="button">儲存</button>
             <button id = "reset-btn" class="btn" type="button">預設</button>
@@ -156,7 +158,6 @@
     
     <script type="text/javascript" src="/app/js/TJDict.js"></script>
     <script type="text/javascript" src="/app/js/engines/jukuu.js"></script>
-    <script type="text/javascript" src="/app/js/engines/dict.cn.js"></script>
     <script type="text/javascript" src="/app/js/engines/nciku.js"></script>
     <script type="text/javascript" src="/app/js/engines/yahoo.js"></script>
     

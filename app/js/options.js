@@ -31,13 +31,27 @@ function saveOptions(){
 function resetOptions() {
   chrome.extension.sendMessage({op: "getDefaultOptions"}, function(defaultOptions){
     for(var key in defaultOptions)
-      $('#' + key).val(defaultOptions[key]);
+      $('[name=\''+key+'\']').val(defaultOptions[key]);
   });
+  $('[name^=dict_enable]').prop("checked", false);
 }
 
+// 顯示字典設定清單
+var optDictList = "";
+for(var i in TJDict.engines){
+  optDictList += '<li><input type="checkbox" name="dict_enable[' + i + ']" value="true">' + TJDict.engines[i].title + '</li>';
+}
+$('#opt-enable-dicts-fields').append(optDictList);
+
+// 初始化
 chrome.storage.sync.get("options", function(data){
-  for(var key in data.options)
-    $('#' + key).val(data.options[key]);
+  if(data.options)
+    for(var key in data.options)
+      $('[name=\''+key+'\']').val(data.options[key]).prop("checked", true);
+  else{
+    $('[name^=dict_enable]').prop("checked", true);
+    saveOptions();
+  }
 });
 
 $('#save-btn').click(saveOptions);

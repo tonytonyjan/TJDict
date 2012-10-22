@@ -9,18 +9,21 @@ function params(name) {
 }
 
 function displayResault(q){
-  for(var i in TJDict.engines){
-    $.ajax({
-      url: TJDict.engines[i].url(q),
-      ajaxI: i
-    }).done(function(data){
-      var title = "<div class='page-header'><h2>" + 
-                TJDict.engines[this.ajaxI].title +
-                "</h2></div>";
-      var resault = TJDict.engines[this.ajaxI].resault(data);
-      $('#tab-index').append(title + resault);
-    });
-  }
+  chrome.storage.sync.get("options", function(data){
+    for(var i in TJDict.engines){
+      if(data.options["dict_enable[" + i +"]"] == "true")
+        $.ajax({
+          url: TJDict.engines[i].url(q),
+          ajaxI: i
+        }).done(function(data){
+          var title = "<div class='page-header'><h2>" + 
+                    TJDict.engines[this.ajaxI].title +
+                    "</h2></div>";
+          var resault = TJDict.engines[this.ajaxI].resault(data);
+          $('#tab-index').append(title + resault);
+        });
+    }
+  });
 }
 
 $('.tooltip-bottom').tooltip({
