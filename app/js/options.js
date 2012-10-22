@@ -43,16 +43,18 @@ for(var i in TJDict.engines){
 }
 $('#opt-enable-dicts-fields').append(optDictList);
 
-// 初始化
-chrome.storage.sync.get("options", function(data){
-  if(data.options)
+// 初始化表單
+$(function(){
+  chrome.storage.sync.get("options", function(data){
     for(var key in data.options)
       $('[name=\''+key+'\']').val(data.options[key]).prop("checked", true);
-  else{
-    $('[name^=dict_enable]').prop("checked", true);
-    saveOptions();
-  }
-});
+    //如果全部是空的，則全選
+    if($('[name^=dict_enable]:checked').length == 0){
+      $('[name^=dict_enable]').prop("checked", true);
+      saveOptions();
+    }
+  });
 
-$('#save-btn').click(saveOptions);
-$('#reset-btn').click(resetOptions);
+  $('#save-btn').click(saveOptions);
+  $('#reset-btn').click(resetOptions);
+});
