@@ -1,6 +1,6 @@
 {
   "name": "TJDict",
-  "version": "0.3.8",
+  "version": "0.3.9",
   "manifest_version": 2,
   "description": "英漢、漢英網路字典之整合字典",
   "permissions": [
@@ -22,7 +22,8 @@
     }
   },
   "background": {
-    "scripts": ["background/background.js"]
+    "scripts": ["background/background.js"],
+    "persistent": false
   },
   "content_scripts": [
     {

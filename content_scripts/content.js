@@ -23,13 +23,18 @@ function getSelectionCoords() {
   return { x: x, y: y };
 }
 
+function closeIFrame(){
+  var iframe;
+  if(iframe = document.getElementById('tjdict-iframe'))
+    iframe.parentNode.removeChild(iframe);
+}
+
 document.addEventListener("dblclick", function(event){
   if(event.ctrlKey){
+    closeIFrame();
     var query = window.getSelection().toString();
     chrome.extension.sendMessage({op: "query", q: query});
   }
 });
 
-window.addEventListener("click", function(event){
-  chrome.extension.sendMessage({op: "close"});
-});
+window.addEventListener("click", closeIFrame);

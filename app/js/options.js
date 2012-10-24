@@ -17,9 +17,10 @@ if(typeof jQuery != "undefined"){
   };
 }
 
-function saveOptions(){
+function saveOptions(callback){
   var new_options = $('#options-form').serializeObject();
   chrome.storage.sync.set({options: new_options}, function(){
+    if(typeof callback == "function") callback();
     $('#options-form').after(
       $('<div class="alert alert-success fade in" data-dismiss="alert">' +
         '已儲存' +
@@ -48,11 +49,6 @@ $(function(){
   chrome.storage.sync.get("options", function(data){
     for(var key in data.options)
       $('[name=\''+key+'\']').val(data.options[key]).prop("checked", true);
-    //如果全部是空的，則全選
-    if($('[name^=dict_enable]:checked').length == 0){
-      $('[name^=dict_enable]').prop("checked", true);
-      saveOptions();
-    }
   });
 
   $('#save-btn').click(saveOptions);

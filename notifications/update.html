@@ -3,36 +3,32 @@
 <head>
   <meta charset="UTF-8">
   <title>TJDict 更新</title>
-  <style>
+  <link href="/vendor/css/bootstrap.min.css" rel="stylesheet">
+  <style type="text/css">
     body {
-      direction: ltr;
-    }
-    #icon {
-      height: 32px;
-      width: 32px;
-      float: left;
-    }
-    #title {
-      margin-left: 38px;
-      font-weight: bold;
-      font-size: 13px;
-      font-family: helvetica, arial, sans-serif;
-    }
-    #description {
-      margin-left: 38px;
-      font-family: helvetica, arial, sans-serif;
-      font-size: 13px;
+      margin-top: 10px;
     }
   </style>
+  
 </head>
   <body>
-    <div id="icon"><img src="/img/icon48.png" width="32" height="32"></div>
-    <div id="title">TJDict 更新</div>
-    <div id="description">
-      <ul>
-        <li>修正預設字典的 bug</li>
-        <li>修正彈出視窗文字編碼問題</li>
-      </ul>
+    <div class="container-fluid">
+      <div class="row-fluid">
+        <div class="row-fluid">
+          <div class="span2">
+            <img src="/img/icon48.png">
+          </div>
+          <div class="span10">
+            <b id="title">TJDict 更新</b>
+            <ul>
+              <li>節省記憶體，程式不再常駐</li>
+              <li>更新提示變得更漂漂\(0w0)/</li>
+            </ul>
+            <b>大兜碎碎唸</b>
+            <p>最近天氣轉涼，大家記得要多加衣物以防感冒了喔^^</p>
+          </div>
+        </div>
+      </div>
     </div>
   </body>
   <script type="text/javascript" src="/notifications/update.js"></script>

@@ -26,36 +26,46 @@ function displayResault(q){
   });
 }
 
-$('.tooltip-bottom').tooltip({
-  placement: "bottom"
-});
-
-// 搜尋
-if(params('q')){
-  displayResault(params('q'));
-  $('#search-field').val(decodeURIComponent(params('q')));
-}else{
-  $('#tab-index').html('<p>請輸入關鍵字 :)</p>');
+function init(callback){
+  $(function(){
+    chrome.storage.sync.get("options", function(data){
+      //如果全部是空的，則全選
+      if($('[name^=dict_enable]:checked').length == 0){
+        $('[name^=dict_enable]').prop("checked", true);
+        saveOptions(callback);
+      }else{
+        if(typeof callback == "function") callback();
+      }
+    });
+  });
 }
 
-if(location.hash == "#options")
-  $('#options-link').tab('show');
+function main(){
+  $('.tooltip-bottom').tooltip({
+    placement: "bottom"
+  });
 
-// 避免 Enter 送出表單
-$('#options-form').keypress(function(e) {
-  if(e.which == 13) return false;
-});
+  // 搜尋
+  if(params('q')){
+    displayResault(params('q'));
+    $('#search-field').val(decodeURIComponent(params('q')));
+  }else{
+    $('#tab-index').html('<p>請輸入關鍵字 :)</p>');
+  }
 
-// 顯示字典清單
-var dictList = "";
-for(var i in TJDict.engines)
-  dictList += "<li>" + TJDict.engines[i].title + "</li>";
-$('#dict-list').append(dictList);
+  if(location.hash == "#options")
+    $('#options-link').tab('show');
 
-/*$('#close-link').click(function(){
-  if(top == self){
-    window.open('', '_self', '');
-    window.close();
-  }else
-    chrome.extension.sendMessage({op: "close"});
-});*/
+  // 避免 Enter 送出表單
+  $('#options-form').keypress(function(e) {
+    if(e.which == 13) return false;
+  });
+
+  // 顯示字典清單
+  var dictList = "";
+  for(var i in TJDict.engines)
+    dictList += "<li>" + TJDict.engines[i].title + "</li>";
+  $('#dict-list').append(dictList);
+}
+
+init(main);
