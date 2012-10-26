@@ -24,16 +24,17 @@ function getSelectionCoords() {
 }
 
 function closeIFrame(){
-  var iframe;
-  if(iframe = document.getElementById('tjdict-iframe'))
-    iframe.parentNode.removeChild(iframe);
+  chrome.storage.local.get("appWindow", function(data){
+    if(data.appWindow == true)
+      chrome.extension.sendMessage({op: "close"});
+  });
 }
 
 document.addEventListener("dblclick", function(event){
   if(event.ctrlKey){
     closeIFrame();
     var query = window.getSelection().toString();
-    chrome.extension.sendMessage({op: "query", q: query});
+    chrome.extension.sendMessage({op: "query", q: query, x: event.screenX, y: event.screenY});
   }
 });
 
