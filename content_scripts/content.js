@@ -23,7 +23,7 @@ function getSelectionCoords() {
   return { x: x, y: y };
 }
 
-function closeIFrame(){
+function closeAppWindow(){
   chrome.storage.local.get("appWindow", function(data){
     if(data.appWindow == true)
       chrome.extension.sendMessage({op: "close"});
@@ -32,10 +32,13 @@ function closeIFrame(){
 
 document.addEventListener("dblclick", function(event){
   if(event.ctrlKey){
-    closeIFrame();
+    closeAppWindow();
     var query = window.getSelection().toString();
     chrome.extension.sendMessage({op: "query", q: query, x: event.screenX, y: event.screenY});
   }
 });
 
-window.addEventListener("click", closeIFrame);
+window.addEventListener("click", closeAppWindow);
+window.addEventListener("contextmenu", function(event){
+  chrome.storage.local.set({contextmenu: {x: event.screenX, y: event.screenY}});
+});

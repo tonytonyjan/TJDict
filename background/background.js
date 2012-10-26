@@ -1,5 +1,5 @@
 var DEFAULT_OPTIONS = {
-  "opt-display": "iframe"
+  "opt-display": "window"
 }
 
 var APP_WINDOW;
@@ -12,6 +12,8 @@ function init(callback){
       for(var key in DEFAULT_OPTIONS)
         if(typeof data.options[key] === "undefined")
           data.options[key] = DEFAULT_OPTIONS[key];
+      if(!data.options["opt-display"].match(/^window$|^tab$/))
+        data.options["opt-display"] = "window";
       chrome.storage.sync.set({options: data.options}, callback);
     }
   });
@@ -21,7 +23,7 @@ function query(q, params){
   init(function(){
     if(q.match(/^[\u4E00-\u9FFF\w]+/)){
       chrome.storage.sync.get("options", function(data){
-        if(data.options["opt-display"] == "iframe"){
+        if(data.options["opt-display"] == "window"){
           var width = 400, height = 400;
           var top = params.y + 40, left = params.x;
           if(left + width > window.screen.width) left = window.screen.width - width;
@@ -77,10 +79,11 @@ chrome.contextMenus.create({
   id: "tjdict",
   title: "TJDict",
   contexts: ["selection"]
-  //onclick: clickContextMenu
 });
 
 chrome.contextMenus.onClicked.addListener(function(info, tab){
   var q = info.selectionText;
-  query(q);
+  chrome.storage.local.get("contextmenu", function(data){
+    query(q, {x: data.contextmenu.x, y: data.contextmenu.y});
+  });
 });
