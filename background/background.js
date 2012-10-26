@@ -24,6 +24,8 @@ function query(q, params){
         if(data.options["opt-display"] == "iframe"){
           var width = 400, height = 400;
           var top = params.y + 40, left = params.x;
+          if(left + width > window.screen.width) left = window.screen.width - width;
+          if(top + height > window.screen.height) top = window.screen.height - height;
           if(APP_WINDOW) APP_WINDOW.close();
           chrome.app.window.create("/app/index.html?q=" + q,
             {
