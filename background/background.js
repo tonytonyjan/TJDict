@@ -28,15 +28,18 @@ function query(q, params){
           var top = params.y + 40, left = params.x;
           if(left + width > window.screen.width) left = window.screen.width - width;
           if(top + height > window.screen.height) top = window.screen.height - height;
-          if(APP_WINDOW) APP_WINDOW.close();
-          chrome.app.window.create("/app/index.html?q=" + q,
+          if(APP_WINDOW) chrome.windows.remove(APP_WINDOW.id);
+          chrome.windows.create(
             {
+              url: "/app/index.html?q=" + q,
               width: width,
               height: height,
               top: top,
-              left: left
+              left: left,
+              type: 'popup'
             },
             function(appWindow){
+              chrome.windows.update(appWindow.id, {top: top, left: left});
               APP_WINDOW = appWindow;
               chrome.storage.local.set({appWindow: true});
             }
@@ -63,7 +66,7 @@ chrome.extension.onMessage.addListener(function(request, sender, sendResponse){
     break;
   case "close":
     if(APP_WINDOW){
-      APP_WINDOW.close();
+      chrome.windows.remove(APP_WINDOW.id);
       chrome.storage.local.set({appWindow: false});
     }
     break;
@@ -86,4 +89,8 @@ chrome.contextMenus.onClicked.addListener(function(info, tab){
   chrome.storage.local.get("contextmenu", function(data){
     query(q, {x: data.contextmenu.x, y: data.contextmenu.y});
   });
+});
+
+chrome.windows.onRemoved.addListener(function(windowId){
+  if(APP_WINDOW && APP_WINDOW.id == windowId) APP_WINDOW = null;
 });
