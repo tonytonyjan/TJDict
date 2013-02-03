@@ -27,16 +27,14 @@ function displayResault(q){
 }
 
 function init(callback){
-  $(function(){
-    chrome.storage.sync.get("options", function(data){
-      //如果全部是空的，則全選
-      if($('[name^=dict_enable]:checked').length == 0){
-        $('[name^=dict_enable]').prop("checked", true);
-        saveOptions(callback);
-      }else{
-        if(typeof callback == "function") callback();
-      }
-    });
+  chrome.storage.sync.get("options", function(data){
+    //如果全部是空的，則全選
+    if($('[name^=dict_enable]:checked').length == 0){
+      $('[name^=dict_enable]').prop("checked", true);
+      saveOptions(callback);
+    }else{
+      if(typeof callback == "function") callback();
+    }
   });
 }
 
@@ -44,7 +42,7 @@ function main(){
   $('.tooltip-bottom').tooltip({
     placement: "bottom"
   });
-
+  $('#search-field').focus();
   // 搜尋
   if(params('q')){
     displayResault(params('q'));
@@ -68,4 +66,6 @@ function main(){
   $('#dict-list').append(dictList);
 }
 
-init(main);
+$(function(){
+  init(main);
+});

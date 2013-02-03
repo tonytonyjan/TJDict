@@ -35,7 +35,7 @@
 
   <body>
 
-    <div class="navbar navbar-fixed-top navbar-inverse">
+    <div class="navbar navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container-fluid">
           <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
@@ -44,26 +44,15 @@
             <span class="icon-bar"></span>
           </a>
           <a class="brand" href="/app/index.html">TJDict</a>
-          <!--div class="btn-group pull-right">
-            <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-              <i class="icon-user"></i> Username
-              <span class="caret"></span>
-            </a>
-            <ul class="dropdown-menu">
-              <li><a href="#">Profile</a></li>
-              <li class="divider"></li>
-              <li><a href="#">Sign Out</a></li>
-            </ul>
-          </div-->
+          <form class="navbar-search pull-left">
+            <input id="search-field" type="text" name="q" class="search-query" placeholder="搜尋">
+          </form>
           <div class="nav-collapse">
             <ul class="nav">
-              <li><a class="tooltip-bottom" href="#help-modal" title="使用說明" data-toggle="modal"><i class="icon-info-sign icon-white"></i></a></li>
-              <li><a class="tooltip-bottom" href="#about-modal" title="關於" data-toggle="modal"><i class="icon-question-sign icon-white"></i></a></li>
-              <li><a id="options-link" class="tooltip-bottom" data-toggle="tab" href="#tab-options" title="設定" class="tooltip"><i class="icon-wrench icon-white"></i></a></li>
+              <li><a class="tooltip-bottom" href="#help-modal" title="使用說明" data-toggle="modal"><i class="icon-info-sign"></i></a></li>
+              <li><a class="tooltip-bottom" href="#about-modal" title="關於" data-toggle="modal"><i class="icon-question-sign"></i></a></li>
+              <li><a id="options-link" class="tooltip-bottom" data-toggle="tab" href="#tab-options" title="設定" class="tooltip"><i class="icon-wrench"></i></a></li>
             </ul>
-            <form class="navbar-search pull-left">
-              <input id="search-field" type="text" name="q" class="search-query" placeholder="搜尋">
-            </form>
           </div><!--/.nav-collapse -->
         </div>
       </div>
