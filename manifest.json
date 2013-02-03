@@ -16,9 +16,10 @@
     "128": "img/icon128.png"
   },
   "options_page": "app/index.html#options",
-  "browser_action": {
-    "default_icon": "img/icon48.png",
-    "default_title": "TJDict"
+  "app": {
+    "launch": {
+      "local_path": "app/index.html"
+    }
   },
   "background": {
     "scripts": ["background/background.js"],
