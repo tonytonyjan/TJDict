@@ -1,44 +1,16 @@
-function getSelectionCoords() {
-  var sel = document.selection, range;
-  var x = 0, y = 0;
-  if (sel) {
-    if (sel.type != "Control") {
-      range = sel.createRange();
-      range.collapse(true);
-      x = range.boundingLeft;
-      y = range.boundingTop;
-    }
-  } else if (window.getSelection) {
-    sel = window.getSelection();
-    if (sel.rangeCount) {
-      range = sel.getRangeAt(0).cloneRange();
-      if (range.getClientRects) {
-          range.collapse(true);
-          var rect = range.getClientRects()[0];
-          x = rect.left;
-          y = rect.top;
-      }
-    }
-  }
-  return { x: x, y: y };
-}
-
-function closeAppWindow(){
-  chrome.storage.local.get("appWindow", function(data){
-    if(data.appWindow == true)
-      chrome.extension.sendMessage({op: "close"});
-  });
-}
-
 document.addEventListener("dblclick", function(event){
   if(event.ctrlKey){
-    closeAppWindow();
-    var query = window.getSelection().toString();
-    chrome.extension.sendMessage({op: "query", q: query, x: event.screenX, y: event.screenY});
+    var query = window.getSelection().toString().replace(/ /g,'');
+    if(query.length > 0){
+      chrome.extension.sendMessage({op: "popWindow", query: query, top: event.screenY, left: event.screenX});
+    }
   }
 });
 
-window.addEventListener("click", closeAppWindow);
+window.addEventListener("click", function(event){
+  if(!event.ctrlKey) chrome.extension.sendMessage({op: "closeWindow"});
+});
+
 window.addEventListener("contextmenu", function(event){
   chrome.storage.local.set({contextmenu: {x: event.screenX, y: event.screenY}});
 });

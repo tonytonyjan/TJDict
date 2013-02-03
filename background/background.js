@@ -19,36 +19,31 @@ function init(callback){
   });
 }
 
-function query(q, params){
+function popWindow(query, top, left, width, height){
+  if(!query.match(/^[\u4E00-\u9FFF\w]+/)) return;
   init(function(){
-    if(q.match(/^[\u4E00-\u9FFF\w]+/)){
-      chrome.storage.sync.get("options", function(data){
-        if(data.options["opt-display"] == "window"){
-          var width = 400, height = 400;
-          var top = params.y + 40, left = params.x;
-          if(left + width > window.screen.width) left = window.screen.width - width;
-          if(top + height > window.screen.height) top = window.screen.height - height;
-          if(APP_WINDOW) chrome.windows.remove(APP_WINDOW.id);
-          chrome.windows.create(
-            {
-              url: "/app/index.html?q=" + q,
-              width: width,
-              height: height,
-              top: top,
-              left: left,
-              type: 'popup'
-            },
-            function(appWindow){
-              chrome.windows.update(appWindow.id, {top: top, left: left});
-              APP_WINDOW = appWindow;
-              chrome.storage.local.set({appWindow: true});
-            }
-          );
-        }else if(data.options["opt-display"] == "tab")
-          chrome.tabs.create({url: "/app/index.html?q=" + q});
-      });
-    }
+    if(typeof width === 'undefined') width = 400;
+    if(typeof height === 'undefined') height = 400;
+    closeWindow();
+    chrome.windows.create({
+        url: "/app/index.html?q=" + query,
+        width: width,
+        height: height,
+        top: top,
+        left: left,
+        type: 'popup'
+    }, function(window){
+      APP_WINDOW = window;
+    });
   });
+}
+
+function closeWindow(){
+  if(APP_WINDOW){
+    chrome.windows.remove(APP_WINDOW.id, function(){
+      APP_WINDOW = null;
+    });
+  }
 }
 
 chrome.runtime.onInstalled.addListener(function(){
@@ -60,15 +55,17 @@ chrome.runtime.onInstalled.addListener(function(){
 
 chrome.extension.onMessage.addListener(function(request, sender, sendResponse){
   switch(request.op){
-  case "query":
+  case "popWindow":
     // q: query string
-    query(request.q, {x: request.x, y: request.y});
+    chrome.storage.sync.get("options", function(data){
+      if(data.options["opt-display"] == "tab")
+        chrome.tabs.create({url: "/app/index.html?q=" + request.query});
+      else
+        popWindow(request.query, request.top, request.left, request.width, request.height);
+    });
     break;
-  case "close":
-    if(APP_WINDOW){
-      chrome.windows.remove(APP_WINDOW.id);
-      chrome.storage.local.set({appWindow: false});
-    }
+  case "closeWindow":
+    closeWindow();
     break;
   case "getDefaultOptions":
     sendResponse(DEFAULT_OPTIONS);
@@ -85,9 +82,8 @@ chrome.contextMenus.create({
 });
 
 chrome.contextMenus.onClicked.addListener(function(info, tab){
-  var q = info.selectionText;
   chrome.storage.local.get("contextmenu", function(data){
-    query(q, {x: data.contextmenu.x, y: data.contextmenu.y});
+    popWindow(info.selectionText, data.contextmenu.y, data.contextmenu.x);
   });
 });
 
