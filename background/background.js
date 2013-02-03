@@ -94,3 +94,9 @@ chrome.contextMenus.onClicked.addListener(function(info, tab){
 chrome.windows.onRemoved.addListener(function(windowId){
   if(APP_WINDOW && APP_WINDOW.id == windowId) APP_WINDOW = null;
 });
+
+chrome.browserAction.onClicked.addListener(function(tab){
+  chrome.tabs.create({
+    url: "app/index.html"
+  });
+});
