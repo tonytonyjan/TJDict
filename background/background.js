@@ -20,7 +20,6 @@ function init(callback){
 }
 
 function popWindow(query, top, left, width, height){
-  if(!query.match(/^[\u4E00-\u9FFF\w]+/)) return;
   init(function(){
     if(typeof width === 'undefined') width = 400;
     if(typeof height === 'undefined') height = 400;

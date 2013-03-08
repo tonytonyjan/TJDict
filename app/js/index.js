@@ -20,6 +20,15 @@ function displayResault(q){
                     TJDict.engines[this.ajaxI].title +
                     "</h2></div>";
           var resault = TJDict.engines[this.ajaxI].resault(data);
+          if($(resault).text().match(/^\s*$/)) return;
+          switch(TJDict.engines[this.ajaxI].lang){
+          case 'jp':
+            if(!decodeURIComponent(q).match(/^[\u4E00-\u9FBF\u3040-\u309F\u30A0-\u30FF]+/)) return;
+            break;
+          default: // en
+            if(!decodeURIComponent(q).match(/^[\u4E00-\u9FFF\w]+/)) return;
+            break;
+          }
           $('#tab-index').append(title + resault);
         });
     }

@@ -1,8 +1,8 @@
 {
   "name": "TJDict",
-  "version": "0.5.1",
+  "version": "0.5.3",
   "manifest_version": 2,
-  "description": "英漢、漢英網路字典之整合字典",
+  "description": "英漢、漢英、日日網路字典之整合字典",
   "permissions": [
     "<all_urls>",
     "contextMenus",
