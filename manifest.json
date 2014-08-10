@@ -1,0 +1,23 @@
+{
+  "name": "TJDict",
+  "version": "1.0.0",
+  "manifest_version": 2,
+  "description": "英漢、漢英、日日網路字典之整合字典",
+  "permissions": ["<all_urls>", "tabs"],
+  "icons": {
+    "16": "img/icon16.png",
+    "48": "img/icon48.png",
+    "128": "img/icon128.png"
+  },
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": false
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "all_frames": true
+    }
+  ]
+}
