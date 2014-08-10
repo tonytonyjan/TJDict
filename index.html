@@ -26,15 +26,69 @@
           </div>
         </form>
         <ul class="nav navbar-nav navbar-left">
-          <li data-toggle="tooltip" data-placement="bottom" title="使用說明"><a href="#"><span class="glyphicon glyphicon-info-sign"></span></a></li>
-          <li data-toggle="tooltip" data-placement="bottom" title="關於"><a href="#"><span class="glyphicon glyphicon-question-sign"></span></a></li>
+          <li data-toggle="tooltip" data-placement="bottom" title="使用說明"><a href="#" data-toggle="modal" data-target="#modal_usage"><span class="glyphicon glyphicon-info-sign"></span></a></li>
+          <li data-toggle="tooltip" data-placement="bottom" title="關於"><a href="#" data-toggle="modal" data-target="#modal_about"><span class="glyphicon glyphicon-question-sign"></span></a></li>
           <li data-toggle="tooltip" data-placement="bottom" title="設定"><a href="#"><span class="glyphicon glyphicon-cog"></span></a></li>
         </ul>
       </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
   </nav>
-  <div id="main" class="container-fluid">
-  </div>
+  <div id="main" class="container-fluid"></div>
+  <!-- modals BEGIN -->
+  <div id="modal_usage" class="modal fade">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">關閉</span></button>
+          <h4 class="modal-title">使用說明</h4>
+        </div>
+        <div class="modal-body">
+          <ul>
+            <li>在網頁上 Ctrl/Cmd + 滑鼠雙擊單字（適用英文）</li>
+            <li>反白單字後右鍵</li>
+          </ul>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">關閉</button>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+  <div id="modal_about" class="modal fade">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">關閉</span></button>
+          <h4 class="modal-title">關於</h4>
+        </div>
+        <div class="modal-body">
+          <img src="/img/icon128.png" alt="TJDict" class="pull-right img-rounded">
+          <h2>TJDict <small>網路英漢、漢英速查字典</small></h2>
+          <p>靈感來自於 Lingoes 這套軟體，TJDict 是一套可以整合網路上各大網路字典且可以日漸擴充的 App。</p>
+          <ul>
+            <li><a target="_blank" href="https://chrome.google.com/webstore/detail/caafmojgjlbflohillejdmnghkpcjjpp/reviews">Google Web Store</a>（給我一點鼓勵和一些星星吧 XD）</li>
+            <li><a target="_blank" href="https://chrome.google.com/webstore/support/caafmojgjlbflohillejdmnghkpcjjpp">意見回饋</a></li>
+          </ul>
+          <h3>支援字典</h3>
+          <ul id="dict-list">
+          </ul>
+          <hr>
+          <img src="/img/avatar.png" alt="大兜" class="pull-right img-rounded">
+          <h2>作者 <small>大兜</small></h2> 
+          <p>身份複雜的工程師：研究生、SOHO 族、創業中。喜歡 Ruby、Java、C，愛好寫程式，以此為樂，並以此維生。</p>
+          <ul>
+            <li><a target="_blank" href="mailto:tonytonyjan@gmail.com">tonytonyjan@gmail.com</a></li>
+            <li><a target="_blank" href="http://tonytonyjan.net">個人網站</a></li>
+            <li><a target="_blank" href="http://5xruby.tw">五倍紅寶石股份有限公司</a></li>
+          </ul> 
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">關閉</button>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+  <!-- modals END -->
   <script src="/js/jquery-1.11.1.min.js"></script>
   <script src="/js/bootstrap.min.js"></script>
   <script src="/js/init.js"></script>
