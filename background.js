@@ -22,12 +22,17 @@ chrome.windows.onFocusChanged.addListener(function(windowId){
 chrome.runtime.onInstalled.addListener(function(details){
   if(details.reason == 'update')
     var current_version = chrome.runtime.getManifest().version;
-    chrome.notifications.create('',{
+    chrome.notifications.create('notification_update',{
       type: 'list',
       title: 'TJDict 已更新至 ' + current_version,
       iconUrl: 'img/icon128.png',
       message: '',
-      items: CHANGELOG[current_version].items
-    }, function(notificationId){
-    });
+      items: CHANGELOG[current_version].items,
+      buttons: [{title: '不開心？告訴我吧～', iconUrl: 'img/email.png'}]
+    }, function(notificationId){});
+});
+
+chrome.notifications.onButtonClicked.addListener(function(notificationId, buttonIndex){
+  if(notificationId == 'notification_update')
+    chrome.tabs.create({url: 'mailto:tonytonyjan@gmail.com?subject=[TJDict]%20'});
 });
