@@ -1,5 +1,5 @@
 document.addEventListener("dblclick", function(event){
-  if(event.ctrlKey){
+  if(event.ctrlKey || event.metaKey){
     var query = window.getSelection().toString().replace(/ /g,'');
     if(!query.match(/^[\u4E00-\u9FFF\w]+/)) return; // match English and Chinese
     if(query.length > 0){
@@ -9,7 +9,7 @@ document.addEventListener("dblclick", function(event){
 });
 
 document.addEventListener("mouseup", function(event){
-  if(event.ctrlKey){
+  if(event.ctrlKey || event.metaKey){
     var query = window.getSelection().toString().replace(/ /g,'');
     if(!query.match(/^[\u4E00-\u9FBF\u3040-\u309F\u30A0-\u30FF]+/)) return; // match Japanese
     if(query.length > 0){
