@@ -34,7 +34,7 @@ chrome.runtime.onInstalled.addListener(function(details){
       iconUrl: 'img/icon128.png',
       message: '',
       items: CHANGELOG[current_version].items,
-      buttons: [{title: '更多⋯⋯', iconUrl: 'img/more.png'}, {title: '不開心？告訴我吧～', iconUrl: 'img/email.png'}]
+      buttons: [{title: '更多更新資訊⋯⋯', iconUrl: 'img/more.png'}, {title: '不開心？告訴我吧～', iconUrl: 'img/email.png'}]
     }, function(notificationId){});
 });
 
@@ -43,6 +43,6 @@ chrome.notifications.onButtonClicked.addListener(function(notificationId, button
     if(buttonIndex == 1)
       chrome.tabs.create({url: 'mailto:tonytonyjan@gmail.com?subject=[TJDict]%20'});
     else
-      chrome.tabs.create({url: 'https://github.com/tonytonyjan/TJDict/blob/master/CHANGELOG.md'});
+      chrome.tabs.create({url: 'https://chrome.google.com/webstore/support/caafmojgjlbflohillejdmnghkpcjjpp'});
 });
 // 擴充功能更新 END

@@ -1,11 +1,10 @@
 var CHANGELOG = {
   '1.0.0': {
     items: [
-      {title: '更新', message: '架構全面改寫，使用 Chrome 最新 API'},
       {title: '更新', message: '筆者終於買 Mac 了，怒支援 Mac'},
-      {title: '更新', message: '字典顯示排序功能'},
-      {title: '更新', message: '記錄視窗大小'},
-      {title: '異動', message: '移除日文字典、右鍵選單'}
+      {title: '更新', message: '可設定字典顯示順序'},
+      {title: '更新', message: '自動記錄視窗大小'},
+      {title: '異動', message: '移除若干失效字典與右鍵選單'}
     ]
   }
 }
