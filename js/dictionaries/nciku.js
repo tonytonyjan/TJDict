@@ -1,4 +1,4 @@
-DICTIONARIES.push({
+DICTIONARIES.nciku = {
   title: '詞酷線上辭典',
   query: function(q, response){
     var self = this;
@@ -12,4 +12,4 @@ DICTIONARIES.push({
       response(self, result);
     });
   }
-});
+};

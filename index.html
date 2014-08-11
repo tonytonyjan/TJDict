@@ -28,7 +28,7 @@
         <ul class="nav navbar-nav navbar-left">
           <li data-toggle="tooltip" data-placement="bottom" title="使用說明"><a href="#" data-toggle="modal" data-target="#modal_usage"><span class="glyphicon glyphicon-info-sign"></span></a></li>
           <li data-toggle="tooltip" data-placement="bottom" title="關於"><a href="#" data-toggle="modal" data-target="#modal_about"><span class="glyphicon glyphicon-question-sign"></span></a></li>
-          <li data-toggle="tooltip" data-placement="bottom" title="設定"><a href="#"><span class="glyphicon glyphicon-cog"></span></a></li>
+          <li data-toggle="tooltip" data-placement="bottom" title="設定"><a href="#" data-toggle="modal" data-target="#modal_setting"><span class="glyphicon glyphicon-cog"></span></a></li>
         </ul>
       </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
@@ -88,6 +88,22 @@
       </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
   </div><!-- /.modal -->
+  <div id="modal_setting" class="modal fade">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">關閉</span></button>
+          <h4 class="modal-title">啟用字典</h4>
+        </div>
+        <div id="dict_checkboxes" class="modal-body">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">關閉</button>
+          <button id="save" type="button" class="btn btn-primary">儲存</button>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
   <!-- modals END -->
   <script src="/js/jquery-1.11.1.min.js"></script>
   <script src="/js/bootstrap.min.js"></script>
@@ -97,5 +113,6 @@
 
   <script src="/js/params.js"></script>
   <script src="/js/index.js"></script>
+  <script src="/js/options.js"></script>
 </body>
 </html>

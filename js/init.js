@@ -1,1 +1,1 @@
-var DICTIONARIES = [];
+var DICTIONARIES = {};

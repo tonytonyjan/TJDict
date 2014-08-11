@@ -1,4 +1,4 @@
-DICTIONARIES.push({
+DICTIONARIES.yahoo = {
   title: 'Yahoo 字典',
   query: function(q, response){
     var self = this;
@@ -6,4 +6,4 @@ DICTIONARIES.push({
       response(self, $(data).find('.explanation_wrapper')[0]);
     });
   }
-});
+};
