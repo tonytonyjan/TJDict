@@ -6,20 +6,15 @@ function getSelected() {
   return text;
 }
 
-window.ondblclick = function(e){
-  if(e.metaKey || e.ctrlKey)
+function query(event){
+  var queryString = getSelected().trim();
+  if(queryString && event.metaKey || event.ctrlKey)
     chrome.runtime.sendMessage({
-      q: getSelected(),
-      x: e.screenX,
-      y: e.screenY
+      q: queryString,
+      x: event.screenX,
+      y: event.screenY
     });
 }
 
-window.onmouseup = function(e) {
-  if(e.metaKey || e.ctrlKey)
-    chrome.runtime.sendMessage({
-      q: getSelected(),
-      x: e.screenX,
-      y: e.screenY
-    });
-}
+window.ondblclick = query
+// window.onmouseup  = query
