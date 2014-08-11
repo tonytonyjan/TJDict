@@ -18,3 +18,16 @@ chrome.windows.onFocusChanged.addListener(function(windowId){
     WINDOW_ID = chrome.windows.WINDOW_ID_NONE;
   }
 });
+
+chrome.runtime.onInstalled.addListener(function(details){
+  if(details.reason == 'update')
+    var current_version = chrome.runtime.getManifest().version;
+    chrome.notifications.create('',{
+      type: 'list',
+      title: 'TJDict 已更新至 ' + current_version,
+      iconUrl: 'img/icon128.png',
+      message: '',
+      items: CHANGELOG[current_version].items
+    }, function(notificationId){
+    });
+});

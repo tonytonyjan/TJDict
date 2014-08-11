@@ -1,4 +1,4 @@
-$('[data-toggle="tooltip"]').tooltip();
+// $('[data-toggle="tooltip"]').tooltip();
 (function(){
   // query
   var queryString = urlParams.q ? urlParams.q.trim() : '';

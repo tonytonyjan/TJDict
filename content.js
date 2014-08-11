@@ -14,3 +14,12 @@ window.ondblclick = function(e){
       y: e.screenY
     });
 }
+
+window.onmouseup = function(e) {
+  if(e.metaKey || e.ctrlKey)
+    chrome.runtime.sendMessage({
+      q: getSelected(),
+      x: e.screenX,
+      y: e.screenY
+    });
+}
