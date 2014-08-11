@@ -16,7 +16,7 @@ function query(event){
     });
 }
 
-// 觸發事件 START
+// 觸發事件 BEGIN
 var DBLCLICK = false; // 避免 mouseup & dblclick 打架
 
 // Ctrl/Cmd + 滑鼠雙擊

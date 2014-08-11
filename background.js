@@ -2,7 +2,7 @@ var WINDOW_ID = chrome.windows.WINDOW_ID_NONE, // 用於關視窗
 WINDOW_WIDTH  = 768,
 WINDOW_HEIGHT = 475;
 
-// 主功能 STRT
+// 主功能 BEGIN
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
   var left = request.x + WINDOW_WIDTH  > window.screen.width  ? window.screen.width  - WINDOW_WIDTH  : request.x
   var top  = request.y + WINDOW_HEIGHT > window.screen.height ? window.screen.height - WINDOW_HEIGHT : request.y
@@ -23,7 +23,7 @@ chrome.windows.onFocusChanged.addListener(function(windowId){
 });
 // 主功能 END
 
-// 擴充功能更新 START
+// 擴充功能更新 BEGIN
 chrome.runtime.onInstalled.addListener(function(details){
   if(details.reason == 'update')
     var current_version = chrome.runtime.getManifest().version;
