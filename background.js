@@ -34,7 +34,7 @@ chrome.runtime.onInstalled.addListener(function(details){
       iconUrl: 'img/icon128.png',
       message: '',
       items: CHANGELOG[current_version].items,
-      buttons: [{title: '更多更新資訊⋯⋯', iconUrl: 'img/more.png'}, {title: '不開心？告訴我吧～', iconUrl: 'img/email.png'}]
+      buttons: [{title: '更多資訊', iconUrl: 'img/more.png'}, {title: '不開心？請告訴我吧！', iconUrl: 'img/email.png'}]
     }, function(notificationId){});
 });
 
