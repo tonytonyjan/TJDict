@@ -16,5 +16,20 @@ function query(event){
     });
 }
 
-window.ondblclick = query
-// window.onmouseup  = query
+var DBLCLICK = false; // prevent mouseup & dblclick messing up
+
+window.ondblclick = function(event){
+  console.log('ondblclick');
+  DBLCLICK = true;
+  query(event);
+  setTimeout(function() {
+    DBLCLICK = false;
+  }, 300);
+}
+
+window.onmouseup = function(event){
+  console.log('onmouseup');
+  setTimeout(function() {
+    if(!DBLCLICK) query(event);
+  }, 300);
+};
