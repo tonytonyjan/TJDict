@@ -1,17 +1,18 @@
 var WINDOW_ID = chrome.windows.WINDOW_ID_NONE, // 用於關視窗
-WINDOW_WIDTH  = 768,
-WINDOW_HEIGHT = 475;
+DEFAULT_WINDOW_SIZE = {width: 768, height: 475};
 
 // 主功能 BEGIN
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
-  var left = request.x + WINDOW_WIDTH  > window.screen.width  ? window.screen.width  - WINDOW_WIDTH  : request.x
-  var top  = request.y + WINDOW_HEIGHT > window.screen.height ? window.screen.height - WINDOW_HEIGHT : request.y
-  chrome.windows.create({
-    url: 'index.html?q=' + request.q, type: 'popup',
-    left: left, top: top,
-    width: WINDOW_WIDTH, height: WINDOW_HEIGHT
-  }, function(win){
-    WINDOW_ID = win.id;
+  var left = request.x + DEFAULT_WINDOW_SIZE.width  > window.screen.width  ? window.screen.width  - DEFAULT_WINDOW_SIZE.width  : request.x;
+  var top  = request.y + DEFAULT_WINDOW_SIZE.height > window.screen.height ? window.screen.height - DEFAULT_WINDOW_SIZE.height : request.y;
+  chrome.storage.local.get(DEFAULT_WINDOW_SIZE, function(data){
+    chrome.windows.create({
+      url: 'index.html?q=' + request.q, type: 'popup',
+      left: left, top: top,
+      width: data.width, height: data.height
+    }, function(win){
+      WINDOW_ID = win.id;
+    });
   });
 });
 

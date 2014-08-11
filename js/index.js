@@ -14,4 +14,8 @@
         }
       }
     });
+  // 記錄視窗大小
+  window.onresize = function(event){
+    chrome.storage.local.set({width: window.innerWidth, height: window.innerHeight});
+  };
 })();
