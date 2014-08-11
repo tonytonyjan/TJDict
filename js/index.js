@@ -3,7 +3,7 @@
   var queryString = urlParams.q ? urlParams.q.trim() : '';
   $('#q').val(queryString).focus();
   if(queryString)
-    chrome.storage.sync.get(null, function(items){
+    chrome.storage.sync.get(DEFAULT_OPTIONS, function(items){
       for(var i in items.order){
         var dictName = items.order[i];
         if(DICTIONARIES[dictName] /*字典存在*/ && items[dictName] /*啟用*/){

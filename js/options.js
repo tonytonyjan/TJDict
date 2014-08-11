@@ -1,3 +1,10 @@
+var DEFAULT_OPTIONS = {};
+DEFAULT_OPTIONS.order = [];
+for(var i in DICTIONARIES){
+  DEFAULT_OPTIONS[i] = true;
+  DEFAULT_OPTIONS.order.push(i);
+}
+
 // 顯示字典 BEGIN
 for(var i in DICTIONARIES){
   // 關於
@@ -18,13 +25,7 @@ function save_options() {
 }
 
 function restore_options() {
-  var default_options = {};
-  default_options.order = [];
-  for(var i in DICTIONARIES){
-    default_options[i] = true;
-    default_options.order.push(i);
-  }
-  chrome.storage.sync.get(default_options, function(items){
+  chrome.storage.sync.get(DEFAULT_OPTIONS, function(items){
     for(var i in DICTIONARIES) document.getElementById(i).checked = items[i];
   });
 }
@@ -38,7 +39,7 @@ var dictList = document.getElementById('dict_checkboxes');
 var sortableDict = new Sortable(dictList, {
   handle: '.glyphicon-resize-vertical'
 });
-chrome.storage.sync.get('order', function(data){
+chrome.storage.sync.get(DEFAULT_OPTIONS, function(data){
   sortableDict.sort(data.order);
 });
 // 排序 END
