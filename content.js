@@ -1,8 +1,8 @@
 function getSelected() {
   var text;
-  if (window.getSelection) text = window.getSelection().toString();
+  if (window.getSelection)       text = window.getSelection().toString();
   else if(document.getSelection) text = document.getSelection();
-  else if(document.selection) text = document.selection.createRange().text;
+  else if(document.selection)    text = document.selection.createRange().text;
   return text;
 }
 
@@ -16,10 +16,11 @@ function query(event){
     });
 }
 
-var DBLCLICK = false; // prevent mouseup & dblclick messing up
+// 觸發事件 START
+var DBLCLICK = false; // 避免 mouseup & dblclick 打架
 
+// Ctrl/Cmd + 滑鼠雙擊
 window.ondblclick = function(event){
-  console.log('ondblclick');
   DBLCLICK = true;
   query(event);
   setTimeout(function() {
@@ -27,9 +28,10 @@ window.ondblclick = function(event){
   }, 300);
 }
 
+// Ctrl/Cmd + 滑鼠拖曳（考慮拿掉，有時候會有點煩）
 window.onmouseup = function(event){
-  console.log('onmouseup');
   setTimeout(function() {
     if(!DBLCLICK) query(event);
   }, 300);
 };
+// 觸發事件 END

@@ -1,5 +1,8 @@
-var WINDOW_ID = chrome.windows.WINDOW_ID_NONE, WINDOW_WIDTH = 768, WINDOW_HEIGHT = 475;
+var WINDOW_ID = chrome.windows.WINDOW_ID_NONE, // 用於關視窗
+WINDOW_WIDTH  = 768,
+WINDOW_HEIGHT = 475;
 
+// 主功能 STRT
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
   var left = request.x + WINDOW_WIDTH  > window.screen.width  ? window.screen.width  - WINDOW_WIDTH  : request.x
   var top  = request.y + WINDOW_HEIGHT > window.screen.height ? window.screen.height - WINDOW_HEIGHT : request.y
@@ -18,7 +21,9 @@ chrome.windows.onFocusChanged.addListener(function(windowId){
     WINDOW_ID = chrome.windows.WINDOW_ID_NONE;
   }
 });
+// 主功能 END
 
+// 擴充功能更新 START
 chrome.runtime.onInstalled.addListener(function(details){
   if(details.reason == 'update')
     var current_version = chrome.runtime.getManifest().version;
@@ -36,3 +41,4 @@ chrome.notifications.onButtonClicked.addListener(function(notificationId, button
   if(notificationId == 'notification_update')
     chrome.tabs.create({url: 'mailto:tonytonyjan@gmail.com?subject=[TJDict]%20'});
 });
+// 擴充功能更新 END
