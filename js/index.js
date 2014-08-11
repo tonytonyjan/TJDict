@@ -1,5 +1,4 @@
 (function(){
-  // query
   var queryString = urlParams.q ? urlParams.q.trim() : '';
   $('#q').val(queryString).focus();
   if(queryString)

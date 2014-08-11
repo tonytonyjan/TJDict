@@ -1,1 +1,2 @@
 var DICTIONARIES = {};
+var DEFAULT_OPTIONS = {};
