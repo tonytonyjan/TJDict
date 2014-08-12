@@ -2,18 +2,19 @@ var WINDOW_ID = chrome.windows.WINDOW_ID_NONE, // 用於關視窗
 DEFAULT_WINDOW_SIZE = {width: 768, height: 475};
 
 // 主功能 BEGIN
-chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
-  var left = request.x + DEFAULT_WINDOW_SIZE.width  > window.screen.width  ? window.screen.width  - DEFAULT_WINDOW_SIZE.width  : request.x;
-  var top  = request.y + DEFAULT_WINDOW_SIZE.height > window.screen.height ? window.screen.height - DEFAULT_WINDOW_SIZE.height : request.y;
+function popWindow(query, left, top) {
   chrome.storage.local.get(DEFAULT_WINDOW_SIZE, function(data){
     chrome.windows.create({
-      url: 'index.html?q=' + request.q, type: 'popup',
+      url: 'index.html?q=' + query, type: 'popup',
       left: left, top: top,
       width: data.width, height: data.height
     }, function(win){
       WINDOW_ID = win.id;
     });
   });
+}
+chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
+  popWindow(request.q, request.x, request.y)
 });
 
 chrome.windows.onFocusChanged.addListener(function(windowId){
@@ -23,6 +24,22 @@ chrome.windows.onFocusChanged.addListener(function(windowId){
   }
 });
 // 主功能 END
+
+// 右鍵選單 BEGIN
+chrome.contextMenus.create({
+  id: 'tjdict_context_menu',
+  title: '查詢 "%s"',
+  contexts: ['selection']
+});
+
+chrome.contextMenus.onClicked.addListener(function(data){
+  if(data.menuItemId == 'tjdict_context_menu'){
+    chrome.storage.local.get(null, function(data) {
+      popWindow(data.selectionText, data.x, data.y);
+    });
+  }
+});
+// 右鍵選單 END
 
 // 擴充功能更新 BEGIN
 chrome.runtime.onInstalled.addListener(function(details){

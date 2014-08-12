@@ -34,4 +34,9 @@ window.onmouseup = function(event){
     if(!DBLCLICK) query(event);
   }, 300);
 };
+
+// 右鍵時記錄滑鼠位置
+window.oncontextmenu = function(event){
+  chrome.storage.local.set({x: event.screenX, y: event.screenY});
+}
 // 觸發事件 END
