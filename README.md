@@ -27,6 +27,7 @@
   <thead><tr><th>資料形態</th><th>屬性</th><th>說明</th></tr></thead>
   <tbody>
     <tr><td>string</td><td>title</td><td>顯示的字典名稱</td></tr>
+    <tr><td>array of enum of <code>"zh"</code>、<code>"en"</code>、<code>"jp"</code></td><td>langs</td><td>字典的語系，例如英漢、漢英字典，那麼就是 <code>["zh", "en"]</code></td></tr>
     <tr>
       <td>function</td>
       <td>query</td>
