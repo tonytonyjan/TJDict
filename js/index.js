@@ -2,10 +2,17 @@
   var queryString = urlParams.q ? urlParams.q.trim() : '';
   $('#q').val(queryString).focus();
   if(queryString)
+    var matchedLanguages = []; // 判斷查詢的字可能是什麼語言
+    for(var i in LANG_MATCHER) if(queryString.match(LANG_MATCHER[i])) matchedLanguages.push(i);
     chrome.storage.sync.get(DEFAULT_OPTIONS, function(items){
       for(var i in items.order){
         var dictName = items.order[i];
         if(DICTIONARIES[dictName] /*字典存在*/ && items[dictName] /*啟用*/){
+          console.log(DICTIONARIES[dictName].langs, matchedLanguages);
+          var isLangFound = false;
+          for(var j in matchedLanguages)
+            if(!!~DICTIONARIES[dictName].langs.indexOf(matchedLanguages[j])) isLangFound = true;
+          if(!isLangFound) continue; // 如果找不到符合語言就跳過該字典
           $('#main').append('<div data-title="' + DICTIONARIES[dictName].title + '"></div>');
           DICTIONARIES[dictName].query(queryString, function(dictionary, result){
             $('[data-title="' + dictionary.title + '"]').append('<div class="page-header"><h2>' + dictionary.title + '</h2></div>');

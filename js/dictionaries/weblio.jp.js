@@ -1,5 +1,6 @@
 DICTIONARIES.weblio = {
   title: "Weblio（日文）",
+  langs: ['ja'],
   query: function(q, response){
     var self = this;
     $.get("http://www.weblio.jp/content/" + q).done(function(data){

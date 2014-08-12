@@ -1,5 +1,6 @@
 DICTIONARIES.jukuu = {
   title: "句酷雙語例句",
+  langs: ['zh', 'en'],
   query: function(q, response){
     var self = this;
     $.get('http://www.jukuu.com/search.php?q=' + q).done(function(data){
