@@ -6,33 +6,23 @@ function getSelected() {
   return text;
 }
 
-function query(event){
+function query(x, y){
   var queryString = getSelected().trim();
-  if(queryString && event.metaKey || event.ctrlKey)
-    chrome.runtime.sendMessage({
-      q: queryString,
-      x: event.screenX,
-      y: event.screenY
-    });
+  chrome.runtime.sendMessage({
+    q: queryString,
+    x: x, y: y
+  });
 }
 
 // 觸發事件 BEGIN
-var DBLCLICK = false; // 避免 mouseup & dblclick 打架
-
 // Ctrl/Cmd + 滑鼠雙擊
 window.ondblclick = function(event){
-  DBLCLICK = true;
-  query(event);
-  setTimeout(function() {
-    DBLCLICK = false;
-  }, 300);
+  if(event.metaKey || event.ctrlKey) query(event.screenX, event.screenY);
 }
 
-// Ctrl/Cmd + 滑鼠拖曳（考慮拿掉，有時候會有點煩）
+// Ctrl/Cmd + Alt + 滑鼠拖曳
 window.onmouseup = function(event){
-  setTimeout(function() {
-    if(!DBLCLICK) query(event);
-  }, 300);
+  if(event.altKey && event.metaKey || event.ctrlKey) query(event.screenX, event.screenY);
 };
 
 // 右鍵時記錄滑鼠位置
