@@ -29,4 +29,6 @@
   $('#update_title').append(' ' + current_version);
   for(var i in CHANGELOG)
     $('#update_list').append('<li><b>' + CHANGELOG[i].title + '</b> ' + CHANGELOG[i].message + '</li>');
+  // options
+  if(location.hash == '#options') $('#modal_setting').modal('show');
 })();

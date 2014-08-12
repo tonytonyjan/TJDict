@@ -9,6 +9,7 @@
     "48": "img/icon48.png",
     "128": "img/icon128.png"
   },
+  "options_page": "index.html#options",
   "background": {
     "scripts": ["changelog.js", "background.js"],
     "persistent": false
