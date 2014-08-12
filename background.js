@@ -17,7 +17,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
 });
 
 chrome.windows.onFocusChanged.addListener(function(windowId){
-  if(WINDOW_ID > 0){
+  if(WINDOW_ID > 0 && windowId != WINDOW_ID){
     chrome.windows.remove(WINDOW_ID);
     WINDOW_ID = chrome.windows.WINDOW_ID_NONE;
   }
