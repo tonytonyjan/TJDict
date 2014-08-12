@@ -23,7 +23,7 @@ window.ondblclick = function(event){
 
 // Ctrl/Cmd + Alt + 滑鼠拖曳
 window.onmouseup = function(event){
-  if(event.altKey && event.metaKey || event.ctrlKey) query(event.screenX, event.screenY);
+  if(event.altKey && (event.metaKey || event.ctrlKey)) query(event.screenX, event.screenY);
 };
 
 // 右鍵時記錄滑鼠位置
