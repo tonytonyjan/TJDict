@@ -63,3 +63,9 @@ chrome.notifications.onButtonClicked.addListener(function(notificationId, button
       chrome.tabs.create({url: 'https://chrome.google.com/webstore/support/caafmojgjlbflohillejdmnghkpcjjpp'});
 });
 // 擴充功能更新 END
+
+// Browser Action BEGIN
+chrome.browserAction.onClicked.addListener(function(tab){
+  chrome.tabs.create({url: 'index.html'});
+});
+// Browser Action END

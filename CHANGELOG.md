@@ -4,6 +4,7 @@
   - 更新
     - 新增設定頁
     - 查詢新單字後會自動全選
+    - 新增 Browser Action，可單獨使用
 - 1.4.0
   - 更新
     - 新增字典：Urban Dictionary
