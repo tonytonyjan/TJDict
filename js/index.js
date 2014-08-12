@@ -21,7 +21,6 @@
   // 顯示本次更新
   var current_version = chrome.runtime.getManifest().version;
   $('#update_title').append(' ' + current_version);
-  var items = CHANGELOG[current_version].items;
-  for(var i in items)
-    $('#update_list').append('<li><b>' + items[i].title + '</b> ' + items[i].message + '</li>');
+  for(var i in CHANGELOG)
+    $('#update_list').append('<li><b>' + CHANGELOG[i].title + '</b> ' + CHANGELOG[i].message + '</li>');
 })();

@@ -33,7 +33,7 @@ chrome.runtime.onInstalled.addListener(function(details){
       title: '已更新至 ' + current_version,
       iconUrl: 'img/icon128.png',
       message: '',
-      items: CHANGELOG[current_version].items,
+      items: CHANGELOG,
       buttons: [{title: '更多資訊', iconUrl: 'img/more.png'}, {title: '不開心？請告訴我吧！', iconUrl: 'img/email.png'}]
     }, function(notificationId){});
 });
