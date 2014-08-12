@@ -40,14 +40,17 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">關閉</span></button>
-          <h4 class="modal-title">使用說明</h4>
+          <h4 class="modal-title">說明</h4>
         </div>
         <div class="modal-body">
+          <h4>使用方式</h4>
           <ul>
             <li>在網頁上 Ctrl/Cmd + 滑鼠雙擊單字</li>
             <li>在網頁上 Ctrl/Cmd + 滑鼠拖曳反白單字</li>
             <li>反白單字後右鍵</li>
           </ul>
+          <h4 id="update_title">本次更新</h4>
+          <ul id="update_list"></ul>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">關閉</button>
@@ -112,6 +115,7 @@
   <script src="/js/bootstrap.min.js"></script>
   <script src="/js/sortable.min.js"></script>
   <script src="/js/init.js"></script>
+  <script src="changelog.js"></script>
   <script src="/js/params.js"></script>
 
   <!-- dictionaries -->

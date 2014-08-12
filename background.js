@@ -30,7 +30,7 @@ chrome.runtime.onInstalled.addListener(function(details){
     var current_version = chrome.runtime.getManifest().version;
     chrome.notifications.create('notification_update',{
       type: 'list',
-      title: 'TJDict 已更新至 ' + current_version,
+      title: '已更新至 ' + current_version,
       iconUrl: 'img/icon128.png',
       message: '',
       items: CHANGELOG[current_version].items,
