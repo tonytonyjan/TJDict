@@ -8,7 +8,6 @@
       for(var i in items.order){
         var dictName = items.order[i];
         if(DICTIONARIES[dictName] /*字典存在*/ && items[dictName] /*啟用*/){
-          console.log(DICTIONARIES[dictName].langs, matchedLanguages);
           var isLangFound = false;
           for(var j in matchedLanguages)
             if(!!~DICTIONARIES[dictName].langs.indexOf(matchedLanguages[j])) isLangFound = true;
