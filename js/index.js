@@ -1,6 +1,6 @@
 (function(){
   var queryString = urlParams.q ? urlParams.q.trim() : '';
-  $('#q').val(queryString).focus();
+  $('#q').val(queryString).focus().select();
   if(queryString)
     var matchedLanguages = []; // 判斷查詢的字可能是什麼語言
     for(var i in LANG_MATCHER) if(queryString.match(LANG_MATCHER[i])) matchedLanguages.push(i);
