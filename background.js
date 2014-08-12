@@ -32,10 +32,10 @@ chrome.contextMenus.create({
   contexts: ['selection']
 });
 
-chrome.contextMenus.onClicked.addListener(function(data){
-  if(data.menuItemId == 'tjdict_context_menu'){
+chrome.contextMenus.onClicked.addListener(function(event){
+  if(event.menuItemId == 'tjdict_context_menu'){
     chrome.storage.local.get(null, function(data) {
-      popWindow(data.selectionText, data.x, data.y);
+      popWindow(event.selectionText, data.x, data.y);
     });
   }
 });
