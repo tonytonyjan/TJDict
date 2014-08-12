@@ -8,10 +8,11 @@ function getSelected() {
 
 function query(x, y){
   var queryString = getSelected().trim();
-  chrome.runtime.sendMessage({
-    q: queryString,
-    x: x, y: y
-  });
+  if(queryString)
+    chrome.runtime.sendMessage({
+      q: queryString,
+      x: x, y: y
+    });
 }
 
 // 觸發事件 BEGIN

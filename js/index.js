@@ -1,7 +1,7 @@
 (function(){
   var queryString = urlParams.q ? urlParams.q.trim() : '';
   $('#q').val(queryString).focus().select();
-  if(queryString)
+  if(queryString && !queryString.match(/TJDict/i)){
     var matchedLanguages = []; // 判斷查詢的字可能是什麼語言
     for(var i in LANG_MATCHER) if(queryString.match(LANG_MATCHER[i])) matchedLanguages.push(i);
     chrome.storage.sync.get(DEFAULT_OPTIONS, function(items){
@@ -20,6 +20,7 @@
         }
       }
     });
+  }else $('#intro').show();
   // 記錄視窗大小
   window.onresize = function(event){
     chrome.storage.local.set({width: window.innerWidth, height: window.innerHeight});

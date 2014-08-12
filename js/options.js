@@ -4,14 +4,9 @@
     DEFAULT_OPTIONS[i] = true;
     DEFAULT_OPTIONS.order.push(i);
   }
-  // 顯示字典 BEGIN
-  for(var i in DICTIONARIES){
-    // 關於
-    $('#dict_list').append('<li>' + DICTIONARIES[i].title + '</li>');
-    // 設定
+  // 顯示字典
+  for(var i in DICTIONARIES)
     $('#dict_checkboxes').append('<div data-id="' + i + '" class="checkbox"><span class="glyphicon glyphicon-resize-vertical"></span><label><input id="' + i + '" name="' + i + '" type="checkbox"> ' + DICTIONARIES[i].title + '</label></div>');
-  }
-  // 顯示字典 END
 
   // Storage BEGIN
   function save_options() {
