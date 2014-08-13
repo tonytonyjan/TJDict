@@ -1,4 +1,4 @@
 var CHANGELOG = [
-  {title: '更新', message: '加上發音功能'},
-  {title: '修正', message: '嘗試解決 Windows 閃退問題'}
+  {title: '更新', message: '可設定視窗顯示方式'},
+  {title: '更新', message: '可設定自動/手動關閉視窗'}
 ]
