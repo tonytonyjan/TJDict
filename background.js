@@ -2,14 +2,23 @@ var WINDOW_ID = chrome.windows.WINDOW_ID_NONE, // 用於關視窗
 DEFAULT_WINDOW_SIZE = {width: 768, height: 475};
 
 // 主功能 BEGIN
-function popWindow(query, left, top) {
+function popWindow(query, left, top){
   chrome.storage.local.get(DEFAULT_WINDOW_SIZE, function(data){
-    chrome.windows.create({
-      url: 'index.html?q=' + query, type: 'popup',
-      left: left, top: top,
-      width: data.width, height: data.height
-    }, function(win){
-      WINDOW_ID = win.id;
+    chrome.storage.sync.get({open_method: 'popup'}, function(sync_data){
+      switch(sync_data.open_method){
+        case 'popup':
+          chrome.windows.create({
+            url: 'index.html?q=' + query, type: 'popup',
+            left: left, top: top,
+            width: data.width, height: data.height
+          }, function(win){
+            WINDOW_ID = win.id;
+          });
+          break;
+        case 'tab':
+          chrome.tabs.create({url: 'index.html?q=' + query});
+          break;
+      }
     });
   });
 }

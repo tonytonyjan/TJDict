@@ -145,9 +145,18 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">關閉</span></button>
-          <h4 class="modal-title">啟用字典</h4>
+          <h4 class="modal-title">設定</h4>
         </div>
+
         <div class="modal-body">
+          <h4>顯示方式</h4>
+          <label class="radio-inline">
+            <input type="radio" name="open_method" value="popup"> 跳出視窗
+          </label>
+          <label class="radio-inline">
+            <input type="radio" name="open_method" value="tab"> 分頁
+          </label>
+          <h4>啟用字典</h4>
           <p>拖曳箭頭可排序</p>
           <div id="dict_checkboxes"></div>
         </div>
