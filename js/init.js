@@ -5,3 +5,6 @@ var LANG_MATCHER = {
   en: /^\w+/,
   zh: /^[\u4E00-\u9FFF]+/
 };
+var TRANSLATION = {
+  ja: '日', en: '英', zh: '中'
+}

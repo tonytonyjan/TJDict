@@ -20,6 +20,21 @@
         }
       }
     });
+    // 聲音 BEGIN
+    // 顯示聲音選項，指定 id="tts_語言"
+    for(var i in matchedLanguages)
+      $('#tts_list').append('<li data-lang="' + matchedLanguages[i] + '"><a href="#">' + TRANSLATION[matchedLanguages[i]] + '</a></li>');
+    $('#tts_list > li:first').addClass('active');
+    if(matchedLanguages.length <= 1) $('#lang_dropdown').hide();
+    $('#tts_list > li').click(function(event){
+      $('#tts_list > li').removeClass('active');
+      $(this).addClass('active');
+    });
+    $('#tts').removeClass('disabled').click(function(event){
+      var lang = $('#tts_list > li.active').data('lang')
+      chrome.tts.speak($('#q').val(), {lang: lang});
+    });
+    // 聲音 END
   }else $('#intro').show();
   // 記錄視窗大小
   window.onresize = function(event){

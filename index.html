@@ -22,7 +22,14 @@
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <form class="navbar-form navbar-left" action="/index.html" role="search">
           <div class="form-group">
-            <input id="q" type="text" name="q" class="form-control" placeholder="請輸入單字">
+            <div class="input-group">
+              <input id="q" type="text" name="q" class="form-control" placeholder="請輸入單字">
+              <div class="input-group-btn">
+                <button id="tts" class="btn btn-default disabled" type="button"><span class="glyphicon glyphicon-volume-up"></span></button>
+                <button id="lang_dropdown" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+                <ul id="tts_list" class="dropdown-menu dropdown-menu-right" role="menu"></ul>
+              </div>
+            </div>
           </div>
         </form>
         <ul class="nav navbar-nav navbar-left">
