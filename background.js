@@ -1,8 +1,16 @@
-var WINDOW_ID = chrome.windows.WINDOW_ID_NONE, // 用於關視窗
+var WINDOW_ID = chrome.windows.WINDOW_ID_NONE, TAB_ID = -1, // 用於關視窗
 DEFAULT_WINDOW_SIZE = {width: 768, height: 475};
+
+function closeIfExist(){
+  if(WINDOW_ID > 0){
+    chrome.windows.remove(WINDOW_ID);
+    WINDOW_ID = chrome.windows.WINDOW_ID_NONE;
+  }
+}
 
 // 主功能 BEGIN
 function popWindow(query, left, top){
+  closeIfExist();
   chrome.storage.local.get(DEFAULT_WINDOW_SIZE, function(data){
     chrome.storage.sync.get({open_method: 'popup'}, function(sync_data){
       switch(sync_data.open_method){
@@ -16,7 +24,15 @@ function popWindow(query, left, top){
           });
           break;
         case 'tab':
-          chrome.tabs.create({url: 'index.html?q=' + query});
+          var properties = {url: 'index.html?q=' + query, active: true};
+          function createTab() {
+            chrome.tabs.create(properties, function(tab){ TAB_ID = tab.id; });
+          }
+          if(TAB_ID > 0)
+            chrome.tabs.update(TAB_ID, properties, function(tab) {
+              if(chrome.runtime.lastError) createTab(); // 可能 tab 不存在
+            });
+          else createTab();
           break;
       }
     });
@@ -27,10 +43,9 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
 });
 
 chrome.windows.onFocusChanged.addListener(function(windowId){
-  if(WINDOW_ID > 0 && windowId > 0 && windowId != WINDOW_ID){
-    chrome.windows.remove(WINDOW_ID);
-    WINDOW_ID = chrome.windows.WINDOW_ID_NONE;
-  }
+  chrome.storage.sync.get({close_method: 'auto'}, function(data){
+    if(data.close_method == 'auto' && windowId > 0 && windowId != WINDOW_ID) closeIfExist();
+  });
 });
 // 主功能 END
 

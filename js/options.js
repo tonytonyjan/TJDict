@@ -1,6 +1,9 @@
 (function(){
-  DEFAULT_OPTIONS.order = [];
-  DEFAULT_OPTIONS.open_method = 'popup'
+  DEFAULT_OPTIONS = {
+    order: [],
+    open_method: 'popup',
+    close_method: 'auto'
+  }
   for(var i in DICTIONARIES){
     DEFAULT_OPTIONS[i] = true;
     DEFAULT_OPTIONS.order.push(i);
@@ -17,6 +20,7 @@
     for(var i in DICTIONARIES) options[i] = document.getElementById(i).checked;
     options.order = sortableDict.toArray();
     options.open_method = $('input[name=open_method]:checked').val();
+    options.close_method = $('input[name=close_method]:checked').val();
     chrome.storage.sync.set(options, function() {
       $('#modal_setting').modal('hide');
     });
@@ -25,6 +29,7 @@
   function restore_options() {
     chrome.storage.sync.get(DEFAULT_OPTIONS, function(items){
       $('input[name=open_method][value="' + items.open_method +'"]').prop('checked', true);
+      $('input[name=close_method][value="' + items.close_method +'"]').prop('checked', true);
       for(var i in DICTIONARIES) document.getElementById(i).checked = items[i];
       sortableDict.sort(items.order);
     });
