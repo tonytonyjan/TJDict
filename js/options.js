@@ -8,6 +8,8 @@
   // 顯示字典
   for(var i in DICTIONARIES)
     $('#dict_checkboxes').append('<div data-id="' + i + '" class="checkbox"><span class="glyphicon glyphicon-resize-vertical"></span><label><input id="' + i + '" name="' + i + '" type="checkbox"> ' + DICTIONARIES[i].title + '</label></div>');
+  // 字典可排序
+  var sortableDict = new Sortable(document.getElementById('dict_checkboxes'));
 
   // Storage BEGIN
   function save_options() {
@@ -24,19 +26,11 @@
     chrome.storage.sync.get(DEFAULT_OPTIONS, function(items){
       $('input[name=open_method][value="' + items.open_method +'"]').prop('checked', true);
       for(var i in DICTIONARIES) document.getElementById(i).checked = items[i];
+      sortableDict.sort(items.order);
     });
   }
 
   restore_options();
   $('#save').click(save_options);
   // Storage END
-
-  // 排序 BEGIN
-  var sortableDict = new Sortable(document.getElementById('dict_checkboxes'), {
-    handle: '.glyphicon-resize-vertical'
-  });
-  chrome.storage.sync.get(DEFAULT_OPTIONS, function(data){
-    sortableDict.sort(data.order);
-  });
-  // 排序 END
 })();
