@@ -25,7 +25,7 @@
     for(var i in matchedLanguages)
       $('#tts_list').append('<li data-lang="' + matchedLanguages[i] + '"><a href="#">' + TRANSLATION[matchedLanguages[i]] + '</a></li>');
     $('#tts_list > li:first').addClass('active');
-    if(matchedLanguages.length <= 1) $('#lang_dropdown').hide();
+    if(matchedLanguages.length > 1) $('#lang_dropdown').show();
     $('#tts_list > li').click(function(event){
       $('#tts_list > li').removeClass('active');
       $(this).addClass('active');
