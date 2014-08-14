@@ -11,11 +11,11 @@
 1. 在 `js/dictionaries/` 新增字典檔，例如 `my_dict.js`
 2. 在 `index.html` 中載入，例如
 
-    <!-- dictionaries -->
-    <script src="/js/dictionaries/yahoo.js"></script>
-    <script src="/js/dictionaries/nciku.js"></script>
-    <script src="/js/dictionaries/jukuu.js"></script>
-    <script src="/js/dictionaries/my_dict.js"></script>
+        <!-- dictionaries -->
+        <script src="/js/dictionaries/yahoo.js"></script>
+        <script src="/js/dictionaries/nciku.js"></script>
+        <script src="/js/dictionaries/jukuu.js"></script>
+        <script src="/js/dictionaries/my_dict.js"></script>
 
 ### 字典檔
 
@@ -27,7 +27,7 @@
   <thead><tr><th>資料形態</th><th>屬性</th><th>說明</th></tr></thead>
   <tbody>
     <tr><td>string</td><td>title</td><td>顯示的字典名稱</td></tr>
-    <tr><td>array of enum of <code>"zh"</code>、<code>"en"</code>、<code>"jp"</code></td><td>langs</td><td>字典的語系，例如英漢、漢英字典，那麼就是 <code>["zh", "en"]</code></td></tr>
+    <tr><td>array of enum of <code>"zh"</code>、<code>"en"</code>、<code>"jp"</code></td><td>langs</td><td>字典允許的輸入語言，例如英漢、漢英字典，可以輸入中文或英文，那麼就是 <code>["zh", "en"]</code></td></tr>
     <tr>
       <td>function</td>
       <td>query</td>
@@ -66,6 +66,7 @@
 // js/dictionaries/yahoo.js
 DICTIONARIES.yahoo = {
   title: 'Yahoo 字典',
+  langs: ['zh', 'en'],
   query: function(q, response){
     var self = this;
     $.get('http://tw.dictionary.search.yahoo.com/search?p=' + q).done(function(data){
