@@ -10,7 +10,9 @@
         if(DICTIONARIES[dictName] /*字典存在*/ && items[dictName] /*啟用*/){
           var isLangFound = false;
           for(var j in matchedLanguages)
-            if(!!~DICTIONARIES[dictName].langs.indexOf(matchedLanguages[j])) isLangFound = true;
+            if(!!~DICTIONARIES[dictName].langs.indexOf(matchedLanguages[j])){
+              isLangFound = true; break;
+            }
           if(!isLangFound) continue; // 如果找不到符合語言就跳過該字典
           $('#main').append('<div data-title="' + DICTIONARIES[dictName].title + '"></div>');
           DICTIONARIES[dictName].query(queryString, function(dictionary, result){
