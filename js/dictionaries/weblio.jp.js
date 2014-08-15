@@ -14,7 +14,7 @@ DICTIONARIES.weblio = {
         if(match)
           value.href = 'index.html?q=' + match[1];
       });
-      var result = ""
+      var result = "";
       for(var i = 0; i < minSize; i++){
         result += '<h3>' + titles[i].innerText + '</h3>';
         result += contents[i].innerHTML;

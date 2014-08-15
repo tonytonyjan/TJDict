@@ -18,13 +18,13 @@
           if(!isLangFound) continue; // 如果找不到符合語言就跳過該字典
           var id = 'dict_' + dictName;
           $('#main').append('<div id="' + id + '"></div>');
-          $('#dict_nav_ul').append('<li id="dict_nav_li_' + dictName + '"></li>')
+          $('#dict_nav_ul').append('<li id="dict_nav_li_' + dictName + '"' + (i == 0 ? ' class="active"' : undefined) + '></li>')
           DICTIONARIES[dictName].query(queryString, function(dictionary, result){
             if(!result) return; // 沒結果就不要顯示內容與導覽列
             var id = '#dict_' + dictionary.id;
+            $('#dict_nav_li_' + dictionary.id).append('<a href="' + id + '">' + dictionary.title + '</a></li>');
             $(id).append('<div class="page-header"><h2>' + dictionary.title + '</h2></div>');
             $(id).append(result);
-            $('#dict_nav_li_' + dictionary.id).append('<a href="#dict_' + dictionary.id + '">' + dictionary.title + '</a></li>').scrollspy('refresh');
           });
         }
       }
