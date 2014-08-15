@@ -39,7 +39,8 @@ function popWindow(query, left, top){
   });
 }
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
-  popWindow(request.q, request.x, request.y)
+  if(request.op == 'resize?') sendResponse(WINDOW_ID == sender.tab.windowId);
+  else popWindow(request.q, request.x, request.y);
 });
 
 chrome.windows.onFocusChanged.addListener(function(windowId){

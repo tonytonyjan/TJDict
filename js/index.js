@@ -46,9 +46,12 @@
     // 聲音 END
   }else $('#intro').show();
   // 記錄視窗大小
-  window.onresize = function(event){
-    chrome.storage.local.set({width: window.innerWidth, height: window.innerHeight});
-  };
+  chrome.runtime.sendMessage({op: 'resize?'}, function(resize){ // runtime 不知道自己的 window ID
+    if(resize)
+      window.onresize = function(event){
+        chrome.storage.local.set({width: window.innerWidth, height: window.innerHeight});
+      };
+  });
   // 顯示本次更新
   var current_version = chrome.runtime.getManifest().version;
   $('#update_title').append(' ' + current_version);
