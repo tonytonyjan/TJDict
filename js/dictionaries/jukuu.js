@@ -15,6 +15,7 @@ DICTIONARIES.jukuu = {
         "</li>";
       }
       result += "</ul>";
+      if(trs1.length == 0) result = false;
       response(self, result);
     });
   }
