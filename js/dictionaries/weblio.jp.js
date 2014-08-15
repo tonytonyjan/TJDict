@@ -1,5 +1,6 @@
 DICTIONARIES.weblio = {
-  title: "Weblio（日文）",
+  title: "Weblio",
+  desc: '日日',
   langs: ['ja'],
   query: function(q, response){
     var self = this;

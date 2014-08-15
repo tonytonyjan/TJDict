@@ -1,5 +1,6 @@
 DICTIONARIES.urban = {
   title: 'Urban Dictionary',
+  desc: '英英',
   langs: ['en'],
   query: function(q, response){
     var self = this;

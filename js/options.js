@@ -10,7 +10,7 @@
   }
   // 顯示字典
   for(var i in DICTIONARIES)
-    $('#dict_checkboxes').append('<div data-id="' + i + '" class="checkbox"><span class="glyphicon glyphicon-resize-vertical"></span><label><input id="' + i + '" name="' + i + '" type="checkbox"> ' + DICTIONARIES[i].title + '</label></div>');
+    $('#dict_checkboxes').append('<div data-id="' + i + '" class="checkbox"><span class="glyphicon glyphicon-resize-vertical"></span><label><input id="' + i + '" name="' + i + '" type="checkbox"> ' + DICTIONARIES[i].title + '（' + DICTIONARIES[i].desc + '）</label></div>');
   // 字典可排序
   var sortableDict = new Sortable(document.getElementById('dict_checkboxes'));
 

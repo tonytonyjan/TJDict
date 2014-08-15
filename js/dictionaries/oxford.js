@@ -1,5 +1,6 @@
 DICTIONARIES.oxford = {
-  title: '牛津英英字典',
+  title: '牛津字典',
+  desc: '英英',
   langs: ['en'],
   query: function(q, response){
     var self = this;

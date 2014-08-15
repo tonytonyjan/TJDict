@@ -1,5 +1,6 @@
 DICTIONARIES.nciku = {
   title: '詞酷線上辭典',
+  desc: '英中、中英',
   langs: ['zh', 'en'],
   query: function(q, response){
     var self = this;

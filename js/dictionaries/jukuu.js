@@ -1,5 +1,6 @@
 DICTIONARIES.jukuu = {
   title: "句酷雙語例句",
+  desc: '英中、中英',
   langs: ['zh', 'en'],
   query: function(q, response){
     var self = this;
