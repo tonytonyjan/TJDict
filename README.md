@@ -27,6 +27,7 @@
   <thead><tr><th>資料形態</th><th>屬性</th><th>說明</th></tr></thead>
   <tbody>
     <tr><td>string</td><td>title</td><td>顯示的字典名稱</td></tr>
+    <tr><td>string</td><td>desc</td><td>字典敘述、例如：`英中、中英`</td></tr>
     <tr><td>array of enum of <code>"zh"</code>、<code>"en"</code>、<code>"jp"</code></td><td>langs</td><td>字典允許的輸入語言，例如英漢、漢英字典，可以輸入中文或英文，那麼就是 <code>["zh", "en"]</code></td></tr>
     <tr>
       <td>function</td>
@@ -66,6 +67,7 @@
 // js/dictionaries/yahoo.js
 DICTIONARIES.yahoo = {
   title: 'Yahoo 字典',
+  desc: '英中、中英',
   langs: ['zh', 'en'],
   query: function(q, response){
     var self = this;
