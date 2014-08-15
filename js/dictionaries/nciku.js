@@ -11,6 +11,7 @@ DICTIONARIES.nciku = {
       if(def[0]) result += def[0].outerHTML;
       var wordList = $(data).find('div.ex_box > ul.word_list');
       if(wordList[0]) result += wordList[0].outerHTML;
+      if(wordList.length == 0) result = false;
       response(self, result);
     });
   }
