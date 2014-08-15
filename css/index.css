@@ -13,3 +13,7 @@
 #dict_nav.affix + .container-fluid{
   padding-top: 70px;
 }
+
+:target{
+  padding-top: 30px;
+}

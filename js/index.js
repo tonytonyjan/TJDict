@@ -1,4 +1,5 @@
 (function(){
+  for(var i in DICTIONARIES) DICTIONARIES[i].id = i; // for reflection
   var queryString = urlParams.q ? urlParams.q.trim() : '';
   $('#q').val(queryString).focus().select();
   if(queryString && !queryString.match(/TJDict/i)){
@@ -14,11 +15,13 @@
               isLangFound = true; break;
             }
           if(!isLangFound) continue; // 如果找不到符合語言就跳過該字典
-          $('#main').append('<div data-title="' + DICTIONARIES[dictName].title + '"></div>');
-          $('#dict_nav_ul').append('<li><a href="#">' + DICTIONARIES[dictName].title + '</a></li>')
+          var id = 'dict_' + dictName;
+          $('#main').append('<div id="' + id + '"></div>');
+          $('#dict_nav_ul').append('<li><a href="#' + id + '">' + DICTIONARIES[dictName].title + '</a></li>').scrollspy('refresh');
           DICTIONARIES[dictName].query(queryString, function(dictionary, result){
-            $('[data-title="' + dictionary.title + '"]').append('<div class="page-header"><h2>' + dictionary.title + '</h2></div>');
-            $('[data-title="' + dictionary.title + '"]').append(result);
+            var id = '#dict_' + dictionary.id;
+            $(id).append('<div class="page-header"><h2>' + dictionary.title + '</h2></div>');
+            $(id).append(result);
           });
         }
       }
