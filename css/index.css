@@ -17,3 +17,7 @@
 :target{
   padding-top: 30px;
 }
+
+#tts_list{
+  z-index: 1001;
+}
