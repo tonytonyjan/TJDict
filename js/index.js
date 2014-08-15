@@ -24,7 +24,7 @@
             var id = '#dict_' + dictionary.id;
             $(id).append('<div class="page-header"><h2>' + dictionary.title + '</h2></div>');
             $(id).append(result);
-            $('#dict_nav_li_' + dictionary.id).append('<a href="#' + dictionary.id + '">' + dictionary.title + '</a></li>').scrollspy('refresh');
+            $('#dict_nav_li_' + dictionary.id).append('<a href="#dict_' + dictionary.id + '">' + dictionary.title + '</a></li>').scrollspy('refresh');
           });
         }
       }
