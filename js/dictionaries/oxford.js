@@ -5,13 +5,17 @@ DICTIONARIES.oxford = {
   query: function(q, response){
     var self = this;
     var result = '';
+    q = q.replace(/ /g, '-');
     $.get('http://www.oxforddictionaries.com/definition/english/' + q).done(function(data){
       $(data).find('.se1.senseGroup').each(function(i, group){
+        console.log(group)
         var accordion_id = 'oxford_accordion_' + i;
         var panelGroup = $('<div class="panel-group" id="' + accordion_id + '"></div>');
         var title = $(group).find('.partOfSpeech').text().trim(); // ex. none, verb, etc
         result += '<h2>' + title + '</h2>'
-        $(group).find('.se2').each(function(j, section){
+        var se2s = $(group).find('.se2');
+        if(se2s.length == 0) se2s = $([group]);
+        se2s.each(function(j, section){
           $(section).find('.senseInnerWrapper').each(function(k, sense){
             var id = 'oxford_panel_' + i + '_' + j + '_' + k;
             var definition = $(sense).find('.definition').text().trim();
