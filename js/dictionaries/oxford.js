@@ -8,7 +8,6 @@ DICTIONARIES.oxford = {
     q = q.replace(/ /g, '-');
     $.get('http://www.oxforddictionaries.com/definition/english/' + q).done(function(data){
       $(data).find('.se1.senseGroup').each(function(i, group){
-        console.log(group)
         var accordion_id = 'oxford_accordion_' + i;
         var panelGroup = $('<div class="panel-group" id="' + accordion_id + '"></div>');
         var title = $(group).find('.partOfSpeech').text().trim(); // ex. none, verb, etc
