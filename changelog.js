@@ -1,4 +1,4 @@
 var CHANGELOG = [
-  {title: '更新', message: '可設定視窗顯示方式'},
-  {title: '更新', message: '可設定自動/手動關閉視窗'}
+  {title: '更新', message: '新增牛津英英字典'},
+  {title: '異動', message: '設定視窗可見字典的敘述'}
 ]
