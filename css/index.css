@@ -1,3 +1,15 @@
 #intro, #lang_dropdown{
   display: none;
 }
+
+#dict_nav.affix{
+  top: 0px;
+}
+
+#dict_nav{
+  width: 100%;
+}
+
+#dict_nav.affix + .container-fluid{
+  padding-top: 70px;
+}

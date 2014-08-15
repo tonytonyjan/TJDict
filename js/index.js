@@ -15,6 +15,7 @@
             }
           if(!isLangFound) continue; // 如果找不到符合語言就跳過該字典
           $('#main').append('<div data-title="' + DICTIONARIES[dictName].title + '"></div>');
+          $('#dict_nav_ul').append('<li><a href="#">' + DICTIONARIES[dictName].title + '</a></li>')
           DICTIONARIES[dictName].query(queryString, function(dictionary, result){
             $('[data-title="' + dictionary.title + '"]').append('<div class="page-header"><h2>' + dictionary.title + '</h2></div>');
             $('[data-title="' + dictionary.title + '"]').append(result);
