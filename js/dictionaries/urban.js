@@ -18,7 +18,7 @@ DICTIONARIES.urban = {
           <div class="panel-footer">' + example + '</div>\
         </div>';
       });
-      if(result) response(self, result);
+      response(self, result);
     });
   }
 };

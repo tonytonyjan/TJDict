@@ -20,6 +20,7 @@
           $('#main').append('<div id="' + id + '"></div>');
           $('#dict_nav_ul').append('<li><a href="#' + id + '">' + DICTIONARIES[dictName].title + '</a></li>').scrollspy('refresh');
           DICTIONARIES[dictName].query(queryString, function(dictionary, result){
+            if(!result) return;
             var id = '#dict_' + dictionary.id;
             $(id).append('<div class="page-header"><h2>' + dictionary.title + '</h2></div>');
             $(id).append(result);
