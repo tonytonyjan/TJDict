@@ -41,6 +41,7 @@
     });
     $('#tts').removeClass('disabled').click(function(event){
       var lang = $('#tts_list > li.active').data('lang')
+      if(lang == 'en') lang = 'en-US'; // Use en-US as English TTS
       chrome.tts.speak($('#q').val(), {lang: lang});
     });
     // 聲音 END
