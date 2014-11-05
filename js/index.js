@@ -29,6 +29,15 @@
         }
       }
     });
+    // 音標 BEGIN
+    if($.inArray('en', matchedLanguages) > -1){
+      $.get('http://tw.dictionary.search.yahoo.com/search?p=' + queryString).done(function(data){
+        var children = $(data).find('.proun_wrapper').children();
+        var text = children[0].innerText + ' ' + children[1].innerText;
+        $('#tts').tooltip({title: text, placement: 'left'});
+      });
+    }
+    // 音標 END
     // 聲音 BEGIN
     // 顯示聲音選項，指定 id="tts_語言"
     for(var i in matchedLanguages)
