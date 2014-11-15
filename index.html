@@ -35,8 +35,9 @@
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav navbar-left">
-          <li><a href="#" data-toggle="modal" data-target="#modal_about"><span class="glyphicon glyphicon-question-sign"> 關於</span></a></li>
-          <li><a href="#" data-toggle="modal" data-target="#modal_setting"><span class="glyphicon glyphicon-cog"> 設定</span></a></li>
+          <li><a href="#" data-toggle="modal" data-target="#modal_about"><span class="glyphicon glyphicon-question-sign"></span> 關於</a></li>
+          <li><a href="#" data-toggle="modal" data-target="#modal_setting"><span class="glyphicon glyphicon-cog"></span> 設定</a></li>
+          <li><a href="" data-toggle="modal" data-target="#modal_faq"><span class="glyphicon glyphicon-question-sign"></span> FAQ</a></li>
         </ul>
       </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
@@ -155,6 +156,31 @@
       </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
   </div><!-- /.modal -->
+  <div id="modal_faq" class="modal fade">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">關閉</span></button>
+          <h4 class="modal-title">FAQ</h4>
+        </div>
+        <div class="modal-body">
+          <dl>
+            <h4>Q. 安裝後滑鼠雙擊沒有效果怎麼辦？</h4>
+            <p>Chrome 在安裝新外掛時，只有對於新載入的頁面才會生效，重新整理網頁就可以解決。</p>
+            <h4>Q. 平板電腦該怎麼使用？</h4>
+            <p>請到「設定」->「操作方式」將「長按一秒」打勾並且儲存。之後只要反白單字後再長按一秒就可以開啟查詢視窗。</p>
+            <h4>Q. 為什麼做這個？</h4>
+            <p>2012 年八月，筆者因英文太爛飽受閱讀論文之苦，遂起了製作外掛的念頭，月初完成雛形，當初只為解決自己的問題而只有個人使用，但在朋友慫恿下放到了 Web Store。</p>
+            <h4>Q. 為什麼要叫 TJDict？</h4>
+            <p>是「體貼周到」（thoughtful）與 「共享共有」（joint）的字首，期許 TJDict 能以此為目標邁進。<del>其實真相是筆者的英文名字是 Tony Jian，由於當初只為個人使用所以這樣命名，現在想改也來不及了Orz</del></p>
+          </dl>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">關閉</button>
+        </div>
+      </div>
+    </div>
+  </div>
   <!-- modals END -->
 
   <!-- init -->
