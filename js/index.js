@@ -62,12 +62,9 @@
         chrome.storage.local.set({width: window.innerWidth, height: window.innerHeight});
       };
   });
-  // 顯示本次更新
+  // 顯示版本
   var current_version = chrome.runtime.getManifest().version;
-  $('#update_title').append(' ' + current_version);
-  var changelog = chrome.extension.getBackgroundPage().CHANGELOG;
-  for(var i in changelog)
-    $('#update_list').append('<li><b>' + changelog[i].title + '</b> ' + changelog[i].message + '</li>');
+  $('.version').text(current_version);
   // options
   if(location.hash == '#options') $('#modal_setting').modal('show');
 })();
