@@ -21,3 +21,7 @@
 #tts_list{
   z-index: 1001;
 }
+
+.btn-info{
+	background-color: #00a2e9 !important;
+}
