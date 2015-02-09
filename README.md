@@ -13,7 +13,6 @@
 
         <!-- dictionaries -->
         <script src="/js/dictionaries/yahoo.js"></script>
-        <script src="/js/dictionaries/nciku.js"></script>
         <script src="/js/dictionaries/jukuu.js"></script>
         <script src="/js/dictionaries/my_dict.js"></script>
 
