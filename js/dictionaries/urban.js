@@ -6,7 +6,7 @@ DICTIONARIES.urban = {
     var self = this;
     $.get('http://www.urbandictionary.com/define.php?term=' + q).done(function(data){
       var result = '';
-      $(data).find('.box > div.inner').each(function(index, element){
+      $(data).find('.def-panel[data-defid]').each(function(index, element){
         var word = $(element).find('.word').text();
         var meaning = $(element).find('.meaning').html();
         var example = $(element).find('.example').html();
@@ -15,7 +15,7 @@ DICTIONARIES.urban = {
             <h3 class="panel-title">' + word + '</h3>\
           </div>\
           <div class="panel-body">' + meaning + '</div>\
-          <div class="panel-footer">' + example + '</div>\
+          <div class="panel-footer"><h5>Example</h5>' + example + '</div>\
         </div>';
       });
       response(self, result);
