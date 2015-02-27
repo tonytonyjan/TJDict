@@ -6,5 +6,7 @@ version = manifest['version']
 
 Rake::PackageTask.new('TJDict', version) do |p|
   p.need_zip = true
-  p.package_files.include('*.{js,index,json}', 'css/**/*', 'js/**/*', 'img/**/*')
+  p.package_files.include('*.{js,html,json}', 'css/**/*', 'js/**/*', 'img/**/*', 'fonts/**/*')
 end
+
+task default: :package
