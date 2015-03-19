@@ -1,4 +1,5 @@
 var CHANGELOG = [
-  {title: '修正', message: 'Urban Dictionary'},
-  {title: '異動', message: '移除「詞酷」字典'}
+  {title: '新增', message: '自動讀音，延長滑鼠壽命'},
+  {title: '新增', message: '「漢字的預設讀音」設定'},
+  {title: '新增', message: '「啟用自動讀音」設定'}
 ]
