@@ -2,7 +2,7 @@
   "name": "TJDict",
   "short_name": "TJDict",
   "description": "英漢、漢英、英英、日日網路整合字典",
-  "version": "1.11.0",
+  "version": "1.11.1",
   "manifest_version": 2,
   "permissions": ["<all_urls>", "tabs", "storage", "notifications", "contextMenus", "tts"],
   "content_security_policy": "script-src 'self' https://cdn.firebase.com https://*.firebaseio.com; object-src 'self'",

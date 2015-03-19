@@ -68,19 +68,19 @@ chrome.contextMenus.onClicked.addListener(function(event){
 // 右鍵選單 END
 
 // 擴充功能更新 BEGIN
-chrome.runtime.onInstalled.addListener(function(details){
-  if(details.reason == 'update'){
-    var current_version = chrome.runtime.getManifest().version;
-    chrome.notifications.create('notification_update',{
-      type: 'list',
-      title: '已更新至 ' + current_version,
-      iconUrl: 'img/icon128.png',
-      message: '',
-      items: CHANGELOG,
-      buttons: [{title: '更多資訊', iconUrl: 'img/more.png'}, {title: '不開心？請告訴我吧！', iconUrl: 'img/email.png'}]
-    }, function(notificationId){});
-  }
-});
+// chrome.runtime.onInstalled.addListener(function(details){
+//   if(details.reason == 'update'){
+//     var current_version = chrome.runtime.getManifest().version;
+//     chrome.notifications.create('notification_update',{
+//       type: 'list',
+//       title: '已更新至 ' + current_version,
+//       iconUrl: 'img/icon128.png',
+//       message: '',
+//       items: CHANGELOG,
+//       buttons: [{title: '更多資訊', iconUrl: 'img/more.png'}, {title: '不開心？請告訴我吧！', iconUrl: 'img/email.png'}]
+//     }, function(notificationId){});
+//   }
+// });
 
 chrome.notifications.onButtonClicked.addListener(function(notificationId, buttonIndex){
   if(notificationId == 'notification_update')
