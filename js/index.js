@@ -52,7 +52,7 @@
       var lang = $('#tts_list > li.active').data('lang')
       if(lang == 'en') lang = 'en-US'; // Use en-US as English TTS
       chrome.tts.speak($('#q').val(), {lang: lang});
-    });
+    }).click();
     // 聲音 END
   }else $('#intro').show();
   // 記錄視窗大小
