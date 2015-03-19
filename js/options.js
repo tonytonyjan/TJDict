@@ -3,7 +3,9 @@
     order: [],
     open_method: 'popup',
     close_method: 'auto',
-    hold_feature: false
+    hold_feature: false,
+    han_default_tts: 'ja',
+    auto_tts: true
   }
   for(var i in DICTIONARIES){
     DEFAULT_OPTIONS[i] = true;
@@ -23,6 +25,8 @@
     options.open_method = $('input[name=open_method]:checked').val();
     options.close_method = $('input[name=close_method]:checked').val();
     options.hold_feature = $('input[name=hold_feature]').prop('checked');
+    options.han_default_tts = $('input[name=han_default_tts]:checked').val();
+    options.auto_tts = $('input[name=auto_tts]').prop('checked');
     chrome.storage.sync.set(options, function() {
       $('#modal_setting').modal('hide');
     });
@@ -33,6 +37,8 @@
       $('input[name=open_method][value="' + items.open_method +'"]').prop('checked', true);
       $('input[name=close_method][value="' + items.close_method +'"]').prop('checked', true);
       $('input[name=hold_feature]').prop('checked', items.hold_feature);
+      $('input[name=han_default_tts][value="' + items.han_default_tts +'"]').prop('checked', true);
+      $('input[name=auto_tts]').prop('checked', items.auto_tts);
       for(var i in DICTIONARIES) document.getElementById(i).checked = items[i];
       sortableDict.sort(items.order);
     });
