@@ -3,6 +3,7 @@
   var queryString = urlParams.q ? urlParams.q.trim() : '';
   $('#q').val(queryString).focus().select();
   if(queryString && !queryString.match(/TJDict/i)){
+    record_query(queryString, urlParams.url);
     $('#dict_nav').show();
     var matchedLanguages = []; // 判斷查詢的字可能是什麼語言
     for(var i in LANG_MATCHER) if(queryString.match(LANG_MATCHER[i])) matchedLanguages.push(i);

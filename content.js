@@ -11,6 +11,7 @@ function query(x, y){
   if(queryString)
     chrome.runtime.sendMessage({
       q: queryString,
+      url: location.href,
       x: x, y: y
     });
 }

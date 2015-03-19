@@ -9,14 +9,15 @@ function closeIfExist(){
 }
 
 // 主功能 BEGIN
-function popWindow(query, left, top){
+function popWindow(query, left, top, origin_request){
   closeIfExist();
   chrome.storage.local.get(DEFAULT_WINDOW_SIZE, function(data){
     chrome.storage.sync.get({open_method: 'popup'}, function(sync_data){
+      var window_url = 'index.html?q=' + query + '&url=' + origin_request.url
       switch(sync_data.open_method){
         case 'popup':
           chrome.windows.create({
-            url: 'index.html?q=' + query, type: 'popup',
+            url: window_url, type: 'popup',
             left: left, top: top,
             width: data.width, height: data.height
           }, function(win){
@@ -24,7 +25,7 @@ function popWindow(query, left, top){
           });
           break;
         case 'tab':
-          var properties = {url: 'index.html?q=' + query, active: true};
+          var properties = {url: window_url, active: true};
           function createTab() {
             chrome.tabs.create(properties, function(tab){ TAB_ID = tab.id; });
           }
@@ -40,7 +41,7 @@ function popWindow(query, left, top){
 }
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
   if(request.op == 'resize?') sendResponse(WINDOW_ID == sender.tab.windowId);
-  else popWindow(request.q, request.x, request.y);
+  else popWindow(request.q, request.x, request.y, request);
 });
 
 chrome.windows.onFocusChanged.addListener(function(windowId){
