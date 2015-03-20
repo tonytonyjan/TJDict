@@ -77,7 +77,7 @@ chrome.runtime.onInstalled.addListener(function(details){
       iconUrl: 'img/icon128.png',
       message: '',
       items: CHANGELOG,
-      buttons: [{title: '更多資訊', iconUrl: 'img/more.png'}, {title: '不開心？請告訴我吧！', iconUrl: 'img/email.png'}]
+      buttons: [{title: '更新日誌', iconUrl: 'img/more.png'}, {title: '不開心？請告訴我吧！', iconUrl: 'img/email.png'}]
     }, function(notificationId){});
   }
 });
@@ -85,7 +85,7 @@ chrome.runtime.onInstalled.addListener(function(details){
 chrome.notifications.onButtonClicked.addListener(function(notificationId, buttonIndex){
   if(notificationId == 'notification_update')
     if(buttonIndex == 0)
-      chrome.tabs.create({url: 'https://github.com/tonytonyjan/TJDict/blob/master/CHANGELOG.md'});
+      chrome.tabs.create({url: '/CHANGELOG.md'});
     else
       chrome.tabs.create({url: 'https://chrome.google.com/webstore/support/caafmojgjlbflohillejdmnghkpcjjpp'});
 });
