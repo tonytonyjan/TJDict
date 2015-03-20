@@ -10,7 +10,6 @@ function closeIfExist(){
 
 // 主功能 BEGIN
 function popWindow(query, left, top, pageURL){
-  console.log(pageURL);
   closeIfExist();
   chrome.storage.local.get(DEFAULT_WINDOW_SIZE, function(data){
     chrome.storage.sync.get({open_method: 'popup'}, function(sync_data){

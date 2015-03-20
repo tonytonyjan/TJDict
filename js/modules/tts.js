@@ -9,8 +9,7 @@ var TTS = {
       if(matchedLanguages.length > 1){
         $('#lang_dropdown').show();
         $('#tts_list > li').each(function(i, li){
-          console.log(li)
-          if(li.dataset.lang == items.han_default_tts) li.className = 'active'
+          if(li.dataset.lang == items.han_default_tts) li.className = 'active';
         });
       }else $('#tts_list > li:first').addClass('active');
       $('#tts_list > li').click(function(event){
