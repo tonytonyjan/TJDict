@@ -1,5 +1,6 @@
 {
   "name": "TJDict",
+  "key": "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDxe7EOVTTF6Fxu3geDsJ37HIiJYs7sEVs06nKxugc2zZOsrlQ6/HLT2Wb3SkE6ljjA5rEUcuencJBTaQHdulQXK8Sle7qIY1U+4/pp03tFfKj9nYFOpN8I25hMQC+gubBW6K97SIrtjOlDqOgR6mxoL37loKkPAdeFblMViWzLBQIDAQAB",
   "short_name": "TJDict",
   "description": "英漢、漢英、英英、日日網路整合字典",
   "version": "1.12.1",

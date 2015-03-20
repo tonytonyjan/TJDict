@@ -25,5 +25,5 @@ var urlParams;
 })();
 
 function isProduction(){
-  return chrome.runtime.id == 'caafmojgjlbflohillejdmnghkpcjjpp'
+  return !!chrome.runtime.getManifest().update_url;
 }
