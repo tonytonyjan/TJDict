@@ -5,7 +5,7 @@
   "version": "1.11.1",
   "manifest_version": 2,
   "permissions": ["<all_urls>", "tabs", "storage", "notifications", "contextMenus", "tts"],
-  "content_security_policy": "script-src 'self' https://cdn.firebase.com https://*.firebaseio.com; object-src 'self'",
+  "content_security_policy": "script-src 'self' https://*.firebaseio.com; object-src 'self'",
   "icons": {
     "16": "img/icon16.png",
     "48": "img/icon48.png",
