@@ -6,8 +6,13 @@ DICTIONARIES.voicetube = {
     var self = this;
     $.getJSON('https://tw.voicetube.com/definition/' + q, {format: 'json'}, function(data){
       s = '';
-      for(var i in data.videos){
-        var video = data.videos[i];
+      var keys = [];
+      for(var key in data.videos) keys.push(key);
+      keys = keys.sort().reverse().slice(0, 3);
+      var videos = []
+      for(var i in keys) videos.push(data.videos[keys[i]]);
+      for(var i in videos){
+        var video = videos[i];
         var video_url = 'https://tw.voicetube.com/videos/' + video.info.id;
         s += '<div class="media"><div class="media-left">' +
           '<a href="' + video_url + '" target="_blank">' +
@@ -19,7 +24,7 @@ DICTIONARIES.voicetube = {
           for(var j in video.captions){
             var caption = video.captions[j];
             var caption_zh = video.captions_zh[j];
-            s += '<li><a href="' + video_url + '/' + video.captions_id[j] + '/?word=' + q + '">' + caption + '</a><br>' + caption_zh + '</li>'
+            s += '<li><a href="' + video_url + '/' + video.captions_id[j] + '/?word=' + q + '" target="_blank">' + caption + '</a><br>' + caption_zh + '</li>'
           }
         s += '</ol></div></div>'
       }
