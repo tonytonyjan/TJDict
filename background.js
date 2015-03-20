@@ -9,11 +9,12 @@ function closeIfExist(){
 }
 
 // 主功能 BEGIN
-function popWindow(query, left, top, origin_request){
+function popWindow(query, left, top, pageURL){
+  console.log(pageURL);
   closeIfExist();
   chrome.storage.local.get(DEFAULT_WINDOW_SIZE, function(data){
     chrome.storage.sync.get({open_method: 'popup'}, function(sync_data){
-      var window_url = 'index.html?q=' + query + '&url=' + origin_request.url
+      var window_url = 'index.html?q=' + query + '&url=' + pageURL;
       switch(sync_data.open_method){
         case 'popup':
           chrome.windows.create({
@@ -41,7 +42,7 @@ function popWindow(query, left, top, origin_request){
 }
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
   if(request.op == 'resize?') sendResponse(WINDOW_ID == sender.tab.windowId);
-  else popWindow(request.q, request.x, request.y, request);
+  else popWindow(request.q, request.x, request.y, request.url);
 });
 
 chrome.windows.onFocusChanged.addListener(function(windowId){
@@ -61,26 +62,26 @@ chrome.contextMenus.create({
 chrome.contextMenus.onClicked.addListener(function(event){
   if(event.menuItemId == 'tjdict_context_menu'){
     chrome.storage.local.get(null, function(data) {
-      popWindow(event.selectionText, data.x, data.y);
+      popWindow(event.selectionText, data.x, data.y, event.pageUrl);
     });
   }
 });
 // 右鍵選單 END
 
 // 擴充功能更新 BEGIN
-// chrome.runtime.onInstalled.addListener(function(details){
-//   if(details.reason == 'update'){
-//     var current_version = chrome.runtime.getManifest().version;
-//     chrome.notifications.create('notification_update',{
-//       type: 'list',
-//       title: '已更新至 ' + current_version,
-//       iconUrl: 'img/icon128.png',
-//       message: '',
-//       items: CHANGELOG,
-//       buttons: [{title: '更多資訊', iconUrl: 'img/more.png'}, {title: '不開心？請告訴我吧！', iconUrl: 'img/email.png'}]
-//     }, function(notificationId){});
-//   }
-// });
+chrome.runtime.onInstalled.addListener(function(details){
+  if(details.reason == 'update'){
+    var current_version = chrome.runtime.getManifest().version;
+    chrome.notifications.create('notification_update',{
+      type: 'list',
+      title: '已更新至 ' + current_version,
+      iconUrl: 'img/icon128.png',
+      message: '',
+      items: CHANGELOG,
+      buttons: [{title: '更多資訊', iconUrl: 'img/more.png'}, {title: '不開心？請告訴我吧！', iconUrl: 'img/email.png'}]
+    }, function(notificationId){});
+  }
+});
 
 chrome.notifications.onButtonClicked.addListener(function(notificationId, buttonIndex){
   if(notificationId == 'notification_update')
