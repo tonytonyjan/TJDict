@@ -1,12 +1,12 @@
 var Options = {
   init: function(){
-    Options.set_default_options();
-    Options.show_dict();
-    Options.restore_options();
+    Options.setDefaultOptions();
+    Options.showDict();
+    Options.restoreOptions();
     $('#save').click(Options.save_options);
   },
 
-  set_default_options: function() {
+  setDefaultOptions: function() {
     DEFAULT_OPTIONS = {
       order: [],
       open_method: 'popup',
@@ -18,10 +18,11 @@ var Options = {
     for(var i in DICTIONARIES){
       DEFAULT_OPTIONS[i] = true;
       DEFAULT_OPTIONS.order.push(i);
+      DICTIONARIES[i].id = i; // for reflection
     }
   },
 
-  show_dict: function(){
+  showDict: function(){
     for(var i in DICTIONARIES)
       $('#dict_checkboxes').append('<div data-id="' + i + '" class="checkbox"><span class="glyphicon glyphicon-resize-vertical"></span><label><input id="' + i + '" name="' + i + '" type="checkbox"> ' + DICTIONARIES[i].title + '（' + DICTIONARIES[i].desc + '）</label></div>');
     Options.sortable_dict = new Sortable(document.getElementById('dict_checkboxes'));
@@ -41,7 +42,7 @@ var Options = {
     });
   },
 
-  restore_options: function() {
+  restoreOptions: function() {
     chrome.storage.sync.get(DEFAULT_OPTIONS, function(items){
       $('input[name=open_method][value="' + items.open_method +'"]').prop('checked', true);
       $('input[name=close_method][value="' + items.close_method +'"]').prop('checked', true);
