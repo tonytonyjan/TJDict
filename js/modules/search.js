@@ -1,7 +1,7 @@
 var Search = {
   init: function(){
     var queryString = Index.queryString();
-    if(Search.validQuery()){
+    if(Search.isValidQuery()){
       record_query(queryString, urlParams.url);
       $('#dict_nav').show();
       chrome.storage.sync.get(DEFAULT_OPTIONS, function(items){
@@ -36,7 +36,7 @@ var Search = {
     return ret;
   },
 
-  validQuery: function(){
+  isValidQuery: function(){
     var queryString = Index.queryString();
     return queryString && !queryString.match(/TJDict/i);
   }

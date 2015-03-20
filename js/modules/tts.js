@@ -1,7 +1,7 @@
 var TTS = {
   init: function(){
     var matchedLanguages = Search.matchedLanguages();
-    if(!Search.validQuery()) return;
+    if(!Search.isValidQuery()) return;
     // 顯示聲音選項，指定 id="tts_語言"
     for(var i in matchedLanguages)
       $('#tts_list').append('<li data-lang="' + matchedLanguages[i] + '"><a href="#">' + TRANSLATION[matchedLanguages[i]] + '</a></li>');
