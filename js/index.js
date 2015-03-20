@@ -33,8 +33,8 @@ var Index = {
   }
 };
 
-Index.init();
 Options.init();
 Search.init();
 KK.init();
 TTS.init();
+Index.init();
