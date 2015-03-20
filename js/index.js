@@ -1,4 +1,5 @@
 (function(){
+  Options.init();
   for(var i in DICTIONARIES) DICTIONARIES[i].id = i; // for reflection
   var queryString = urlParams.q ? urlParams.q.trim() : '';
   $('#q').val(queryString).focus().select();
