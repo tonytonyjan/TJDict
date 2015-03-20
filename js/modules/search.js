@@ -2,7 +2,7 @@ var Search = {
   init: function(){
     var queryString = Index.queryString();
     if(Search.isValidQuery()){
-      record_query(queryString, urlParams.url);
+      Logger.record(queryString, urlParams.url);
       $('#dict_nav').show();
       chrome.storage.sync.get(DEFAULT_OPTIONS, function(items){
         for(var i in items.order){
