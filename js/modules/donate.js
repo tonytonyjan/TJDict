@@ -7,7 +7,7 @@ var Donate = {
     google.payments.inapp.getSkuDetails({
       parameters: {'env': 'prod'},
       success: Donate.onSkuDetails,
-      failure: Donate.onFail
+      failure: Donate.onSkuDetailsFail
     });
   },
 
@@ -26,7 +26,7 @@ var Donate = {
     Donate.bindDonateButtons();
   },
 
-  onFail: function(data){
+  onSkuDetailsFail: function(data){
     console.error(data);
   },
 
@@ -36,12 +36,25 @@ var Donate = {
         'parameters': {'env': 'prod'},
         'sku': this.dataset.sku,
         'success': Donate.onPurchase,
-        'failure': Donate.onFail
+        'failure': Donate.onPurchaseFail
       });
     });
   },
 
   onPurchase: function(data){
-    console.log(data);
+    Donate.logPurchase(data.response);
+  },
+
+  onPurchaseFail: function(data){
+    Donate.logPurchase(data.response);
+  },
+
+  logPurchase: function(response){
+    chrome.identity.getProfileUserInfo(function(info){
+      Logger.firebase.child('purchases').push({
+        response: response,
+        uid: info.id
+      });
+    });
   }
 }
