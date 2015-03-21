@@ -33,10 +33,10 @@ var Donate = {
   bindDonateButtons: function(argument) {
     $('.donate-btn').click(function(e){
       google.payments.inapp.buy({
-        'parameters': {'env': 'prod'},
-        'sku': this.dataset.sku,
-        'success': Donate.onPurchase,
-        'failure': Donate.onPurchaseFail
+        parameters: {'env': 'prod'},
+        sku: this.dataset.sku,
+        success: Donate.onPurchase,
+        failure: Donate.onPurchaseFail
       });
     });
   },
