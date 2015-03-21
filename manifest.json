@@ -1,8 +1,8 @@
 {
-  "name": "TJDict",
+  "name": "TJDict 線上字典",
   "key": "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDxe7EOVTTF6Fxu3geDsJ37HIiJYs7sEVs06nKxugc2zZOsrlQ6/HLT2Wb3SkE6ljjA5rEUcuencJBTaQHdulQXK8Sle7qIY1U+4/pp03tFfKj9nYFOpN8I25hMQC+gubBW6K97SIrtjOlDqOgR6mxoL37loKkPAdeFblMViWzLBQIDAQAB",
   "short_name": "TJDict",
-  "description": "英漢、漢英、英英、日日網路整合字典",
+  "description": "免費英漢、漢英、英英、日日整合型網路字典，提供簡單的單字翻譯與解釋，靈感來自於 Lingoes 這套軟體，Lingoes 是一套整合各大字典且可以日漸擴充的軟體，TJDict 則是一套整合線上各大網路字典且可以日漸擴充的 Chrome 外掛。目前支援的字典有 Yahoo 字典、句酷雙語例句、Urban Dictionary、Weblo、牛津字典、VoiceTube。",
   "version": "1.12.1",
   "manifest_version": 2,
   "permissions": ["<all_urls>", "tabs", "storage", "notifications", "contextMenus", "tts"],
