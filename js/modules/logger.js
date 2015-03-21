@@ -12,7 +12,8 @@ var Logger = {
             uuid: info.id
           }
           if(typeof(url) === 'undefined') delete push_data.url;
-          var ref = new Firebase('https://tjdict.firebaseio.com/tracks');
+          if(isProduction()) var ref = new Firebase('https://tjdict.firebaseio.com/tracks');
+          else var ref = new Firebase('https://tjdict.firebaseio.com/tracks_dev');
           ref.push(push_data);
         });
       });
