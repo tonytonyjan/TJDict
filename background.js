@@ -73,7 +73,7 @@ chrome.runtime.onInstalled.addListener(function(details){
     var current_version = chrome.runtime.getManifest().version;
     chrome.notifications.create('notification_update',{
       type: 'list',
-      title: '已更新至 ' + current_version,
+      title: '更新至 ' + current_version + '（請重整頁面）',
       iconUrl: 'img/icon128.png',
       message: '',
       items: CHANGELOG,
