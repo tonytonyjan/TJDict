@@ -65,6 +65,7 @@
         <hr>
         <a href="https://chrome.google.com/webstore/detail/tjdict/caafmojgjlbflohillejdmnghkpcjjpp/reviews" target="_blank" class="btn btn-warning btn-lg" role="button"><span class="glyphicon glyphicon-comment"></span> 評論</a>
         <a href="https://chrome.google.com/webstore/support/caafmojgjlbflohillejdmnghkpcjjpp" target="_blank" class="btn btn-danger btn-lg" role="button"> <span class="glyphicon glyphicon-wrench"></span> 意見</a>
+        <a href="#" class="btn btn-success btn-lg" role="button" data-toggle="modal" data-target="#modal_donate"> <span class="glyphicon glyphicon-heart"></span> 樂捐</a>
       </div>
     </div>
   </div>
@@ -195,6 +196,27 @@
       </div>
     </div>
   </div>
+  <div id="modal_donate" class="modal fade">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">關閉</span></button>
+          <h4 class="modal-title">樂捐</h4>
+        </div>
+        <div class="modal-body">
+        <table id="donate_table" class="table">
+          <thead>
+            <tr><th>等級</th><th>說明</th><th>金額</th><th></th></tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">關閉</button>
+        </div>
+      </div>
+    </div>
+  </div>
   <!-- modals END -->
 
   <!-- init -->
@@ -219,6 +241,7 @@
   <script src="/js/modules/kk.js"></script>
   <script src="/js/modules/tts.js"></script>
   <script src="/js/modules/logger.js"></script>
+  <script src="/js/modules/donate.js"></script>
   <script src="/js/index.js"></script>
 </body>
 </html>

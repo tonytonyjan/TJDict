@@ -4,16 +4,6 @@ var Index = {
     Index.showVersion();
     Index.focusField();
     Index.showSettings();
-    google.payments.inapp.buy({
-      parameters: {'env': 'prod'},
-      sku: 'test_1',
-      success: function(argument){
-        console.log(argument);
-      },
-      failure: function(argument){
-        console.error(argument);
-      }
-    });
   },
 
   queryString: function(){
@@ -48,3 +38,4 @@ Search.init();
 KK.init();
 TTS.init();
 Index.init();
+Donate.init();
