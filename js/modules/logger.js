@@ -1,13 +1,7 @@
 var Logger = {
   init: function(){
     Logger.setFirebase();
-    $('[data-track-click]').click(function(e){
-      var pushData = {
-        click: this.dataset.trackClick,
-        timestamp: Logger.timestamp()
-      };
-      Logger.firebase.child('clicks').push(pushData);
-    });
+    $('[data-track-click]').click(Logger.onTrackClick);
   },
 
   setFirebase: function() {
@@ -15,6 +9,17 @@ var Logger = {
       Logger.firebase = new Firebase('https://tjdict.firebaseio.com');
     else
       Logger.firebase = new Firebase('https://tjdict.firebaseio.com/tracks_dev');
+  },
+
+  onTrackClick: function(e){
+    chrome.identity.getProfileUserInfo(function(info){
+      var pushData = {
+        click: e.target.dataset.trackClick,
+        timestamp: Logger.timestamp(),
+        uid: info.id
+      };
+      Logger.firebase.child('clicks').push(pushData);
+    });
   },
 
   timestamp: function() {
