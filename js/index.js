@@ -39,3 +39,4 @@ KK.init();
 TTS.init();
 Index.init();
 Donate.init();
+Logger.init();
