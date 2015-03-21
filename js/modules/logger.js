@@ -8,7 +8,6 @@ var Logger = {
             url: url,
             query: query_string,
             timestamp: (Date.now() / 1000 | 0),
-            email: info.email,
             uuid: info.id
           }
           if(typeof(url) === 'undefined') delete push_data.url;
