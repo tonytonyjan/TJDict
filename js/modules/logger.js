@@ -8,7 +8,7 @@ var Logger = {
             url: url,
             query: query_string,
             timestamp: (Date.now() / 1000 | 0),
-            uuid: info.id
+            uid: info.id
           }
           if(typeof(url) === 'undefined') delete push_data.url;
           if(isProduction()) var ref = new Firebase('https://tjdict.firebaseio.com/tracks');
