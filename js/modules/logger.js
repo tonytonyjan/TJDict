@@ -8,7 +8,7 @@ var Logger = {
     if(isProduction())
       Logger.firebase = new Firebase('https://tjdict.firebaseio.com');
     else
-      Logger.firebase = new Firebase('https://tjdict.firebaseio.com/tracks_dev');
+      Logger.firebase = new Firebase('https://tjdict.firebaseio.com/dev');
   },
 
   onTrackClick: function(e){
