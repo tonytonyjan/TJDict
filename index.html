@@ -38,7 +38,7 @@
           <li><a href="#" data-toggle="modal" data-target="#modal_about" data-track-click="nav_about"><span class="glyphicon glyphicon-question-sign"></span> 關於</a></li>
           <li><a href="#" data-toggle="modal" data-target="#modal_setting" data-track-click="nav_setting"><span class="glyphicon glyphicon-cog"></span> 設定</a></li>
           <li><a href="#" data-toggle="modal" data-target="#modal_faq" data-track-click="nav_faq"><span class="glyphicon glyphicon-question-sign"></span> FAQ</a></li>
-          <li><a id="nav_donate" href="#" data-toggle="modal" data-target="#modal_donate" data-track-click="nav_donate"><span class="glyphicon glyphicon-heart"></span> 樂捐</a></li>
+          <li><a id="nav_donate" href="#" data-toggle="modal" data-target="#modal_donate" data-track-click="nav_donate"><span class="glyphicon glyphicon-heart"></span> 贊助</a></li>
         </ul>
       </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
@@ -67,7 +67,7 @@
         <hr>
         <a href="https://chrome.google.com/webstore/detail/caafmojgjlbflohillejdmnghkpcjjpp/reviews" target="_blank" class="btn btn-warning btn-lg" role="button" data-track-click="reviews"><span class="glyphicon glyphicon-comment"></span> 評論</a>
         <a href="https://chrome.google.com/webstore/detail/caafmojgjlbflohillejdmnghkpcjjpp/support" target="_blank" class="btn btn-danger btn-lg" role="button" data-track-click="support"> <span class="glyphicon glyphicon-wrench"></span> 意見</a>
-        <a href="#" class="btn btn-success btn-lg" role="button" data-toggle="modal" data-target="#modal_donate" data-track-click="donate"> <span class="glyphicon glyphicon-heart"></span> 樂捐</a>
+        <a href="#" class="btn btn-success btn-lg" role="button" data-toggle="modal" data-target="#modal_donate" data-track-click="donate"> <span class="glyphicon glyphicon-heart"></span> 贊助</a>
       </div>
     </div>
   </div>
@@ -203,15 +203,25 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">關閉</span></button>
-          <h4 class="modal-title">樂捐</h4>
+          <h4 class="modal-title">贊助</h4>
         </div>
         <div class="modal-body">
-        <table id="donate_table" class="table">
-          <thead>
-            <tr><th>等級</th><th>說明</th><th>金額</th><th></th></tr>
-          </thead>
-          <tbody></tbody>
-        </table>
+          <div class="media">
+            <div class="media-left">
+              <a href="#"><img class="media-object img-circle" src="/img/avatar.png" height="128"></a>
+            </div>
+            <div class="media-body">
+              <h4 class="media-heading">嗨！</h4>
+              <p>筆者自 2012 開發 TJDict 至今，雖只能在工作之餘研發，但這些年多少個夜晚仍持續地維護著，最開心的莫過於讓正在使用的你能覺得更好用、用得開心。</p>
+              <p>TJDict 自上架以來一直是免費軟體，若你也覺得它不錯，不妨在下列等級中挑選你心目中覺得 TJDict 所值的價錢幫助筆者，抑或<a href="https://chrome.google.com/webstore/detail/caafmojgjlbflohillejdmnghkpcjjpp/reviews" target="_blank">對 TJDict 評分</a>，對筆者而言都是很重要的幫助，萬分感謝！</p>
+            </div>
+          </div>
+          <table id="donate_table" class="table">
+            <thead>
+              <tr><th>等級</th><th>說明</th><th>金額</th><th></th></tr>
+            </thead>
+            <tbody></tbody>
+          </table>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">關閉</button>
