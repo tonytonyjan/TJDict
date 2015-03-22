@@ -3,7 +3,7 @@ var Index = {
     Index.recordWindowSize();
     Index.showVersion();
     Index.focusField();
-    Index.showSettings();
+    Index.showModals();
   },
 
   queryString: function(){
@@ -28,8 +28,12 @@ var Index = {
     $('#q').val(Index.queryString()).focus().select();
   },
 
-  showSettings: function(){
+  showModals: function(){
     if(location.hash == '#options') $('#modal_setting').modal('show');
+    $('.modal').each(function(index, element){
+      var id = '#' + element.id;
+      if(location.hash == id) $(id).modal('show');
+    });
   }
 };
 
