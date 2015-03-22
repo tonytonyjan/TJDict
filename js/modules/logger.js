@@ -12,9 +12,10 @@ var Logger = {
   },
 
   onTrackClick: function(e){
+    var self = this;
     chrome.identity.getProfileUserInfo(function(info){
       var pushData = {
-        click: e.target.dataset.trackClick,
+        click: self.dataset.trackClick,
         timestamp: Logger.timestamp(),
         uid: info.id
       };

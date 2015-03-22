@@ -24,13 +24,14 @@ var Donate = {
       $('#donate_table > tbody').append(row);
     }
     Donate.bindDonateButtons();
+    Donate.updatePurchases();
   },
 
   onSkuDetailsFail: function(data){
     console.error(data);
   },
 
-  bindDonateButtons: function(argument) {
+  bindDonateButtons: function() {
     $('.donate-btn').click(function(e){
       google.payments.inapp.buy({
         parameters: {'env': 'prod'},
@@ -43,10 +44,29 @@ var Donate = {
 
   onPurchase: function(data){
     Donate.logPurchase(data.response);
+    Donate.updatePurchases();
   },
 
   onPurchaseFail: function(data){
     Donate.logPurchase(data.response);
+  },
+
+  updatePurchases: function(){
+    google.payments.inapp.getPurchases({
+      parameters: {'env': 'prod'},
+      success: Donate.onLicenseUpdate,
+      failure: Donate.onLicenseUpdateFail
+    });
+  },
+
+  onLicenseUpdate: function(data){
+    for(var i in data.response.details){
+      var purchase = data.response.details[i];
+    }
+  },
+
+  onLicenseUpdateFail: function(data){
+    console.error(data);
   },
 
   logPurchase: function(response){
