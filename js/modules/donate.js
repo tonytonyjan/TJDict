@@ -63,6 +63,10 @@ var Donate = {
   onLicenseUpdate: function(data){
     for(var i in data.response.details){
       var purchase = data.response.details[i];
+      if(purchase.state == 'ACTIVE')
+        $('[data-sku="' + purchase.sku + '"]')
+          .removeClass('btn-success').addClass('btn-warning')
+          .attr('disabled', 'disabled').text('已贊助');
     }
   },
 
