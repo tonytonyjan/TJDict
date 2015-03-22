@@ -38,7 +38,7 @@
           <li><a href="#" data-toggle="modal" data-target="#modal_about" data-track-click="nav_about"><span class="glyphicon glyphicon-question-sign"></span> 關於</a></li>
           <li><a href="#" data-toggle="modal" data-target="#modal_setting" data-track-click="nav_setting"><span class="glyphicon glyphicon-cog"></span> 設定</a></li>
           <li><a href="#" data-toggle="modal" data-target="#modal_faq" data-track-click="nav_faq"><span class="glyphicon glyphicon-question-sign"></span> FAQ</a></li>
-          <li><a id="nav_donate" href="#" data-toggle="modal" data-target="#modal_donate" data-track-click="nav_donate"><span class="glyphicon glyphicon-heart"></span> 贊助</a></li>
+          <li><a id="nav_donate" href="#" data-toggle="modal" data-target="#modal_donate" data-track-click="nav_donate" style="display:none"><span class="glyphicon glyphicon-heart"></span> 贊助</a></li>
         </ul>
       </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
@@ -49,7 +49,10 @@
     </div>
   </nav>
   <div id="main" class="container-fluid">
-    <div class="visible-xs-block"><span class="glyphicon glyphicon-volume-up"></span> <a href="#" data-toggle="modal" data-target="#modal_donate" data-track-click="top_donate"> 地方的筆者需要你的幫助</a></div>
+    <div id="top_donate_text" class="visible-xs-inline" style="display:none!important">
+      <span class="glyphicon glyphicon-volume-up"></span>
+      <a href="#" data-toggle="modal" data-target="#modal_donate" data-track-click="top_donate"> 地方的筆者需要你的幫助</a>
+    </div>
     <div id="intro" class="row">
       <div class="col-md-6">
         <img src="img/banner.png" class="img-rounded img-responsive">
@@ -206,14 +209,14 @@
           <h4 class="modal-title">贊助</h4>
         </div>
         <div class="modal-body">
-          <div class="media">
-            <div class="media-left">
-              <a href="#"><img class="media-object img-circle" src="/img/avatar.png" height="128"></a>
-            </div>
-            <div class="media-body">
-              <h4 class="media-heading">嗨！</h4>
-              <p>筆者自 2012 開發 TJDict 至今，雖只能在工作之餘研發，但這些年多少個夜晚仍持續地維護著，最開心的莫過於讓正在使用的你能覺得更好用、用得開心。</p>
-              <p>TJDict 自上架以來一直是免費軟體，若你也覺得它不錯，不妨在下列等級中挑選你心目中覺得 TJDict 所值的價錢幫助筆者，抑或<a href="https://chrome.google.com/webstore/detail/caafmojgjlbflohillejdmnghkpcjjpp/reviews" target="_blank">對 TJDict 評分</a>，對筆者而言都是很重要的幫助，萬分感謝！</p>
+          <div class="row">
+            <div class="col-sm-3"><img id="donate_avatar" class="img-responsive center-block img-circle" src="/img/avatar.png" style="height: 128px"></div>
+            <div class="col-sm-9">
+              <div id="donate_text">
+                <h4 class="media-heading">嗨！</h4>
+                <p>筆者自 2012 開發 TJDict 至今，雖只能在工作之餘研發，但這些年多少個夜晚仍持續地維護著，最開心的莫過於讓正在使用的你能覺得更好用、用得開心。</p>
+                <p>TJDict 自上架以來一直是免費軟體，若你也覺得它不錯，不妨在下列等級中挑選你心目中覺得 TJDict 所值的價錢幫助筆者，抑或<a href="https://chrome.google.com/webstore/detail/caafmojgjlbflohillejdmnghkpcjjpp/reviews" target="_blank">對 TJDict 評分</a>，無論何者對筆者而言都是很珍貴的幫助，萬分感謝 =)</p>
+              </div>
             </div>
           </div>
           <table id="donate_table" class="table">
@@ -222,22 +225,10 @@
             </thead>
             <tbody></tbody>
           </table>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">關閉</button>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div id="modal_thank_you" class="modal fade">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">關閉</span></button>
-          <h4 class="modal-title">感謝你的幫助！</h4>
-        </div>
-        <div class="modal-body">
-        <p>感謝你的幫助！</p>
+          <div id="medal"> 
+            <img src="/img/medals/blank.png" class="img-responsive center-block">
+            <h2 class="text-center">你還沒有獎牌⋯⋯</h2>
+          </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">關閉</button>

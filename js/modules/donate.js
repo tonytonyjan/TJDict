@@ -1,4 +1,11 @@
 var Donate = {
+  settings: {
+    medals: {
+      bronze: '青銅', silver: '白銀',
+      gold: '黃金', platinum: '白金'
+    }
+  },
+
   init: function(){
     Donate.showDonate();
   },
@@ -18,7 +25,7 @@ var Donate = {
     for(var i in data.response.details.inAppProducts){
       var product = data.response.details.inAppProducts[i];
       var localeData = product.localeData[0];
-      var price = product.prices[0]
+      var price = product.prices[0];
       var row = $('<tr><td>' + localeData.title + '</td><td>' + localeData.description +'</td><td>' + price.valueMicros / 1000000 + '</td><td><a href="#" class="btn btn-success donate-btn" data-sku="' + product.sku + '" data-track-click="' + product.sku + '">付款</a></td></tr>');
       row.find('[data-track-click]').click(Logger.onTrackClick);
       $('#donate_table > tbody').append(row);
@@ -44,7 +51,6 @@ var Donate = {
 
   onPurchase: function(data){
     Donate.logPurchase(data.response);
-    $('#modal_thank_you').modal('show');
     Donate.updatePurchases();
   },
 
@@ -61,12 +67,20 @@ var Donate = {
   },
 
   onLicenseUpdate: function(data){
+    var isDonated = false;
     for(var i in data.response.details){
       var purchase = data.response.details[i];
-      if(purchase.state == 'ACTIVE')
-        $('[data-sku="' + purchase.sku + '"]')
-          .removeClass('btn-success').addClass('btn-warning')
-          .attr('disabled', 'disabled').text('已付');
+      if(purchase.state == 'ACTIVE' && purchase.sku.lastIndexOf("donate_", 0) === 0 /* startWith */){
+        isDonated = true;
+        var medal = purchase.sku.match(/^donate_(.*)$/)[1];
+        Donate.updateDonateText(medal);
+        Donate.showMedal(medal);
+        break;
+      }
+    }
+    if(!isDonated){
+      $('#nav_donate').show();
+      if(Search.isValidQuery()) $('#top_donate_text').show();
     }
   },
 
@@ -81,5 +95,16 @@ var Donate = {
         uid: info.id
       });
     });
+  },
+
+  updateDonateText: function(medal) {
+    $('#donate_table').hide();
+    document.getElementById('donate_text').innerHTML = '<h4 class="media-heading">謝謝你！</h4><p>你買了' + Donate.settings.medals[medal] + '級贊助，非常感謝你的支持！</p>';
+    document.getElementById('donate_avatar').src = '/img/avatar_smile.png';
+  },
+
+  showMedal: function(medal){
+    $('#medal > img').attr('src', '/img/medals/' + medal + '.png');
+    $('#medal > h2').html('<span class="glyphicon glyphicon-star"></span> ' + Donate.settings.medals[medal] + ' <span class="glyphicon glyphicon-star"></span>');
   }
 }
