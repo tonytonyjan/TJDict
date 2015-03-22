@@ -44,6 +44,7 @@ var Donate = {
 
   onPurchase: function(data){
     Donate.logPurchase(data.response);
+    $('#modal_thank_you').modal('show');
     Donate.updatePurchases();
   },
 
