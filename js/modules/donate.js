@@ -89,13 +89,7 @@ var Donate = {
   },
 
   logPurchase: function(response){
-    chrome.identity.getProfileUserInfo(function(info){
-      Logger.firebase.child('purchases').push({
-        response: response,
-        uid: info.id,
-        timestamp: Logger.timestamp()
-      });
-    });
+    Logger.log('purchases', {response: response});
   },
 
   updateDonateText: function(medal) {

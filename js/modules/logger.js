@@ -1,49 +1,39 @@
 var Logger = {
   init: function(){
-    Logger.setFirebase();
+    Logger.setVariables();
     $('[data-track-click]').click(Logger.onTrackClick);
   },
 
-  setFirebase: function() {
-    if(isProduction())
-      Logger.firebase = new Firebase('https://tjdict.firebaseio.com');
-    else
-      Logger.firebase = new Firebase('https://tjdict.firebaseio.com/dev');
+  // setup firebase, ip, uid, deferreds
+  setVariables: function() {
+    if(isProduction()) Logger.firebase = new Firebase('https://tjdict.firebaseio.com');
+    else Logger.firebase = new Firebase('https://tjdict.firebaseio.com/dev');
+    Logger.deferreds = []
+    Logger.deferreds.push($.get('http://freegeoip.net/json', function(ipData){
+      Logger.ip = ipData.ip;
+    }));
+    Logger.deferreds.push($.Deferred(function(){
+      var self = this;
+      chrome.identity.getProfileUserInfo(function(info){
+        Logger.uid = info.id;
+        self.resolve();
+      });
+    }));
   },
 
   onTrackClick: function(e){
-    var self = this;
-    chrome.identity.getProfileUserInfo(function(info){
-      var pushData = {
-        click: self.dataset.trackClick,
-        timestamp: Logger.timestamp(),
-        uid: info.id
+    Logger.log('clicks', {click: this.dataset.trackClick});
+  },
+
+  log: function(type, data){
+    $.when.apply($, Logger.deferreds).then(function(){
+      var defaults = {
+        uid: Logger.uid,
+        ip: Logger.ip,
+        timestamp: Date.now() / 1000 | 0
       };
-      Logger.firebase.child('clicks').push(pushData);
+      var pushData = $.extend(defaults, data);
+      Logger.firebase.child(type).push(pushData);
     });
-  },
-
-  timestamp: function() {
-    return Date.now() / 1000 | 0;
-  },
-
-  record: function(query_string, url){
-    try{
-      chrome.identity.getProfileUserInfo(function(info){
-        $.get('http://freegeoip.net/json', function(data){
-          var push_data = {
-            ip: data.ip,
-            url: url,
-            query: query_string,
-            timestamp: Logger.timestamp(),
-            uid: info.id
-          }
-          if(typeof(url) === 'undefined') delete push_data.url;
-          Logger.firebase.child('tracks').push(push_data);
-        });
-      });
-    }catch(err){
-      console.error(err.message);
-    }
   }
 }
