@@ -74,7 +74,7 @@ var Donate = {
         isDonated = true;
         var medal = purchase.sku.match(/^donate_(.*)$/)[1];
         Donate.updateDonateText(medal);
-        Donate.showMedal(medal);
+        Donate.showRibbon(medal);
         break;
       }
     }
@@ -96,11 +96,6 @@ var Donate = {
     $('#donate_table').hide();
     document.getElementById('donate_text').innerHTML = '<h4 class="media-heading">謝謝你！</h4><p>你買了' + Donate.settings.medals[medal] + '級贊助，非常感謝你的支持！</p>';
     document.getElementById('donate_avatar').src = '/img/avatar_smile.png';
-  },
-
-  showMedal: function(medal){
-    $('#medal > img').attr('src', '/img/medals/' + medal + '.png');
-    $('#medal > h2').html('<span class="glyphicon glyphicon-star"></span> ' + Donate.settings.medals[medal] + ' <span class="glyphicon glyphicon-star"></span>');
   },
 
   showRibbon: function(medal){
