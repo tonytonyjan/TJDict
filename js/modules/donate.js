@@ -101,5 +101,28 @@ var Donate = {
   showMedal: function(medal){
     $('#medal > img').attr('src', '/img/medals/' + medal + '.png');
     $('#medal > h2').html('<span class="glyphicon glyphicon-star"></span> ' + Donate.settings.medals[medal] + ' <span class="glyphicon glyphicon-star"></span>');
+  },
+
+  showRibbon: function(medal){
+    var starClasses = Donate.medalStarClasses(medal);
+    var s = '<a href="#">';
+    for(var i in starClasses)
+      s += '<span class="glyphicon ' + starClasses[i] + '"></span> ';
+    s += Donate.settings.medals[medal] + '贊助';
+    starClasses.reverse();
+    for(var i in starClasses)
+      s += ' <span class="glyphicon ' + starClasses[i] + '"></span>';
+    s += '</a>';
+    $('#ribbon').html(s);
+  },
+
+  medalStarClasses: function(medal){
+    switch(medal){
+      case 'bronze': return ['glyphicon-star-empty'];
+      case 'silver': return ['glyphicon-star'];
+      case 'gold': return ['glyphicon-star-empty', 'glyphicon-star'];
+      case 'platinum': return ['glyphicon-star', 'glyphicon-star'];
+      default: return "";
+    }
   }
 }
