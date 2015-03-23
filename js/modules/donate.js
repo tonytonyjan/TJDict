@@ -92,7 +92,8 @@ var Donate = {
     chrome.identity.getProfileUserInfo(function(info){
       Logger.firebase.child('purchases').push({
         response: response,
-        uid: info.id
+        uid: info.id,
+        timestamp: Logger.timestamp()
       });
     });
   },
