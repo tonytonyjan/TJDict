@@ -9,11 +9,19 @@ var Donate = {
   },
 
   init: function(){
+    Donate.showDonateLinks();
     google.payments.inapp.getSkuDetails({
       parameters: {'env': 'prod'},
       success: Donate.onSkuDetails,
       failure: Donate.onFail
     });
+  },
+
+  showDonateLinks: function(){
+    if(localStorage.isDonated == 'false'){
+      $('#nav_donate').show();
+      if(Search.isValidQuery()) $('#top_donate_text').show();
+    }
   },
 
   onSkuDetails: function(skuData){
@@ -69,11 +77,11 @@ var Donate = {
   },
 
   updateDonateText: function(licenDetails){
-    var isDonated = false;
+    localStorage.isDonated = false;
     for(var i in licenDetails){
       var purchase = licenDetails[i];
       if(purchase.state == 'ACTIVE'){
-        isDonated = true;
+        localStorage.isDonated = true;
         $('#donate_avatar').after('<p class="text-center">謝謝你的贊助！</p>');
         document.getElementById('donate_avatar').src = '/img/avatar_smile.png';
         document.getElementById('donate_close_btn').innerText = '關閉';
@@ -82,10 +90,7 @@ var Donate = {
           .attr('disabled', 'disabled').text('已贊助');
       }
     }
-    if(!isDonated){
-      $('#nav_donate').show();
-      if(Search.isValidQuery()) $('#top_donate_text').show();
-    }
+    Donate.showDonateLinks();
   },
 
   medalStarClasses: function(medal){
