@@ -75,6 +75,7 @@ var Donate = {
         var medal = purchase.sku.match(/^donate_(.*)$/)[1];
         Donate.updateDonateText(medal);
         Donate.showRibbon(medal);
+        $('#donate_close_btn').text('關閉');
         break;
       }
     }
