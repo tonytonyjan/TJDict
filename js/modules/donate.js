@@ -7,10 +7,6 @@ var Donate = {
   },
 
   init: function(){
-    Donate.showDonate();
-  },
-
-  showDonate: function(){
     google.payments.inapp.getSkuDetails({
       parameters: {'env': 'prod'},
       success: Donate.onSkuDetails,
@@ -18,20 +14,24 @@ var Donate = {
     });
   },
 
-  onSkuDetails: function(data){
-    data.response.details.inAppProducts.sort(function(a, b){
+  onSkuDetails: function(skuData){
+    Donate.showDonateButtons(skuData);
+    Donate.bindDonateButtons();
+    Donate.updateView();
+  },
+
+  showDonateButtons: function(skuData){
+    skuData.response.details.inAppProducts.sort(function(a, b){
       return a.prices[0].valueMicros - b.prices[0].valueMicros;
     });
-    for(var i in data.response.details.inAppProducts){
-      var product = data.response.details.inAppProducts[i];
+    for(var i in skuData.response.details.inAppProducts){
+      var product = skuData.response.details.inAppProducts[i];
       var localeData = product.localeData[0];
       var price = product.prices[0];
       var row = $('<tr><td>' + localeData.title + '</td><td>' + localeData.description +'</td><td>' + price.valueMicros / 1000000 + '</td><td><a href="#" class="btn btn-success donate-btn" data-sku="' + product.sku + '" data-track-click="' + product.sku + '">我要贊助</a></td></tr>');
       row.find('[data-track-click]').click(Logger.onTrackClick);
       $('#donate_table > tbody').append(row);
     }
-    Donate.bindDonateButtons();
-    Donate.updatePurchases();
   },
 
   bindDonateButtons: function() {
@@ -39,22 +39,22 @@ var Donate = {
       google.payments.inapp.buy({
         parameters: {'env': 'prod'},
         sku: this.dataset.sku,
-        success: Donate.onPurchase,
-        failure: Donate.onPurchaseFail
+        success: Donate.onBought,
+        failure: Donate.onBoughtFail
       });
     });
   },
 
-  onPurchase: function(data){
-    Donate.logPurchase(data.response);
-    Donate.updatePurchases();
+  onBought: function(data){
+    Logger.log('purchases', {response: response});
+    Donate.updateView();
   },
 
-  onPurchaseFail: function(data){
-    Donate.logPurchase(data.response);
+  onBoughtFail: function(data){
+    Logger.log('purchases', {response: response});
   },
 
-  updatePurchases: function(){
+  updateView: function(){
     google.payments.inapp.getPurchases({
       parameters: {'env': 'prod'},
       success: Donate.onLicenseUpdate,
@@ -64,31 +64,30 @@ var Donate = {
 
   onLicenseUpdate: function(data){
     var isDonated = false;
-    for(var i in data.response.details){
-      var purchase = data.response.details[i];
-      if(purchase.state == 'ACTIVE' && purchase.sku.lastIndexOf("donate_", 0) === 0 /* startWith */){
-        isDonated = true;
-        var medal = purchase.sku.match(/^donate_(.*)$/)[1];
-        Donate.updateDonateText(medal);
-        Donate.showRibbon(medal);
-        $('#donate_close_btn').text('關閉');
-        break;
-      }
-    }
-    if(!isDonated){
+    var medal = Donate.determineMedal(data);
+    if(medal){
+      Donate.updateDonateText(medal);
+      Donate.showRibbon(medal);
+    }else{
       $('#nav_donate').show();
       if(Search.isValidQuery()) $('#top_donate_text').show();
     }
   },
 
-  logPurchase: function(response){
-    Logger.log('purchases', {response: response});
+  determineMedal: function(licenDetail){
+    for(var i in licenDetail.response.details){
+      var purchase = licenDetail.response.details[i];
+      if(purchase.state == 'ACTIVE' && purchase.sku.lastIndexOf("donate_", 0) === 0 /* startWith */)
+        return purchase.sku.match(/^donate_(.*)$/)[1];
+    }
+    return undefined;
   },
 
   updateDonateText: function(medal) {
     $('#donate_table').hide();
     document.getElementById('donate_text').innerHTML = '<h4 class="media-heading">謝謝你！</h4><p>你買了' + Donate.settings.medals[medal] + '級贊助，非常感謝你的支持！</p>';
     document.getElementById('donate_avatar').src = '/img/avatar_smile.png';
+    document.getElementById('donate_close_btn').innerText = '關閉';
   },
 
   showRibbon: function(medal){
