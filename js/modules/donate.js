@@ -1,9 +1,11 @@
 var Donate = {
   settings: {
     medals: {
-      bronze: '青銅', silver: '白銀',
-      gold: '黃金', platinum: '白金'
-    }
+      bronze: {text: '青銅', color: '#CB6D51'},
+      silver: {text: '白銀', color: 'silver'},
+      gold: {text: '黃金', color: 'gold'},
+      platinum: {text: '白金', color: '#E5E4E2'}
+    },
   },
 
   init: function(){
@@ -85,7 +87,7 @@ var Donate = {
 
   updateDonateText: function(medal) {
     $('#donate_table').hide();
-    document.getElementById('donate_text').innerHTML = '<h4 class="media-heading">謝謝你！</h4><p>你買了' + Donate.settings.medals[medal] + '級贊助，非常感謝你的支持！</p>';
+    document.getElementById('donate_text').innerHTML = '<h4 class="media-heading">謝謝你！</h4><p>你買了' + Donate.settings.medals[medal].text + '級贊助，非常感謝你的支持！</p>';
     document.getElementById('donate_avatar').src = '/img/avatar_smile.png';
     document.getElementById('donate_close_btn').innerText = '關閉';
   },
@@ -93,14 +95,14 @@ var Donate = {
   showRibbon: function(medal){
     var starClasses = Donate.medalStarClasses(medal);
     var s = '<a href="#">';
-    for(var i in starClasses)
-      s += '<span class="glyphicon ' + starClasses[i] + '"></span> ';
-    s += Donate.settings.medals[medal] + '贊助';
+    for(var i in starClasses) s += '<span class="glyphicon ' + starClasses[i] + '"></span> ';
+    var medalData = Donate.settings.medals[medal]
+    s += medalData.text + '贊助';
     starClasses.reverse();
     for(var i in starClasses)
       s += ' <span class="glyphicon ' + starClasses[i] + '"></span>';
     s += '</a>';
-    $('#ribbon').html(s);
+    $('#ribbon').html(s).css({'background-color': medalData.color});
   },
 
   medalStarClasses: function(medal){
