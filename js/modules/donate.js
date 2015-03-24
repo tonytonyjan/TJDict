@@ -14,7 +14,7 @@ var Donate = {
     google.payments.inapp.getSkuDetails({
       parameters: {'env': 'prod'},
       success: Donate.onSkuDetails,
-      failure: Donate.onSkuDetailsFail
+      failure: Donate.onFail
     });
   },
 
@@ -32,10 +32,6 @@ var Donate = {
     }
     Donate.bindDonateButtons();
     Donate.updatePurchases();
-  },
-
-  onSkuDetailsFail: function(data){
-    console.error(data);
   },
 
   bindDonateButtons: function() {
@@ -62,7 +58,7 @@ var Donate = {
     google.payments.inapp.getPurchases({
       parameters: {'env': 'prod'},
       success: Donate.onLicenseUpdate,
-      failure: Donate.onLicenseUpdateFail
+      failure: Donate.onFail
     });
   },
 
@@ -83,10 +79,6 @@ var Donate = {
       $('#nav_donate').show();
       if(Search.isValidQuery()) $('#top_donate_text').show();
     }
-  },
-
-  onLicenseUpdateFail: function(data){
-    console.error(data);
   },
 
   logPurchase: function(response){
