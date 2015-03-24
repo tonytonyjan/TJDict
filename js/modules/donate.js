@@ -48,12 +48,12 @@ var Donate = {
   },
 
   onBought: function(data){
-    Logger.log('purchases', {response: response});
+    Logger.log('purchases', {response: data.response});
     Donate.updateView();
   },
 
   onBoughtFail: function(data){
-    Logger.log('purchases', {response: response});
+    Logger.log('purchases', {response: data.response});
   },
 
   updateView: function(){
@@ -65,44 +65,27 @@ var Donate = {
   },
 
   onLicenseUpdate: function(data){
+    Donate.updateDonateText(data.response.details);
+  },
+
+  updateDonateText: function(licenDetails){
     var isDonated = false;
-    var medal = Donate.determineMedal(data);
-    if(medal){
-      Donate.updateDonateText(medal);
-      Donate.showRibbon(medal);
-    }else{
+    for(var i in licenDetails){
+      var purchase = licenDetails[i];
+      if(purchase.state == 'ACTIVE'){
+        isDonated = true;
+        $('#donate_avatar').after('<p class="text-center">謝謝你的贊助！</p>');
+        document.getElementById('donate_avatar').src = '/img/avatar_smile.png';
+        document.getElementById('donate_close_btn').innerText = '關閉';
+        $('[data-sku="' + purchase.sku + '"]')
+          .removeClass('btn-success').addClass('btn-warning')
+          .attr('disabled', 'disabled').text('已贊助');
+      }
+    }
+    if(!isDonated){
       $('#nav_donate').show();
       if(Search.isValidQuery()) $('#top_donate_text').show();
     }
-  },
-
-  determineMedal: function(licenDetail){
-    for(var i in licenDetail.response.details){
-      var purchase = licenDetail.response.details[i];
-      if(purchase.state == 'ACTIVE' && purchase.sku.lastIndexOf("donate_", 0) === 0 /* startWith */)
-        return purchase.sku.match(/^donate_(.*)$/)[1];
-    }
-    return undefined;
-  },
-
-  updateDonateText: function(medal) {
-    $('#donate_table').hide();
-    document.getElementById('donate_text').innerHTML = '<h4 class="media-heading">謝謝你！</h4><p>你買了' + Donate.settings.medals[medal].text + '級贊助，非常感謝你的支持！</p>';
-    document.getElementById('donate_avatar').src = '/img/avatar_smile.png';
-    document.getElementById('donate_close_btn').innerText = '關閉';
-  },
-
-  showRibbon: function(medal){
-    var starClasses = Donate.medalStarClasses(medal);
-    var s = '<a href="#">';
-    for(var i in starClasses) s += '<span class="glyphicon ' + starClasses[i] + '"></span> ';
-    var medalData = Donate.settings.medals[medal]
-    s += medalData.text + '贊助';
-    starClasses.reverse();
-    for(var i in starClasses)
-      s += ' <span class="glyphicon ' + starClasses[i] + '"></span>';
-    s += '</a>';
-    $('#ribbon').html(s).css({'background-color': medalData.color});
   },
 
   medalStarClasses: function(medal){
