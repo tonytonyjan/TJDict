@@ -6,8 +6,6 @@ var Logger = {
 
   // setup firebase, ip, uid, deferreds
   setVariables: function() {
-    if(isProduction()) Logger.firebase = new Firebase('https://tjdict.firebaseio.com');
-    else Logger.firebase = new Firebase('https://tjdict.firebaseio.com/dev');
     Logger.deferreds = []
     Logger.deferreds.push($.get('http://freegeoip.net/json', function(ipData){
       Logger.ip = ipData.ip;
@@ -33,7 +31,13 @@ var Logger = {
         timestamp: Date.now() / 1000 | 0
       };
       var pushData = $.extend(defaults, data);
-      Logger.firebase.child(type).push(pushData);
+
+      var firebaseRoot = isProduction() ? 'https://tjdict.firebaseio.com' : 'https://tjdict.firebaseio.com/dev';
+      if(Logger.firebase == undefined) Logger.firebase = new Firebase(firebaseRoot);
+      Firebase.goOnline();
+      Logger.firebase.child(type).push(pushData, function(){
+        Firebase.goOffline();
+      });
     });
   }
 }
