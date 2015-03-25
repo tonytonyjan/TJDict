@@ -25,3 +25,7 @@
 #nav_donate{
   color: greenyellow;
 }
+
+.typeahead {
+  z-index: 1051;
+}
