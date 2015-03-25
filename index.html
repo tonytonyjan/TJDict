@@ -27,7 +27,7 @@
       <form class="navbar-form navbar-left" action="/index.html" role="search">
         <div class="form-group">
           <div class="input-group">
-            <input id="q" type="text" name="q" class="form-control" placeholder="請輸入單字">
+            <input id="q" type="text" name="q" class="form-control" placeholder="請輸入單字" data-provide="typeahead" autocomplete="off">
             <div class="input-group-btn">
               <button id="tts" class="btn btn-default disabled" type="button"><span class="glyphicon glyphicon-volume-up"></span></button>
               <button id="lang_dropdown" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
@@ -246,6 +246,8 @@
   <script src="/js/firebase-2.2.3.min.js"></script>
   <script src="/js/jquery-2.1.1.min.js"></script>
   <script src="/js/bootstrap.min.js"></script>
+  <script src="/js/bloodhound.js"></script>
+  <script src="/js/bootstrap3-typeahead.min.js"></script>
   <script src="/js/sortable.min.js"></script>
   <script src="/js/buy.js"></script>
   <script src="/js/global.js"></script>
@@ -261,6 +263,7 @@
   <!-- launch -->
   <script src="/js/modules/options.js"></script>
   <script src="/js/modules/search.js"></script>
+  <script src="/js/modules/typeahead.js"></script>
   <script src="/js/modules/kk.js"></script>
   <script src="/js/modules/tts.js"></script>
   <script src="/js/modules/logger.js"></script>

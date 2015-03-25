@@ -42,5 +42,6 @@ Logger.init();
 Search.init();
 KK.init();
 TTS.init();
-Index.init();
 Donate.init();
+Typeahead.init();
+Index.init();
