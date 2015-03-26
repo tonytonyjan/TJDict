@@ -25,7 +25,9 @@ var Index = {
   },
 
   focusField: function(){
-    $('#q').val(Index.queryString()).select();
+    var q = document.getElementById('q');
+    q.value = Index.queryString();
+    q.setSelectionRange(0, q.value.length)
   },
 
   showModals: function(){
