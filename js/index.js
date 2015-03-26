@@ -25,7 +25,7 @@ var Index = {
   },
 
   focusField: function(){
-    $('#q').val(Index.queryString()).focus().select();
+    $('#q').val(Index.queryString()).select();
   },
 
   showModals: function(){
