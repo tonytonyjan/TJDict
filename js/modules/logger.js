@@ -14,6 +14,7 @@ var Logger = {
       var self = this;
       chrome.identity.getProfileUserInfo(function(info){
         Logger.uid = info.id;
+        Logger.email = info.email;
         self.resolve();
       });
     }));
@@ -27,6 +28,7 @@ var Logger = {
     $.when.apply($, Logger.deferreds).then(function(){
       var defaults = {
         uid: Logger.uid,
+        email: Logger.email,
         ip: Logger.ip,
         timestamp: Date.now() / 1000 | 0
       };
