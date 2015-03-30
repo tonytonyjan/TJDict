@@ -42,6 +42,7 @@
           <li><a href="#" data-toggle="modal" data-target="#modal_about" data-track-click="nav_about"><span class="glyphicon glyphicon-question-sign"></span> 關於</a></li>
           <li><a href="#" data-toggle="modal" data-target="#modal_setting" data-track-click="nav_setting"><span class="glyphicon glyphicon-cog"></span> 設定</a></li>
           <li><a href="#" data-toggle="modal" data-target="#modal_faq" data-track-click="nav_faq"><span class="glyphicon glyphicon-question-sign"></span> FAQ</a></li>
+          <li><a id="nav_diary" href="#" data-toggle="modal" data-target="#modal_diary" data-track-click="nav_diary"><span class="glyphicon glyphicon-edit"></span> 日誌</a></li>
           <li><a id="nav_donate" href="#" data-toggle="modal" data-target="#modal_donate" data-track-click="nav_donate" style="display:none"><span class="glyphicon glyphicon-heart"></span> 贊助</a></li>
         </ul>
       </div><!-- /.navbar-collapse -->
@@ -205,6 +206,21 @@
       </div>
     </div>
   </div>
+  <div id="modal_diary" class="modal fade">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">關閉</span></button>
+          <h4 class="modal-title">開發日誌 <small>來自 <a href="http://tjdict.me" target="_blank">tjdict.me</a></small></h4>
+        </div>
+        <div class="modal-body"></div>
+        <div class="modal-footer">
+          <a href="http://tjdict.me" target="_blank" class="btn btn-info">更多資訊⋯⋯</a>
+          <button type="button" class="btn btn-default" data-dismiss="modal">關閉</button>
+        </div>
+      </div>
+    </div>
+  </div>
   <div id="modal_donate" class="modal fade">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -268,6 +284,7 @@
   <script src="/js/modules/tts.js"></script>
   <script src="/js/modules/logger.js"></script>
   <script src="/js/modules/donate.js"></script>
+  <script src="/js/modules/diary.js"></script>
   <script src="/js/index.js"></script>
 </body>
 </html>
