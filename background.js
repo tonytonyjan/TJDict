@@ -85,7 +85,7 @@ chrome.runtime.onInstalled.addListener(function(details){
 chrome.notifications.onButtonClicked.addListener(function(notificationId, buttonIndex){
   if(notificationId == 'notification_update')
     if(buttonIndex == 0)
-      chrome.tabs.create({url: '/CHANGELOG.md'});
+      chrome.tabs.create({url: 'http://tjdict.me'});
     else
       chrome.tabs.create({url: 'https://chrome.google.com/webstore/support/caafmojgjlbflohillejdmnghkpcjjpp'});
 });
