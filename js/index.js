@@ -46,4 +46,5 @@ KK.init();
 TTS.init();
 Donate.init();
 Typeahead.init();
+Diary.init();
 Index.init();
