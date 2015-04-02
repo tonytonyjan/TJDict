@@ -11,7 +11,7 @@ var Diary = {
         for(var i in data.response.posts){
           var post = data.response.posts[i];
           if(parseInt(localStorage.readAt || 0) < post.timestamp) newPostNumber++;
-          var content = '<div class="page-header"><h3><span class="glyphicon glyphicon-fire"></span> ' +
+          var content = '<div class="page-header"><h3><img src="img/avatar.png" class="img-circle" height="50"> ' +
             post.title + ' <small>發表於 <a href="' + post.post_url + '" target="_blank">' +
             post.date.match(/\d+-\d+-\d+/) + '</a></small></h3></div>' + post.body.replace(/<table>/g, '<table class="table table-condensed table-bordered">')
           $body.append(content);
