@@ -134,44 +134,62 @@
         </div>
 
         <div class="modal-body">
-          <h4>顯示方式</h4>
-          <label class="radio-inline">
-            <input type="radio" name="open_method" value="popup"> 跳出視窗
-          </label>
-          <label class="radio-inline">
-            <input type="radio" name="open_method" value="tab"> 分頁
-          </label>
-          <h4>關閉方式</h4>
-          <label class="radio-inline">
-            <input type="radio" name="close_method" value="auto"> 自動
-          </label>
-          <label class="radio-inline">
-            <input type="radio" name="close_method" value="manual"> 手動
-          </label>
-          <h4>操作方式</h4>
-          <div class="checkbox">
-            <label>
-              <input type="checkbox" name="hold_feature" value="true"> 長按一秒
-            </label>
-            <span class="help-block">適用於平板電腦</span>
-          </div>
-          <h4>啟用字典</h4>
-          <span class="help-block">拖曳可排序</span>
-          <div id="dict_checkboxes"></div>
-          <h4>遇到中文字/漢字的預設讀音</h4>
-          <span class="help-block">日文漢字與中文字編碼重疊，無法自動由程式判斷</span>
-          <label class="radio-inline">
-            <input type="radio" name="han_default_tts" value="zh"> 以中文發音
-          </label>
-          <label class="radio-inline">
-            <input type="radio" name="han_default_tts" value="ja"> 以日文發音
-          </label>
-          <h4>自動發音</h4>
-          <div class="checkbox">
-            <label>
-              <input type="checkbox" name="auto_tts" value="true"> 啟用
-            </label>
-            <span class="help-block">查字時是否自動發音</span>
+          <div role="tabpanel">
+            <ul class="nav nav-tabs" role="tablist">
+              <li role="presentation" class="active"><a href="#setting_view" aria-controls="setting_view" role="tab" data-toggle="tab">顯示</a></li>
+              <li role="presentation"><a href="#setting_control" aria-controls="setting_control" role="tab" data-toggle="tab">操作</a></li>
+              <li role="presentation"><a href="#setting_tts" aria-controls="setting_tts" role="tab" data-toggle="tab">發音</a></li>
+              <li role="presentation"><a href="#setting_dictionary" aria-controls="setting_dictionary" role="tab" data-toggle="tab">字典</a></li>
+            </ul>
+            <div class="tab-content">
+              <div role="tabpanel" class="tab-pane active" id="setting_view">
+                <h4>顯示方式</h4>
+                <label class="radio-inline">
+                  <input type="radio" name="open_method" value="popup"> 跳出視窗
+                </label>
+                <label class="radio-inline">
+                  <input type="radio" name="open_method" value="tab"> 分頁
+                </label>
+              </div>
+              <div role="tabpanel" class="tab-pane" id="setting_control">
+                <h4>關閉</h4>
+                <label class="radio-inline">
+                  <input type="radio" name="close_method" value="auto"> 自動
+                </label>
+                <label class="radio-inline">
+                  <input type="radio" name="close_method" value="manual"> 手動
+                </label>
+                <h4>開啟</h4>
+                <div class="checkbox">
+                  <label>
+                    <input type="checkbox" name="hold_feature" value="true"> 長按一秒
+                  </label>
+                  <span class="help-block">適用於無滑鼠、鍵盤的平板電腦</span>
+                </div>
+              </div>
+              <div role="tabpanel" class="tab-pane" id="setting_tts">
+                <h4>遇到中文字/漢字的預設讀音</h4>
+                <span class="help-block">日文漢字與中文字編碼重疊，無法自動由程式判斷</span>
+                <label class="radio-inline">
+                  <input type="radio" name="han_default_tts" value="zh"> 以中文發音
+                </label>
+                <label class="radio-inline">
+                  <input type="radio" name="han_default_tts" value="ja"> 以日文發音
+                </label>
+                <h4>自動發音</h4>
+                <div class="checkbox">
+                  <label>
+                    <input type="checkbox" name="auto_tts" value="true"> 啟用
+                  </label>
+                  <span class="help-block">查字時是否自動發音</span>
+                </div>
+              </div>
+              <div role="tabpanel" class="tab-pane" id="setting_dictionary">
+                <h4>啟用字典</h4>
+                <span class="help-block">拖曳可排序</span>
+                <div id="dict_checkboxes"></div>
+              </div>
+            </div>
           </div>
         </div>
         <div class="modal-footer">
