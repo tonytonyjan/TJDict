@@ -143,13 +143,19 @@
             </ul>
             <div class="tab-content">
               <div role="tabpanel" class="tab-pane active" id="setting_view">
-                <h4>顯示方式</h4>
                 <label class="radio-inline">
                   <input type="radio" name="open_method" value="popup"> 跳出視窗
                 </label>
                 <label class="radio-inline">
                   <input type="radio" name="open_method" value="tab"> 分頁
                 </label>
+                <span class="help-block">查單字時彈出視窗的方式</span>
+                <div class="checkbox">
+                  <label>
+                    <input type="checkbox" name="show_donate" value="true"> 顯示贊助訊息
+                  </label>
+                  <span class="help-block">是否顯示上方贊助訊息</span>
+                </div>
               </div>
               <div role="tabpanel" class="tab-pane" id="setting_control">
                 <h4>關閉</h4>
@@ -169,13 +175,13 @@
               </div>
               <div role="tabpanel" class="tab-pane" id="setting_tts">
                 <h4>遇到中文字/漢字的預設讀音</h4>
-                <span class="help-block">日文漢字與中文字編碼重疊，無法自動由程式判斷</span>
                 <label class="radio-inline">
                   <input type="radio" name="han_default_tts" value="zh"> 以中文發音
                 </label>
                 <label class="radio-inline">
                   <input type="radio" name="han_default_tts" value="ja"> 以日文發音
                 </label>
+                <span class="help-block">日文漢字與中文字編碼重疊，無法自動由程式判斷</span>
                 <h4>自動發音</h4>
                 <div class="checkbox">
                   <label>
