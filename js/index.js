@@ -48,3 +48,21 @@ Donate.init();
 Typeahead.init();
 Diary.init();
 Index.init();
+
+$('.navbar-form').submit(function(e) {
+  e.preventDefault();
+
+  $('#dict_nav_ul, #main').empty();
+
+  var q = $(this).find('input[name="q"]').val();
+
+  urlParams.q = q ? q.trim() : '';
+
+  window.history.pushState('TJDict', 'TJDict', '/index.html?q='+urlParams.q);
+
+  Search.init();
+  KK.init();
+  TTS.init();
+
+  return false;
+});
