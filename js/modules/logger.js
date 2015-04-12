@@ -30,6 +30,7 @@ var Logger = {
         uid: Logger.uid,
         email: Logger.email,
         ip: Logger.ip,
+        agent: navigator.userAgent,
         timestamp: Date.now() / 1000 | 0
       };
       var pushData = $.extend(defaults, data);
