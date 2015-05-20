@@ -5,7 +5,7 @@ DICTIONARIES.yahoo = {
   query: function(q, response){
     var self = this;
     $.get('http://tw.dictionary.search.yahoo.com/search?p=' + q).done(function(data){
-      response(self, $(data).find('.explanation_wrapper')[0]);
+      response(self, $(data).find('.DictionaryResults')[2]);
     });
   }
 };
