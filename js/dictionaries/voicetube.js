@@ -4,7 +4,7 @@ DICTIONARIES.voicetube = {
   langs: ['en'],
   query: function(q, response){
     var self = this;
-    $.getJSON('https://tw.voicetube.com/definition/' + q, {format: 'json'}, function(data){
+    $.getJSON('https://tw.voicetube.com/definition/' + q, {mtc: 'tjdict', format: 'json'}, function(data){
       s = '';
       var keys = [];
       for(var key in data.videos) keys.push(key);
