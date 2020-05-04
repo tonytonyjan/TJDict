@@ -5,7 +5,14 @@
   "description": "免費英漢、漢英、英英、日日整合型網路字典，提供簡單的單字翻譯與解釋。目前支援的字典有 Yahoo 字典、句酷雙語例句、Urban Dictionary、Weblo、牛津字典、VoiceTube。",
   "version": "1.15.4",
   "manifest_version": 2,
-  "permissions": ["<all_urls>", "tabs", "storage", "notifications", "contextMenus", "tts", "identity", "identity.email"],
+  "permissions": [
+    "storage",
+    "notifications",
+    "contextMenus",
+    "tts",
+    "identity",
+    "identity.email"
+  ],
   "content_security_policy": "script-src 'self' https://*.firebaseio.com; object-src 'self'",
   "icons": {
     "16": "img/icon16.png",
