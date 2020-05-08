@@ -40,8 +40,7 @@ var Donate = {
       var product = skuData.response.details.inAppProducts[i];
       var localeData = product.localeData[0];
       var price = product.prices[0];
-      var row = $('<tr><td>' + localeData.title + '</td><td>' + localeData.description +'</td><td>' + price.valueMicros / 1000000 + '</td><td><a href="#" class="btn btn-success donate-btn" data-sku="' + product.sku + '" data-track-click="' + product.sku + '">我要贊助</a></td></tr>');
-      row.find('[data-track-click]').click(Logger.onTrackClick);
+      var row = $('<tr><td>' + localeData.title + '</td><td>' + localeData.description +'</td><td>' + price.valueMicros / 1000000 + '</td><td><a href="#" class="btn btn-success donate-btn" data-sku="' + product.sku + '">我要贊助</a></td></tr>');
       $('#donate_table > tbody').append(row);
     }
   },
@@ -58,12 +57,11 @@ var Donate = {
   },
 
   onBought: function(data){
-    Logger.log('purchases', {response: data.response});
     Donate.updateView();
   },
 
   onBoughtFail: function(data){
-    Logger.log('purchases', {response: data.response});
+    console.error("bought failed");
   },
 
   updateView: function(){

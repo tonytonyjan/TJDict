@@ -40,7 +40,6 @@ var Index = {
 };
 
 Options.init();
-Logger.init();
 Search.init();
 KK.init();
 TTS.init();
