@@ -1,0 +1,8 @@
+#!/bin/sh
+data_dir=tmp/chrome-user-data-dir
+"$CHROME_BIN" \
+  --disable-web-security \
+  --user-data-dir=$data_dir \
+  --no-first-run \
+  --no-default-browser-check $@ &&
+  rm -rf $data_dir &
