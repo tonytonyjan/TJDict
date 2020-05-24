@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
+import PropTypes from "prop-types";
 
 const Dictionary = ({ query, dict }) => {
   const [content, setContent] = useState(null);
@@ -26,6 +27,11 @@ const Dictionary = ({ query, dict }) => {
       <div ref={contentRef}>{content}</div>
     </div>
   );
+};
+
+Dictionary.propTypes = {
+  query: PropTypes.string.isRequired,
+  dict: PropTypes.func.isRequired,
 };
 
 export default Dictionary;

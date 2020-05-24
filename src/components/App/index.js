@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import { HashRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Home from "components/Home";
 import About from "components/About";
 import Query from "components/Query";
 
-export default () => {
+const App = () => {
   return (
     <Router>
       <Link to="/">home</Link>
@@ -26,3 +26,5 @@ export default () => {
     </Router>
   );
 };
+
+export default App;
