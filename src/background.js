@@ -65,3 +65,7 @@ browser.windows.onFocusChanged.addListener((id) => {
   browser.windows.remove(windowId);
   windowId = browser.windows.WINDOW_ID_NONE;
 });
+
+browser.browserAction.onClicked.addListener(() => {
+  browser.tabs.create({ url: "index.html" });
+});
