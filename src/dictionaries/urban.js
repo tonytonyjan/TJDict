@@ -1,7 +1,11 @@
 import React from "react";
 
 const urban = (query) =>
-  fetch(`https://www.urbandictionary.com/define.php?term=${query}`)
+  fetch(
+    `https://www.urbandictionary.com/define.php?term=${encodeURIComponent(
+      query
+    )}`
+  )
     .then((response) => {
       if (!response.ok) throw new Error("not ok");
       return response.text();

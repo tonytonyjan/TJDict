@@ -1,5 +1,9 @@
 const yahoo = (query) =>
-  fetch(`https://tw.dictionary.search.yahoo.com/search?p=${query}`)
+  fetch(
+    `https://tw.dictionary.search.yahoo.com/search?p=${encodeURIComponent(
+      query
+    )}`
+  )
     .then((response) => {
       if (!response.ok) throw new Error("not ok");
       return response.text();

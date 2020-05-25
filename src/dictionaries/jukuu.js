@@ -1,7 +1,7 @@
 import React from "react";
 
 const jukuu = (query) =>
-  fetch(`http://www.jukuu.com/search.php?q=${query}`, {
+  fetch(`http://www.jukuu.com/search.php?q=${encodeURIComponent(query)}`, {
     referrerPolicy: "no-referrer",
   })
     .then((response) => {

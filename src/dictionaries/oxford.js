@@ -1,5 +1,5 @@
 const oxford = (query) =>
-  fetch(`https://www.lexico.com/en/definition/${query}`)
+  fetch(`https://www.lexico.com/en/definition/${encodeURIComponent(query)}`)
     .then((response) => {
       if (!response.ok) throw new Error("not ok");
       return response.text();

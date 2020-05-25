@@ -1,7 +1,11 @@
 import React from "react";
 
 const voicetube = (query) =>
-  fetch(`https://tw.voicetube.com/definition/${query}?format=json&mtc=tjdict`)
+  fetch(
+    `https://tw.voicetube.com/definition/${encodeURIComponent(
+      query
+    )}?format=json&mtc=tjdict`
+  )
     .then((response) => {
       if (!response.ok) throw new Error("not ok");
       return response.json();

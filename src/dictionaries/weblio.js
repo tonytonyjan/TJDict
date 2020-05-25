@@ -1,7 +1,7 @@
 const regex = /weblio\.jp\/content\/([^/]+)/;
 
 const weblio = (query) =>
-  fetch(`https://www.weblio.jp/content/${query}`)
+  fetch(`https://www.weblio.jp/content/${encodeURIComponent(query)}`)
     .then((response) => {
       if (!response.ok) throw new Error("not ok");
       return response.text();
