@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useRef, useEffect } from "react";
 import { Router, Switch, Route, Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCog, faInfo } from "@fortawesome/free-solid-svg-icons";
@@ -10,8 +10,17 @@ import { createHashHistory } from "history";
 import { matchPath } from "react-router";
 
 const history = createHashHistory();
+const matchQuery = (pathname) => {
+  const match = matchPath(pathname, {
+    path: "/q/:query",
+    exact: true,
+  });
+  return match ? match.params.query : "";
+};
+const initQuery = matchQuery(history.location.pathname);
 
 const App = () => {
+  const inputRef = useRef(null);
   const handleSubmit = useCallback((event) => {
     event.preventDefault();
     history.push(
@@ -19,10 +28,11 @@ const App = () => {
     );
   }, []);
 
-  const matchQuery = matchPath(history.location.pathname, {
-    path: "/q/:query",
-    exact: true,
-  });
+  useEffect(() => {
+    history.listen(
+      ({ pathname }) => (inputRef.current.value = matchQuery(pathname))
+    );
+  }, []);
 
   return (
     <Router history={history}>
@@ -36,13 +46,14 @@ const App = () => {
             onSubmit={handleSubmit}
           >
             <input
+              ref={inputRef}
               name="query"
               className="form-control"
               type="search"
               placeholder="請輸入單字……"
               autoComplete="off"
               autoFocus
-              defaultValue={matchQuery && matchQuery.params.query}
+              defaultValue={initQuery}
             />
           </form>
           <button
