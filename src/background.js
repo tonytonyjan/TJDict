@@ -2,17 +2,19 @@ import browser from "./browser";
 
 let x = 0,
   y = 0,
+  width = 575,
+  height = 355,
   windowId = browser.windows.WINDOW_ID_NONE;
 
 const popup = ({ text, x, y }) => {
   browser.windows.create(
     {
-      url: `index.html?q=${encodeURIComponent(text)}`,
+      url: `index.html#/q/${encodeURIComponent(text)}`,
       type: "popup",
       left: x,
       top: y,
-      width: 748,
-      height: 400,
+      width,
+      height,
     },
     ({ id }) => {
       windowId = id;
@@ -23,7 +25,7 @@ const popup = ({ text, x, y }) => {
   );
 };
 
-browser.runtime.onMessage.addListener((message) => {
+browser.runtime.onMessage.addListener((message, sender) => {
   switch (message.type) {
     case "COORD":
       x = message.x;
@@ -35,6 +37,12 @@ browser.runtime.onMessage.addListener((message) => {
         x: message.x,
         y: message.y,
       });
+      break;
+    case "RESIZE":
+      if (sender.tab.windowId === windowId) {
+        width = message.width;
+        height = message.height;
+      }
       break;
     default:
       break;

@@ -1,5 +1,6 @@
 /node_modules
-/dist/*.js
-/dist/*.css
-/dist/*.map
+/dist/*
+!/dist/index.html
+!/dist/icons
+!/dist/manifest.json
 /tmp

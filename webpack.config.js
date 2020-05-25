@@ -27,6 +27,32 @@ module.exports = (_env, argv) => ({
         test: /\.css$/i,
         use: [MiniCssExtractPlugin.loader, "css-loader"],
       },
+      {
+        test: /\.scss$/i,
+        use: [
+          MiniCssExtractPlugin.loader,
+          {
+            loader: "css-loader",
+          },
+          {
+            loader: "postcss-loader",
+            options: {
+              plugins: [require("autoprefixer")],
+            },
+          },
+          {
+            loader: "sass-loader",
+          },
+        ],
+      },
+      {
+        test: /\.(png|jpe?g|gif)$/i,
+        use: [
+          {
+            loader: "file-loader",
+          },
+        ],
+      },
     ],
   },
   plugins: [new MiniCssExtractPlugin()],
