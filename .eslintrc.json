@@ -1,7 +1,8 @@
 {
   "env": {
     "browser": true,
-    "webextensions": true
+    "webextensions": true,
+    "es2017": true
   },
   "extends": [
     "eslint:recommended",
@@ -9,7 +10,6 @@
     "plugin:prettier/recommended"
   ],
   "parserOptions": {
-    "ecmaVersion": 2017,
     "sourceType": "module",
     "ecmaFeatures": {
       "jsx": true

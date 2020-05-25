@@ -1,10 +1,17 @@
 import browser from "./browser";
+import settings from "./settings";
+import db from "./db";
 
 let x = 0,
   y = 0,
   width = 575,
   height = 355,
   windowId = browser.windows.WINDOW_ID_NONE;
+
+settings.then((settings) => {
+  width = settings.width;
+  height = settings.height;
+});
 
 const popup = ({ text, x, y }) => {
   browser.windows.create(
@@ -42,6 +49,12 @@ browser.runtime.onMessage.addListener((message, sender) => {
       if (sender.tab.windowId === windowId) {
         width = message.width;
         height = message.height;
+        db.then((db) => {
+          const transaction = db.transaction(["settings"], "readwrite");
+          const objectStore = transaction.objectStore("settings");
+          objectStore.put(width, "width");
+          objectStore.put(height, "height");
+        });
       }
       break;
     default:
