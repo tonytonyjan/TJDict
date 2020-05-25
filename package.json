@@ -3,7 +3,7 @@
     "start": "webpack --watch --mode development",
     "server": "webpack-dev-server",
     "test": "karma start",
-    "lint": "eslint src",
+    "lint": "eslint src test",
     "storybook": "start-storybook --ci --port 9000"
   },
   "devDependencies": {
