@@ -1,6 +1,7 @@
 {
   "scripts": {
     "start": "webpack --watch --mode development",
+    "server": "webpack-dev-server",
     "test": "karma start",
     "lint": "eslint src",
     "storybook": "start-storybook --ci --port 9000"
