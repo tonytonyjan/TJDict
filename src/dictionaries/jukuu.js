@@ -18,7 +18,10 @@ const jukuu = (query) =>
           {Array.from(trs1).map((i, index) => (
             <li key={index}>
               <p dangerouslySetInnerHTML={{ __html: i.innerHTML }}></p>
-              <p style={{ color: "blue" }}>{trs2[index].innerHTML}</p>
+              <p
+                style={{ color: "blue" }}
+                dangerouslySetInnerHTML={{ __html: trs2[index].innerHTML }}
+              />
             </li>
           ))}
         </ul>
