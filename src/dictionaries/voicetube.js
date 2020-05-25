@@ -19,41 +19,41 @@ const voicetube = (query) =>
       return (
         <div>
           <div dangerouslySetInnerHTML={{ __html: dom.body.innerHTML }} />
-          {Object.values(videos).map((video) => (
-            <div className="media" key={video.info.id}>
-              <div className="media-left">
+          <ul className="list-unstyled">
+            {Object.values(videos).map((video) => (
+              <li className="media" key={video.info.id}>
                 <a
+                  className="mr-3"
                   href={`https://tw.voicetube.com/videos/${video.info.id}`}
                   target="_blank"
                   rel="noreferrer noopener"
                 >
                   <img
-                    className="media-object"
                     src={`https://cdn.voicetube.com/assets/thumbnails/${video.info.youtube}.jpg`}
-                    height="100px"
+                    width="100"
                   />
                 </a>
-              </div>
-              <div className="media-body">
-                <h4 className="media-heading">{video.info.title}</h4>
-                <ol>
-                  {video.captions.map((caption, index) => (
-                    <li key={video.captions_id[index]}>
-                      <a
-                        href={`https://tw.voicetube.com/videos/${video.info.id}/${video.captions_id[index]}?word=${query}`}
-                        target="_blank"
-                        rel="noreferrer noopener"
-                      >
-                        {caption}
-                      </a>
-                      <br />
-                      {video.captions_zh[index]}
-                    </li>
-                  ))}
-                </ol>
-              </div>
-            </div>
-          ))}
+                <div className="media-body">
+                  <h6 className="mt-0">{video.info.title}</h6>
+                  <ol>
+                    {video.captions.map((caption, index) => (
+                      <li key={video.captions_id[index]}>
+                        <a
+                          href={`https://tw.voicetube.com/videos/${video.info.id}/${video.captions_id[index]}?word=${query}`}
+                          target="_blank"
+                          rel="noreferrer noopener"
+                        >
+                          {caption}
+                        </a>
+                        <br />
+                        {video.captions_zh[index]}
+                      </li>
+                    ))}
+                  </ol>
+                </div>
+              </li>
+            ))}
+          </ul>
         </div>
       );
     })
