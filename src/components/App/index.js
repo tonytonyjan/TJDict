@@ -29,9 +29,10 @@ const App = () => {
   }, []);
 
   useEffect(() => {
-    history.listen(
-      ({ pathname }) => (inputRef.current.value = matchQuery(pathname))
-    );
+    history.listen(({ pathname }) => {
+      const query = matchQuery(pathname);
+      if (query) inputRef.current.value = query;
+    });
   }, []);
 
   return (
