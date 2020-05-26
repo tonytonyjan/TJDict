@@ -28,6 +28,9 @@ const App = () => {
   const inputRef = useRef(null);
   const handleSubmit = useCallback((event) => {
     event.preventDefault();
+    const query = new FormData(event.target).get("query").trim();
+    if (!query) return;
+
     history.push(
       `/q/${encodeURIComponent(new FormData(event.target).get("query"))}`
     );
