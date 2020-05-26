@@ -2,6 +2,7 @@
   "scripts": {
     "start": "webpack --watch --mode development",
     "build": "webpack --mode production",
+    "package": "npm run build && mkdir -p pkg && cd dist && zip -r $(node -e 'console.log(`../pkg/TJDict-${require(\"./manifest.json\").version}.zip`)') .",
     "server": "webpack-dev-server",
     "test": "karma start",
     "lint": "eslint src test",
