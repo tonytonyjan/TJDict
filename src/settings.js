@@ -10,23 +10,24 @@ const defaultSettings = {
 };
 const avaliableKeys = Object.keys(defaultSettings);
 
-export default new Promise((resolve) => {
-  db.then((db) => {
-    const objectStore = db.transaction(["settings"]).objectStore("settings");
-    const settings = { ...defaultSettings };
-    objectStore.openCursor().onsuccess = ({ target: { result: cursor } }) => {
-      if (cursor) {
-        settings[cursor.key] =
-          typeof cursor.value !== undefined
-            ? cursor.value
-            : settings[cursor.key];
-        cursor.continue();
-      } else {
-        resolve(settings);
-      }
-    };
+export default () =>
+  new Promise((resolve) => {
+    db.then((db) => {
+      const objectStore = db.transaction(["settings"]).objectStore("settings");
+      const settings = { ...defaultSettings };
+      objectStore.openCursor().onsuccess = ({ target: { result: cursor } }) => {
+        if (cursor) {
+          settings[cursor.key] =
+            typeof cursor.value !== undefined
+              ? cursor.value
+              : settings[cursor.key];
+          cursor.continue();
+        } else {
+          resolve(settings);
+        }
+      };
+    });
   });
-});
 
 export const update = (settings) => {
   db.then((db) => {

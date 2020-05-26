@@ -75,7 +75,7 @@ const App = () => {
   }, []);
 
   useEffect(() => {
-    getSettings.then((settings) => setSettings(settings));
+    getSettings().then((settings) => setSettings(settings));
   }, []);
 
   return (

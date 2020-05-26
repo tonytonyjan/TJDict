@@ -5,30 +5,55 @@ let x = 0,
   y = 0,
   width = 575,
   height = 355,
-  windowId = browser.windows.WINDOW_ID_NONE;
+  windowId = browser.windows.WINDOW_ID_NONE,
+  tabId = browser.tabs.TAB_ID_NONE;
 
-settings.then((settings) => {
+settings().then((settings) => {
   width = settings.width;
   height = settings.height;
 });
 
 const popup = ({ text, x, y }) => {
-  browser.windows.create(
-    {
-      url: `index.html#/q/${encodeURIComponent(text)}`,
-      type: "popup",
-      left: x,
-      top: y,
-      width,
-      height,
-    },
-    ({ id }) => {
-      windowId = id;
-      // workaround for firefox bug 1271047
-      if (navigator.userAgent.toLowerCase().indexOf("firefox") > -1)
-        browser.windows.update(id, { left: x, top: y });
+  const url = `index.html#/q/${encodeURIComponent(text)}`;
+  settings().then((settings) => {
+    switch (settings.display) {
+      case "window":
+        browser.windows.create(
+          {
+            url,
+            type: "popup",
+            left: x,
+            top: y,
+            width,
+            height,
+          },
+          ({ id }) => {
+            windowId = id;
+            // workaround for firefox bug 1271047
+            if (navigator.userAgent.toLowerCase().indexOf("firefox") > -1)
+              browser.windows.update(id, { left: x, top: y });
+          }
+        );
+        break;
+      case "tab":
+        if (tabId === browser.tabs.TAB_ID_NONE)
+          browser.tabs.create({ url, active: true }, ({ id }) => {
+            tabId = id;
+          });
+        else
+          browser.tabs.update(tabId, { url, active: true }, () => {
+            if (browser.runtime.lastError) {
+              console.error(browser.runtime.lastError.message);
+              browser.tabs.create({ url, active: true }, ({ id }) => {
+                tabId = id;
+              });
+            }
+          });
+        break;
+      default:
+        break;
     }
-  );
+  });
 };
 
 browser.runtime.onMessage.addListener((message, sender) => {
@@ -83,4 +108,8 @@ browser.windows.onFocusChanged.addListener((id) => {
 
 browser.browserAction.onClicked.addListener(() => {
   browser.tabs.create({ url: "index.html" });
+});
+
+browser.tabs.onRemoved.addListener((id) => {
+  if (id === tabId) tabId = browser.tabs.TAB_ID_NONE;
 });
