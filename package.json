@@ -1,6 +1,7 @@
 {
   "scripts": {
     "start": "webpack --watch --mode development",
+    "build": "webpack --mode production",
     "server": "webpack-dev-server",
     "test": "karma start",
     "lint": "eslint src test",
