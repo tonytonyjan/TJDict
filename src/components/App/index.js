@@ -1,7 +1,7 @@
 import React, { useCallback, useRef, useEffect, useState } from "react";
 import { Router, Switch, Route, Link, Redirect } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCog, faInfo } from "@fortawesome/free-solid-svg-icons";
+import { faCog, faInfo, faVolumeDown } from "@fortawesome/free-solid-svg-icons";
 import Home from "components/Home";
 import About from "components/About";
 import Settings from "components/Settings";
@@ -12,6 +12,7 @@ import Dictionaries from "components/Dictionaries";
 import General from "components/General";
 import { default as getSettings, update as updateSettings } from "settings";
 import dictionaries from "dictionaries";
+import detectLanguage from "detectLanguage";
 
 const history = createHashHistory();
 const matchQuery = (pathname) => {
@@ -66,6 +67,22 @@ const App = () => {
     setSettings((prev) => ({ ...prev, [key]: value }));
   });
 
+  const speak = useCallback(() => {
+    const query = matchQuery(history.location.pathname);
+    if (!query) return;
+    const langs = detectLanguage(query);
+    if (!langs.length) return;
+    const utterance = new SpeechSynthesisUtterance(query);
+    utterance.lang = langs.includes(settings.kanjiPronounciation)
+      ? settings.kanjiPronounciation
+      : langs[0];
+    speechSynthesis.speak(utterance);
+  }, [settings]);
+
+  const handleQuery = useCallback(() => {
+    if (settings.autoPronounce) speak();
+  }, [speak, settings]);
+
   useEffect(() => {
     if (settings) updateSettings(settings);
   }, [settings]);
@@ -92,16 +109,28 @@ const App = () => {
             className="flex-grow-1 flex-sm-grow-0 mr-sm-4"
             onSubmit={handleSubmit}
           >
-            <input
-              ref={inputRef}
-              name="query"
-              className="form-control"
-              type="search"
-              placeholder="請輸入單字……"
-              autoComplete="off"
-              autoFocus
-              defaultValue={initQuery}
-            />
+            <div className="input-group">
+              <input
+                ref={inputRef}
+                name="query"
+                className="form-control"
+                type="search"
+                placeholder="請輸入單字……"
+                autoComplete="off"
+                autoFocus
+                defaultValue={initQuery}
+              />
+              <div className="input-group-append">
+                <button className="btn btn-primary" type="button">
+                  <FontAwesomeIcon
+                    fixedWidth
+                    icon={faVolumeDown}
+                    size="lg"
+                    onClick={speak}
+                  />
+                </button>
+              </div>
+            </div>
           </form>
           <button
             className="navbar-toggler"
@@ -140,6 +169,7 @@ const App = () => {
                 <Query
                   query={params.query}
                   dictionaryIds={settings.dictionaryIds}
+                  onQuery={handleQuery}
                 />
               )
             }

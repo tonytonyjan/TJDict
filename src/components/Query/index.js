@@ -9,7 +9,7 @@ import PropTypes from "prop-types";
 import Dictionary from "components/Dictionary";
 import dictionaries from "dictionaries";
 
-const Query = ({ query, dictionaryIds }) => {
+const Query = ({ query, dictionaryIds, onQuery }) => {
   const [activeDictId, setActiveDictId] = useState("");
   const [found, setFound] = useState({});
   const dictionaryRefs = useRef({});
@@ -39,6 +39,7 @@ const Query = ({ query, dictionaryIds }) => {
     setActiveDictId(activeDictId);
   }, [dictionaryIds, found]);
   useEffect(() => {
+    onQuery();
     setFound({});
   }, [query]);
   useEffect(() => {
@@ -93,6 +94,11 @@ Query.propTypes = {
   query: PropTypes.string.isRequired,
   dictionaryIds: PropTypes.arrayOf(PropTypes.oneOf(Object.keys(dictionaries)))
     .isRequired,
+  onQuery: PropTypes.func,
+};
+
+Query.defaultProps = {
+  onQuery: () => {},
 };
 
 export default Query;
