@@ -11,59 +11,50 @@ import dictionaries from "dictionaries";
 
 const Query = ({ query, dictionaryIds }) => {
   const [activeDictId, setActiveDictId] = useState("");
-  const foundStates = dictionaryIds.reduce((acc, dictId) => {
-    const [state, setState] = useState(false);
-    acc[dictId] = {
-      state,
-      setState,
-    };
-    return acc;
-  }, {});
-  const dictionaryRefs = dictionaryIds.reduce(
-    (acc, dictId) => ((acc[dictId] = useRef(null)), acc),
-    {}
+  const [found, setFound] = useState({});
+  const dictionaryRefs = useRef({});
+  const handleFound = useCallback(
+    (dictId) => {
+      setFound((prev) => ({ ...prev, [dictId]: true }));
+    },
+    [found]
   );
-  const handleFound = useCallback((dictId) => {
-    foundStates[dictId].setState(true);
-  }, []);
   const handleClickDict = useCallback((dictId) => {
     window.scrollTo({
-      top: dictionaryRefs[dictId].current.offsetTop,
+      top: dictionaryRefs.current[dictId].offsetTop,
     });
   }, []);
   const activateNav = useCallback(() => {
     const activeDictId = dictionaryIds
       .filter(
         (dictId) =>
-          foundStates[dictId].state &&
-          window.scrollY + 136 >= dictionaryRefs[dictId].current.offsetTop
+          found[dictId] &&
+          window.scrollY + 136 >= dictionaryRefs.current[dictId].offsetTop
       )
       .sort(
         (a, b) =>
-          dictionaryRefs[b].current.offsetTop -
-          dictionaryRefs[a].current.offsetTop
+          dictionaryRefs.current[b].offsetTop -
+          dictionaryRefs.current[a].offsetTop
       )[0];
     setActiveDictId(activeDictId);
-  }, [...Object.values(foundStates)]);
+  }, [dictionaryIds, found]);
   useEffect(() => {
-    Object.values(foundStates).forEach((foundState) =>
-      foundState.setState(false)
-    );
-  }, [query, dictionaryIds]);
+    setFound({});
+  }, [query]);
   useEffect(() => {
     window.addEventListener("scroll", activateNav);
     activateNav();
     return () => {
       window.removeEventListener("scroll", activateNav);
     };
-  }, [...Object.values(foundStates)]);
+  }, [activateNav]);
   return (
     <Fragment>
       <div className="sticky-top">
         <nav className="navbar navbar-light bg-light">
           <ul className="nav nav-pills flex-grow-1">
             {dictionaryIds
-              .filter((dictId) => foundStates[dictId].state)
+              .filter((dictId) => found[dictId])
               .map((dictId) => (
                 <li className="nav-item" key={dictId}>
                   <a
@@ -86,7 +77,7 @@ const Query = ({ query, dictionaryIds }) => {
       <div className="container">
         {dictionaryIds.map((dictId) => (
           <Dictionary
-            rootRef={dictionaryRefs[dictId]}
+            rootRef={(element) => (dictionaryRefs.current[dictId] = element)}
             query={query}
             dict={dictionaries[dictId]}
             onFound={handleFound}
@@ -100,11 +91,8 @@ const Query = ({ query, dictionaryIds }) => {
 
 Query.propTypes = {
   query: PropTypes.string.isRequired,
-  dictionaryIds: PropTypes.arrayOf(PropTypes.string).isRequired,
-};
-
-Query.defaultProps = {
-  dictionaryIds: ["yahoo", "weblio", "voicetube", "urban", "oxford", "jukuu"],
+  dictionaryIds: PropTypes.arrayOf(PropTypes.oneOf(Object.keys(dictionaries)))
+    .isRequired,
 };
 
 export default Query;
