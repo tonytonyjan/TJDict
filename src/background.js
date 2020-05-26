@@ -3,15 +3,8 @@ import settings, { update as updateSettings } from "./settings";
 
 let x = 0,
   y = 0,
-  width = 575,
-  height = 355,
   windowId = browser.windows.WINDOW_ID_NONE,
   tabId = browser.tabs.TAB_ID_NONE;
-
-settings().then((settings) => {
-  width = settings.width;
-  height = settings.height;
-});
 
 const popup = ({ text, x, y }) => {
   const url = `index.html#/q/${encodeURIComponent(text)}`;
@@ -24,8 +17,8 @@ const popup = ({ text, x, y }) => {
             type: "popup",
             left: x,
             top: y,
-            width,
-            height,
+            width: settings.width,
+            height: settings.height,
           },
           ({ id }) => {
             windowId = id;
@@ -70,11 +63,8 @@ browser.runtime.onMessage.addListener((message, sender) => {
       });
       break;
     case "RESIZE":
-      if (sender.tab.windowId === windowId) {
-        width = message.width;
-        height = message.height;
-        updateSettings({ width, height });
-      }
+      if (sender.tab.windowId === windowId)
+        updateSettings({ width: message.width, height: message.height });
       break;
     default:
       break;
