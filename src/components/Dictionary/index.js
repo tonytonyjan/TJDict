@@ -1,7 +1,7 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, forwardRef } from "react";
 import PropTypes from "prop-types";
 
-const Dictionary = ({ query, dict, onFound, rootRef }) => {
+const Dictionary = forwardRef(({ query, dict, onFound }, ref) => {
   const [content, setContent] = useState(null);
   const [found, setFound] = useState(false);
   const contentRef = useRef(null);
@@ -27,22 +27,20 @@ const Dictionary = ({ query, dict, onFound, rootRef }) => {
 
   return (
     found && (
-      <div ref={rootRef}>
+      <div ref={ref}>
         <h2 className="pb-2 mt-4 mb-2 border-bottom">{dict.name}</h2>
         <div ref={contentRef}>{content}</div>
       </div>
     )
   );
-};
+});
+
+Dictionary.displayName = Dictionary.name;
 
 Dictionary.propTypes = {
   query: PropTypes.string.isRequired,
   dict: PropTypes.func.isRequired,
   onFound: PropTypes.func,
-  rootRef: PropTypes.oneOfType([
-    PropTypes.func,
-    PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
-  ]),
 };
 
 Dictionary.defaultProps = {

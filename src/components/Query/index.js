@@ -77,7 +77,7 @@ const Query = ({ query, dictionaryIds }) => {
       <div className="container">
         {dictionaryIds.map((dictId) => (
           <Dictionary
-            rootRef={(element) => (dictionaryRefs.current[dictId] = element)}
+            ref={(element) => (dictionaryRefs.current[dictId] = element)}
             query={query}
             dict={dictionaries[dictId]}
             onFound={handleFound}
