@@ -1,6 +1,5 @@
 import browser from "./browser";
 import settings, { update as updateSettings } from "./settings";
-import db from "./db";
 
 let x = 0,
   y = 0,
