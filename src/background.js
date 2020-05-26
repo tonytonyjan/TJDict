@@ -1,5 +1,5 @@
 import browser from "./browser";
-import settings from "./settings";
+import settings, { update as updateSettings } from "./settings";
 import db from "./db";
 
 let x = 0,
@@ -49,12 +49,7 @@ browser.runtime.onMessage.addListener((message, sender) => {
       if (sender.tab.windowId === windowId) {
         width = message.width;
         height = message.height;
-        db.then((db) => {
-          const transaction = db.transaction(["settings"], "readwrite");
-          const objectStore = transaction.objectStore("settings");
-          objectStore.put(width, "width");
-          objectStore.put(height, "height");
-        });
+        updateSettings({ width, height });
       }
       break;
     default:
