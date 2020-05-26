@@ -60,7 +60,7 @@ const App = () => {
   }, []);
 
   const handleSettingsChange = useCallback(({ key, value }) => {
-    updateSettings({ [key]: value });
+    setSettings((prev) => ({ ...prev, [key]: value }));
   });
 
   useEffect(() => {
