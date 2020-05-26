@@ -10,7 +10,7 @@ import { createHashHistory } from "history";
 import { matchPath } from "react-router";
 import Dictionaries from "components/Dictionaries";
 import General from "components/General";
-import settings, { update as updateSettings } from "settings";
+import { default as getSettings, update as updateSettings } from "settings";
 import dictionaries from "dictionaries";
 
 const history = createHashHistory();
@@ -24,8 +24,7 @@ const matchQuery = (pathname) => {
 const initQuery = matchQuery(history.location.pathname);
 
 const App = () => {
-  const [settingsLoaded, setSettingsLoaded] = useState(false);
-  const [dictionaryIds, setDictionaryIds] = useState([]);
+  const [settings, setSettings] = useState(null);
   const inputRef = useRef(null);
   const handleSubmit = useCallback((event) => {
     event.preventDefault();
@@ -35,24 +34,38 @@ const App = () => {
   }, []);
 
   const handleAddDictionary = useCallback((dictId) => {
-    setDictionaryIds((prev) => [...prev, dictId]);
+    setSettings((prev) => ({
+      ...prev,
+      dictionaryIds: [...prev.dictionaryIds, dictId],
+    }));
   }, []);
 
   const handleMoveUpDictionary = useCallback((dictId) => {
-    setDictionaryIds((prev) => {
-      const index = prev.indexOf(dictId);
-      prev.splice(index - 1, 0, prev.splice(index, 1)[0]);
-      return [...prev];
+    setSettings((prev) => {
+      const index = prev.dictionaryIds.indexOf(dictId);
+      prev.dictionaryIds.splice(
+        index - 1,
+        0,
+        prev.dictionaryIds.splice(index, 1)[0]
+      );
+      return { ...prev, dictionaryIds: [...prev.dictionaryIds] };
     });
   }, []);
 
   const handleRemoveDictionary = useCallback((dictId) => {
-    setDictionaryIds((prev) => prev.filter((i) => i !== dictId));
+    setSettings((prev) => ({
+      ...prev,
+      dictionaryIds: prev.dictionaryIds.filter((i) => i !== dictId),
+    }));
   }, []);
 
+  const handleSettingsChange = useCallback(({ key, value }) => {
+    updateSettings({ [key]: value });
+  });
+
   useEffect(() => {
-    if (settingsLoaded) updateSettings({ dictionaryIds });
-  }, [dictionaryIds, settingsLoaded]);
+    if (settings) updateSettings(settings);
+  }, [settings]);
 
   useEffect(() => {
     history.listen(({ pathname }) => {
@@ -62,10 +75,7 @@ const App = () => {
   }, []);
 
   useEffect(() => {
-    settings.then(({ dictionaryIds }) => {
-      setDictionaryIds(dictionaryIds);
-      setSettingsLoaded(true);
-    });
+    getSettings.then((settings) => setSettings(settings));
   }, []);
 
   return (
@@ -123,7 +133,10 @@ const App = () => {
             exact
             path="/q/:query"
             render={({ match: { params } }) => (
-              <Query query={params.query} dictionaryIds={dictionaryIds} />
+              <Query
+                query={params.query}
+                dictionaryIds={settings.dictionaryIds}
+              />
             )}
           ></Route>
           <Route exact path="/about">
@@ -145,20 +158,30 @@ const App = () => {
                     >
                       <Switch>
                         <Route path={`${path}/general`}>
-                          <General />
+                          {settings && (
+                            <General
+                              display={settings.display}
+                              autoPronounce={settings.autoPronounce}
+                              kanjiPronounciation={settings.kanjiPronounciation}
+                              onChange={handleSettingsChange}
+                            />
+                          )}
                         </Route>
                         <Route path={`${path}/dictionaries`}>
-                          <Dictionaries
-                            dictionaryIds={dictionaryIds}
-                            unusedDictionaryIds={Object.keys(
-                              dictionaries
-                            ).filter(
-                              (dictId) => !dictionaryIds.includes(dictId)
-                            )}
-                            onAddDictionary={handleAddDictionary}
-                            onMoveUpDictionary={handleMoveUpDictionary}
-                            onRemoveDictionary={handleRemoveDictionary}
-                          />
+                          {settings && (
+                            <Dictionaries
+                              dictionaryIds={settings.dictionaryIds}
+                              unusedDictionaryIds={Object.keys(
+                                dictionaries
+                              ).filter(
+                                (dictId) =>
+                                  !settings.dictionaryIds.includes(dictId)
+                              )}
+                              onAddDictionary={handleAddDictionary}
+                              onMoveUpDictionary={handleMoveUpDictionary}
+                              onRemoveDictionary={handleRemoveDictionary}
+                            />
+                          )}
                         </Route>
                       </Switch>
                     </Settings>

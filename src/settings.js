@@ -4,6 +4,9 @@ const defaultSettings = {
   width: 575,
   height: 355,
   dictionaryIds: ["yahoo", "oxford", "jukuu"],
+  display: "window",
+  autoPronounce: true,
+  kanjiPronounciation: "ja",
 };
 const avaliableKeys = Object.keys(defaultSettings);
 
@@ -13,7 +16,10 @@ export default new Promise((resolve) => {
     const settings = { ...defaultSettings };
     objectStore.openCursor().onsuccess = ({ target: { result: cursor } }) => {
       if (cursor) {
-        settings[cursor.key] = cursor.value || settings[cursor.key];
+        settings[cursor.key] =
+          typeof cursor.value !== undefined
+            ? cursor.value
+            : settings[cursor.key];
         cursor.continue();
       } else {
         resolve(settings);
