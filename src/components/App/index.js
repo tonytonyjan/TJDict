@@ -132,12 +132,14 @@ const App = () => {
           <Route
             exact
             path="/q/:query"
-            render={({ match: { params } }) => (
-              <Query
-                query={params.query}
-                dictionaryIds={settings.dictionaryIds}
-              />
-            )}
+            render={({ match: { params } }) =>
+              settings && (
+                <Query
+                  query={params.query}
+                  dictionaryIds={settings.dictionaryIds}
+                />
+              )
+            }
           ></Route>
           <Route exact path="/about">
             <About />
