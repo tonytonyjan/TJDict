@@ -3,5 +3,6 @@
 !/dist/index.html
 !/dist/icons
 !/dist/manifest.json
+!/dist/ga.js
 /tmp
 /pkg

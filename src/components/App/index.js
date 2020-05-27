@@ -15,6 +15,10 @@ import dictionaries from "dictionaries";
 import detectLanguage from "detectLanguage";
 
 const history = createHashHistory();
+
+window.ga("set", "page", history.location.pathname);
+window.ga("send", "pageview");
+
 const matchQuery = (pathname) => {
   const match = matchPath(pathname, {
     path: "/q/:query",
@@ -89,6 +93,8 @@ const App = () => {
 
   useEffect(() => {
     history.listen(({ pathname }) => {
+      window.ga("set", "page", pathname);
+      window.ga("send", "pageview");
       const query = matchQuery(pathname);
       if (query) inputRef.current.value = query;
     });
