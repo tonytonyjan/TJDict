@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import PropTypes from "prop-types";
 import Dictionary from "components/Dictionary";
 import { withKnobs, text } from "@storybook/addon-knobs";
 import yahoo from "dictionaries/yahoo";
@@ -8,23 +9,48 @@ import urban from "dictionaries/urban";
 import oxford from "dictionaries/oxford";
 import jukuu from "dictionaries/jukuu";
 
-export default { title: "Dictionary", decorators: [withKnobs] };
+const DictContainer = ({ query, dict }) => {
+  const [content, setContent] = useState(null);
+  useEffect(() => {
+    dict(query).then((node) => {
+      if (node instanceof Node) {
+        const div = document.createElement("div");
+        div.appendChild(node);
+        setContent(<div dangerouslySetInnerHTML={{ __html: div.innerHTML }} />);
+      } else if (React.isValidElement(node)) {
+        setContent(node);
+      }
+    });
+  }, [query, dict]);
+  return content ? (
+    <Dictionary title={dict.name}>{content}</Dictionary>
+  ) : (
+    "loading..."
+  );
+};
+
+DictContainer.propTypes = {
+  query: PropTypes.string.isRequired,
+  dict: PropTypes.func,
+};
 
 export const yahooDict = () => (
-  <Dictionary query={text("Query", "test")} dict={yahoo} />
+  <DictContainer query={text("Query", "test")} dict={yahoo} />
 );
 export const weblioDict = () => (
-  <Dictionary query={text("Query", "試験")} dict={weblio} />
+  <DictContainer query={text("Query", "試験")} dict={weblio} />
 );
 export const voicetubeDict = () => (
-  <Dictionary query={text("Query", "test")} dict={voicetube} />
+  <DictContainer query={text("Query", "test")} dict={voicetube} />
 );
 export const urbanDict = () => (
-  <Dictionary query={text("Query", "test")} dict={urban} />
+  <DictContainer query={text("Query", "test")} dict={urban} />
 );
 export const oxfordDict = () => (
-  <Dictionary query={text("Query", "test")} dict={oxford} />
+  <DictContainer query={text("Query", "test")} dict={oxford} />
 );
 export const jukuuDict = () => (
-  <Dictionary query={text("Query", "test")} dict={jukuu} />
+  <DictContainer query={text("Query", "test")} dict={jukuu} />
 );
+
+export default { title: "Dictionary", decorators: [withKnobs] };
