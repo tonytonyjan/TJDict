@@ -30,6 +30,7 @@ const initQuery = matchQuery(history.location.pathname);
 
 const App = () => {
   const [settings, setSettings] = useState(null);
+  const [contents, setContents] = useState([]);
   const inputRef = useRef(null);
   const handleSubmit = useCallback((event) => {
     event.preventDefault();
@@ -83,9 +84,46 @@ const App = () => {
     speechSynthesis.speak(utterance);
   }, [settings]);
 
-  const handleQuery = useCallback(() => {
-    if (settings.autoPronounce) speak();
-  }, [speak, settings]);
+  const requestQuery = useCallback(
+    (query) => {
+      if (!settings) return;
+      if (settings.autoPronounce) speak();
+      setContents({});
+      settings.dictionaryIds.forEach((dictId) => {
+        dictionaries[dictId](query).then((node) => {
+          if (!node) {
+            setContents((prev) => ({
+              ...prev,
+              [dictId]: false,
+            }));
+            return;
+          }
+          if (node instanceof Node) {
+            const container = document.createElement("div");
+            container.appendChild(node);
+            setContents((prev) => ({
+              ...prev,
+              [dictId]: (
+                <div
+                  dangerouslySetInnerHTML={{ __html: container.innerHTML }}
+                ></div>
+              ),
+            }));
+          } else if (React.isValidElement(node)) {
+            setContents((prev) => ({
+              ...prev,
+              [dictId]: node,
+            }));
+          }
+        });
+      });
+    },
+    [settings, speak]
+  );
+
+  useEffect(() => {
+    getSettings().then((settings) => setSettings(settings));
+  }, []);
 
   useEffect(() => {
     if (settings) updateSettings(settings);
@@ -96,13 +134,15 @@ const App = () => {
       window.ga("set", "page", pathname);
       window.ga("send", "pageview");
       const query = matchQuery(pathname);
-      if (query) inputRef.current.value = query;
+      if (!query) return;
+      inputRef.current.value = query;
+      requestQuery(query);
     });
-  }, []);
+  }, [requestQuery]);
 
   useEffect(() => {
-    getSettings().then((settings) => setSettings(settings));
-  }, []);
+    if (settings && initQuery) requestQuery(initQuery);
+  }, [settings]);
 
   return (
     <Router history={history}>
@@ -167,19 +207,22 @@ const App = () => {
           <Route exact path="/">
             <Home />
           </Route>
-          <Route
-            exact
-            path="/q/:query"
-            render={({ match: { params } }) =>
-              settings && (
-                <Query
-                  query={params.query}
-                  dictionaryIds={settings.dictionaryIds}
-                  onQuery={handleQuery}
-                />
-              )
-            }
-          ></Route>
+          <Route exact path="/q/:query">
+            {settings && (
+              <Query
+                notFound={settings.dictionaryIds.every(
+                  (dictId) => contents[dictId] === false
+                )}
+                dictionaries={settings.dictionaryIds
+                  .map((dictId) => ({
+                    id: dictId,
+                    title: dictId,
+                    content: contents[dictId],
+                  }))
+                  .filter((dict) => dict.content)}
+              />
+            )}
+          </Route>
           <Route exact path="/about">
             <About />
           </Route>
