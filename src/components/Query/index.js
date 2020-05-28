@@ -10,25 +10,21 @@ import Dictionary from "components/Dictionary";
 import dictionaries from "dictionaries";
 
 const Query = ({ query, dictionaryIds, onQuery }) => {
+  const [contents, setContents] = useState({});
   const [activeDictId, setActiveDictId] = useState("");
-  const [found, setFound] = useState({});
   const dictionaryRefs = useRef({});
-  const handleFound = useCallback(
-    (dictId) => {
-      setFound((prev) => ({ ...prev, [dictId]: true }));
-    },
-    [found]
-  );
+
   const handleClickDict = useCallback((dictId) => {
     window.scrollTo({
       top: dictionaryRefs.current[dictId].offsetTop,
     });
   }, []);
+
   const activateNav = useCallback(() => {
     const activeDictId = dictionaryIds
       .filter(
         (dictId) =>
-          found[dictId] &&
+          contents[dictId] &&
           window.scrollY + 136 >= dictionaryRefs.current[dictId].offsetTop
       )
       .sort(
@@ -37,11 +33,8 @@ const Query = ({ query, dictionaryIds, onQuery }) => {
           dictionaryRefs.current[a].offsetTop
       )[0];
     setActiveDictId(activeDictId);
-  }, [dictionaryIds, found]);
-  useEffect(() => {
-    onQuery();
-    setFound({});
-  }, [query]);
+  }, [dictionaryIds, contents]);
+
   useEffect(() => {
     window.addEventListener("scroll", activateNav);
     activateNav();
@@ -49,13 +42,47 @@ const Query = ({ query, dictionaryIds, onQuery }) => {
       window.removeEventListener("scroll", activateNav);
     };
   }, [activateNav]);
+
+  useEffect(() => {
+    onQuery();
+    setContents({});
+    dictionaryIds.forEach((dictId) => {
+      dictionaries[dictId](query).then((node) => {
+        if (!node) {
+          setContents((prev) => ({
+            ...prev,
+            [dictId]: false,
+          }));
+          return;
+        }
+        if (node instanceof Node) {
+          const container = document.createElement("div");
+          container.appendChild(node);
+          setContents((prev) => ({
+            ...prev,
+            [dictId]: (
+              <div
+                dangerouslySetInnerHTML={{ __html: container.innerHTML }}
+              ></div>
+            ),
+          }));
+        } else if (React.isValidElement(node)) {
+          setContents((prev) => ({
+            ...prev,
+            [dictId]: node,
+          }));
+        }
+      });
+    });
+  }, [query]);
+
   return (
     <Fragment>
       <div className="sticky-top">
         <nav className="navbar navbar-light bg-light">
           <ul className="nav nav-pills flex-grow-1">
             {dictionaryIds
-              .filter((dictId) => found[dictId])
+              .filter((dictId) => contents[dictId])
               .map((dictId) => (
                 <li className="nav-item" key={dictId}>
                   <a
@@ -76,15 +103,21 @@ const Query = ({ query, dictionaryIds, onQuery }) => {
         </nav>
       </div>
       <div className="container">
-        {dictionaryIds.map((dictId) => (
-          <Dictionary
-            ref={(element) => (dictionaryRefs.current[dictId] = element)}
-            query={query}
-            dict={dictionaries[dictId]}
-            onFound={handleFound}
-            key={dictId}
-          />
-        ))}
+        {dictionaryIds.every((dictId) => contents[dictId] === false) ? (
+          <h1 className="display-1 text-center mt-5">找不到資料 (×_×)⌒☆</h1>
+        ) : (
+          dictionaryIds
+            .filter((dictId) => contents[dictId])
+            .map((dictId) => (
+              <Dictionary
+                ref={(element) => (dictionaryRefs.current[dictId] = element)}
+                title={dictionaries[dictId].name}
+                key={dictId}
+              >
+                {contents[dictId]}
+              </Dictionary>
+            ))
+        )}
       </div>
     </Fragment>
   );
