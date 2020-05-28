@@ -21,7 +21,7 @@ const Query = ({ notFound, dictionaries }) => {
   const activateNav = useCallback(() => {
     const activeDict = dictionaries
       .filter(
-        ({ id }) => window.scrollY + 136 >= dictionaryRefs.current[id].offsetTop
+        ({ id }) => window.scrollY + 140 >= dictionaryRefs.current[id].offsetTop
       )
       .sort(
         ({ id: a }, { id: b }) =>

@@ -1,6 +1,6 @@
 import React from "react";
 import { render } from "react-dom";
-import App from "./components/App";
+import Root from "./components/Root";
 import browser from "./browser";
 import "bootstrap";
 import "./main.scss";
@@ -13,4 +13,4 @@ window.addEventListener("resize", () => {
   });
 });
 
-render(<App />, document.getElementById("root"));
+render(<Root />, document.getElementById("root"));
