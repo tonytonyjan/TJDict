@@ -10,7 +10,7 @@ const Home = () => (
         <img src={coverImage} className="img-fluid" />
       </div>
       <div className="col-md">
-        <h1 className="pb-2 mt-4 mb-2 border-bottom">使用方式</h1>
+        <h1 className="pb-2 mt-4 mb-2 border-bottom">使用說明</h1>
         <ul>
           <li>
             在網頁上 <code>Ctrl</code> + 滑鼠雙擊單字
@@ -27,7 +27,7 @@ const Home = () => (
           href="https://chrome.google.com/webstore/detail/caafmojgjlbflohillejdmnghkpcjjpp/reviews"
           target="_blank"
           rel="noreferrer noopener"
-          className="btn btn-warning btn-lg text-light"
+          className="btn btn-primary btn-lg"
           role="button"
         >
           <FontAwesomeIcon fixedWidth icon={faComment} /> 評論
@@ -36,10 +36,10 @@ const Home = () => (
           href="https://chrome.google.com/webstore/detail/caafmojgjlbflohillejdmnghkpcjjpp/support"
           target="_blank"
           rel="noreferrer noopener"
-          className="btn btn-danger btn-lg ml-1"
+          className="btn btn-primary btn-lg ml-1"
           role="button"
         >
-          <FontAwesomeIcon fixedWidth icon={faWrench} /> 意見
+          <FontAwesomeIcon fixedWidth icon={faWrench} /> 報修
         </a>
       </div>
     </div>
