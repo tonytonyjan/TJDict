@@ -56,11 +56,19 @@ browser.runtime.onMessage.addListener((message, sender) => {
       y = message.y;
       break;
     case "QUERY":
-      popup({
-        text: message.text,
-        x: message.x,
-        y: message.y,
-      });
+      if (
+        sender.url.startsWith(browser.runtime.getURL("/")) &&
+        windowId === sender.tab.windowId
+      )
+        browser.tabs.update(sender.tab.id, {
+          url: `index.html#/q/${encodeURIComponent(message.text)}`,
+        });
+      else
+        popup({
+          text: message.text,
+          x: message.x,
+          y: message.y,
+        });
       break;
     case "RESIZE":
       if (sender.tab.windowId === windowId)
@@ -77,14 +85,25 @@ browser.contextMenus.create({
   contexts: ["selection"],
 });
 
-browser.contextMenus.onClicked.addListener(({ menuItemId, selectionText }) => {
-  if (menuItemId === "tjdict-query")
-    popup({
-      text: selectionText,
-      x,
-      y,
-    });
-});
+browser.contextMenus.onClicked.addListener(console.log);
+browser.contextMenus.onClicked.addListener(
+  ({ menuItemId, selectionText, pageUrl }, tab) => {
+    if (menuItemId !== "tjdict-query") return;
+    if (
+      pageUrl.startsWith(browser.runtime.getURL("/")) &&
+      windowId === tab.windowId
+    )
+      browser.tabs.update(tab.id, {
+        url: `index.html#/q/${encodeURIComponent(selectionText)}`,
+      });
+    else
+      popup({
+        text: selectionText,
+        x,
+        y,
+      });
+  }
+);
 
 browser.windows.onRemoved.addListener((id) => {
   if (id === windowId) windowId = browser.windows.WINDOW_ID_NONE;

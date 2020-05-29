@@ -4,6 +4,7 @@ import Root from "./components/Root";
 import browser from "./browser";
 import "bootstrap";
 import "./main.scss";
+import "./content";
 
 window.addEventListener("resize", () => {
   browser.runtime.sendMessage({
