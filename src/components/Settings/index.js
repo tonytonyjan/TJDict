@@ -20,6 +20,7 @@ const Settings = ({ navigation, onNavigate, children }) => {
             {navigations.map(({ id, name }) => (
               <a
                 key={id}
+                href="#"
                 className={navigation === id ? "nav-link active" : "nav-link"}
                 data-navigation={id}
                 onClick={handleNavigation}
