@@ -34,23 +34,29 @@ DictContainer.propTypes = {
   dict: PropTypes.func,
 };
 
-export const yahooDict = () => (
+export const Basic = () => <Dictionary title="title">content</Dictionary>;
+
+export const Yahoo = () => (
   <DictContainer query={text("Query", "test")} dict={yahoo} />
 );
-export const weblioDict = () => (
+export const Weblio = () => (
   <DictContainer query={text("Query", "試験")} dict={weblio} />
 );
-export const voicetubeDict = () => (
+export const Voicetube = () => (
   <DictContainer query={text("Query", "test")} dict={voicetube} />
 );
-export const urbanDict = () => (
+export const Urban = () => (
   <DictContainer query={text("Query", "test")} dict={urban} />
 );
-export const oxfordDict = () => (
+export const Oxford = () => (
   <DictContainer query={text("Query", "test")} dict={oxford} />
 );
-export const jukuuDict = () => (
+export const Jukuu = () => (
   <DictContainer query={text("Query", "test")} dict={jukuu} />
 );
 
-export default { title: "Dictionary", decorators: [withKnobs] };
+export default {
+  title: "Dictionary",
+  component: Dictionary,
+  decorators: [withKnobs],
+};
