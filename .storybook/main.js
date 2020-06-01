@@ -1,7 +1,10 @@
 const webpackConfig = require("../webpack.config")(process.env, {});
 module.exports = {
   stories: ["../stories/**/*.stories.js"],
-  addons: ["@storybook/addon-knobs/register"],
+  addons: [
+    "@storybook/addon-knobs/register",
+    "@storybook/addon-actions/register",
+  ],
   webpackFinal: (config) => {
     return {
       ...config,
