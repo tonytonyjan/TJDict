@@ -50,7 +50,7 @@ const Dictionaries = ({
               <FontAwesomeIcon
                 size="lg"
                 fixedWidth
-                className="dictionaries__action"
+                className="text-secondary dictionaries__action"
                 icon={faArrowUp}
                 data-dict-id={dictId}
                 onClick={handleClickArrowUp}
@@ -58,7 +58,7 @@ const Dictionaries = ({
             )}
             <FontAwesomeIcon
               size="lg"
-              className="ml-4 dictionaries__action"
+              className="ml-4 text-secondary dictionaries__action"
               fixedWidth
               icon={faTrash}
               data-dict-id={dictId}
@@ -69,7 +69,7 @@ const Dictionaries = ({
         <li className="list-group-item d-flex justify-content-between align-items-center">
           <button
             type="button"
-            className="btn btn-link text-decoration-none"
+            className="btn btn-primary"
             data-toggle="modal"
             data-target="#dictionaries-modal"
           >
