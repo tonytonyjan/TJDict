@@ -1,0 +1,11 @@
+.pricing__container {
+  max-width: 960px;
+}
+
+.pricing__pricing-header {
+  max-width: 700px;
+}
+
+.pricing__card-deck .pricing__card {
+  min-width: 220px;
+}
