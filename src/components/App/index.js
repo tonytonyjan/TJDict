@@ -93,6 +93,7 @@ App.propTypes = {
 };
 
 App.defaultProps = {
+  query: "",
   onNavigate: () => {},
   onSubmit: () => {},
   onClickSpeak: () => {},

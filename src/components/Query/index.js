@@ -95,6 +95,7 @@ Query.propTypes = {
 
 Query.defaultProps = {
   notFound: false,
+  dictionaries: [],
   onQuery: () => {},
 };
 
