@@ -33,9 +33,13 @@ module.exports = (_env, argv) => ({
           MiniCssExtractPlugin.loader,
           {
             loader: "css-loader",
+            options: {
+              importLoaders: 2,
+            },
           },
           {
             loader: "postcss-loader",
+            ident: "postcss",
             options: {
               plugins: [require("autoprefixer")],
             },
