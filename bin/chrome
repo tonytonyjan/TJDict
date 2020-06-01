@@ -5,4 +5,4 @@ data_dir=tmp/chrome-user-data-dir
   --user-data-dir=$data_dir \
   --no-first-run \
   --no-default-browser-check $@ &&
-  rm -rf $data_dir &
+  rm -rf $data_dir >/dev/null &
