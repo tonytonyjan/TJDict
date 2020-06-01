@@ -11,6 +11,8 @@ const popup = ({ text, x, y }) => {
   settings().then((settings) => {
     switch (settings.display) {
       case "window":
+        if (windowId !== browser.windows.WINDOW_ID_NONE)
+          browser.windows.remove(windowId);
         browser.windows.create(
           {
             url,
@@ -110,9 +112,16 @@ browser.windows.onRemoved.addListener((id) => {
 });
 
 browser.windows.onFocusChanged.addListener((id) => {
-  if (windowId === browser.windows.WINDOW_ID_NONE || id === windowId) return;
-  browser.windows.remove(windowId);
-  windowId = browser.windows.WINDOW_ID_NONE;
+  settings().then(({ autoClose }) => {
+    if (
+      !autoClose ||
+      windowId === browser.windows.WINDOW_ID_NONE ||
+      id === windowId
+    )
+      return;
+    browser.windows.remove(windowId);
+    windowId = browser.windows.WINDOW_ID_NONE;
+  });
 });
 
 browser.browserAction.onClicked.addListener(() => {

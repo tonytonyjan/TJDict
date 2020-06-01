@@ -216,6 +216,7 @@ const Root = () => {
                               display={settings.display}
                               autoPronounce={settings.autoPronounce}
                               kanjiPronounciation={settings.kanjiPronounciation}
+                              autoClose={settings.autoClose}
                               onChange={handleSettingsChange}
                             />
                           )}

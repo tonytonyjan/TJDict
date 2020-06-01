@@ -4,7 +4,13 @@ import PropTypes from "prop-types";
 const displayOptions = ["window", "tab"];
 const kanjiPronounciationOptions = ["ja", "zh"];
 
-const General = ({ display, autoPronounce, kanjiPronounciation, onChange }) => {
+const General = ({
+  display,
+  autoPronounce,
+  kanjiPronounciation,
+  autoClose,
+  onChange,
+}) => {
   const handleChange = ({ currentTarget: input }) => {
     switch (input.type) {
       case "checkbox":
@@ -37,6 +43,28 @@ const General = ({ display, autoPronounce, kanjiPronounciation, onChange }) => {
               <label
                 className="custom-control-label"
                 htmlFor="customSwitch1"
+              ></label>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+      <fieldset className="form-group">
+        <div className="row">
+          <legend className="col-form-label col-sm-3 pt-0">自動關閉視窗</legend>
+          <div className="col-sm-9">
+            <div className="custom-control custom-switch custom-control-inline">
+              <input
+                type="checkbox"
+                className="custom-control-input"
+                name="autoClose"
+                value="true"
+                id="autoCloseSwitch"
+                onChange={handleChange}
+                defaultChecked={autoClose}
+              />
+              <label
+                className="custom-control-label"
+                htmlFor="autoCloseSwitch"
               ></label>
             </div>
           </div>
@@ -126,6 +154,7 @@ General.propTypes = {
   display: PropTypes.oneOf(displayOptions).isRequired,
   autoPronounce: PropTypes.bool.isRequired,
   kanjiPronounciation: PropTypes.oneOf(kanjiPronounciationOptions).isRequired,
+  autoClose: PropTypes.bool.isRequired,
   onChange: PropTypes.func,
 };
 
@@ -133,6 +162,7 @@ General.defaultProps = {
   display: "window",
   autoPronounce: true,
   kanjiPronounciation: "ja",
+  autoClose: true,
   onChange: () => {},
 };
 

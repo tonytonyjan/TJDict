@@ -7,6 +7,7 @@ const defaultSettings = {
   display: "window",
   autoPronounce: true,
   kanjiPronounciation: "ja",
+  autoClose: true,
 };
 const avaliableKeys = Object.keys(defaultSettings);
 
