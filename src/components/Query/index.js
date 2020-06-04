@@ -8,7 +8,7 @@ import React, {
 import PropTypes from "prop-types";
 import Dictionary from "components/Dictionary";
 
-const Query = ({ notFound, dictionaries }) => {
+const Query = ({ dictionaries }) => {
   const [activeDictId, setActiveDictId] = useState("");
   const dictionaryRefs = useRef({});
 
@@ -64,26 +64,21 @@ const Query = ({ notFound, dictionaries }) => {
         </nav>
       </div>
       <div className="container">
-        {notFound && dictionaries.length === 0 ? (
-          <h1 className="display-1 text-center mt-5">找不到資料 (×_×)⌒☆</h1>
-        ) : (
-          dictionaries.map(({ id, title, content }) => (
-            <Dictionary
-              ref={(element) => (dictionaryRefs.current[id] = element)}
-              title={title}
-              key={title}
-            >
-              {content}
-            </Dictionary>
-          ))
-        )}
+        {dictionaries.map(({ id, title, content }) => (
+          <Dictionary
+            ref={(element) => (dictionaryRefs.current[id] = element)}
+            title={title}
+            key={title}
+          >
+            {content}
+          </Dictionary>
+        ))}
       </div>
     </Fragment>
   );
 };
 
 Query.propTypes = {
-  notFound: PropTypes.bool.isRequired,
   dictionaries: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.string.isRequired,
@@ -94,7 +89,6 @@ Query.propTypes = {
 };
 
 Query.defaultProps = {
-  notFound: false,
   dictionaries: [],
   onQuery: () => {},
 };

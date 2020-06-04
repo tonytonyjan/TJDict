@@ -13,6 +13,7 @@ import About from "components/About";
 import Settings from "components/Settings";
 import Dictionaries from "components/Dictionaries";
 import General from "components/General";
+import NotFound from "components/NotFound";
 
 const history = createHashHistory();
 window.ga("set", "page", history.location.pathname);
@@ -177,20 +178,22 @@ const Root = () => {
             <Home />
           </Route>
           <Route exact path="/q/:query">
-            {settings && (
-              <Query
-                notFound={settings.dictionaryIds.every(
-                  (dictId) => contents[dictId] === false
-                )}
-                dictionaries={settings.dictionaryIds
-                  .map((dictId) => ({
-                    id: dictId,
-                    title: dictId,
-                    content: contents[dictId],
-                  }))
-                  .filter((dict) => dict.content)}
-              />
-            )}
+            {settings &&
+              (settings.dictionaryIds.every(
+                (dictId) => contents[dictId] === false
+              ) ? (
+                <NotFound />
+              ) : (
+                <Query
+                  dictionaries={settings.dictionaryIds
+                    .map((dictId) => ({
+                      id: dictId,
+                      title: dictId,
+                      content: contents[dictId],
+                    }))
+                    .filter((dict) => dict.content)}
+                />
+              ))}
           </Route>
           <Route exact path="/about">
             <About />
