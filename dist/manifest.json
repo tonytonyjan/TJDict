@@ -1,7 +1,7 @@
 {
   "name": "TJDict 線上字典",
   "short_name": "TJDict",
-  "description": "免費英漢、漢英、英英、日日整合型網路字典，提供簡單的單字翻譯與解釋。目前支援的字典有 Yahoo 字典、句酷雙語例句、Urban Dictionary、Weblo、牛津字典、VoiceTube。",
+  "description": "TJDict 是一款免費的英漢、漢英、英英、日日整合型多核心網路字典，只要查詢一個單字，就能得到多個字典的查詢結果，提供快速簡單的字典查詢體驗。支援的字典包括 Yahoo 字典、句酷雙語例句、Urban Dictionary、Weblo、牛津字典、VoiceTube，且字典未來能逐漸擴充。",
   "version": "2.0.0",
   "manifest_version": 2,
   "permissions": [
@@ -36,5 +36,6 @@
     },
     "default_title": "TJDict"
   },
-  "content_security_policy": "script-src 'self' https://*.google-analytics.com; object-src 'self';"
+  "content_security_policy": "script-src 'self' https://*.google-analytics.com; object-src 'self';",
+  "web_accessible_resources": ["index.html"]
 }
