@@ -26,7 +26,12 @@ const PaymentFailed = ({ transactionId, message, errorCode }) => {
           <td>{message}</td>
         </tr>
       </table>
-      <a className="btn btn-lg btn-primary" href={`mailto:?${mailtoParams}`}>
+      <a
+        target="_blank"
+        rel="noreferrer noopener"
+        className="btn btn-lg btn-primary"
+        href={`mailto:?${mailtoParams}`}
+      >
         聯絡作者
       </a>
     </div>
