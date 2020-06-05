@@ -19,6 +19,11 @@ const history = createHashHistory();
 window.ga("set", "page", history.location.pathname);
 window.ga("send", "pageview");
 
+history.listen(({ pathname }) => {
+  window.ga("set", "page", pathname);
+  window.ga("send", "pageview");
+});
+
 const matchQuery = (pathname) => {
   const match = matchPath(pathname, {
     path: "/q/:query",
@@ -47,6 +52,7 @@ const handleNavigate = (name) => {
 const Root = () => {
   const [settings, setSettings] = useState(null);
   const [contents, setContents] = useState({});
+  const [query, setQuery] = useState("");
 
   const inputRef = useRef(null);
 
@@ -55,15 +61,11 @@ const Root = () => {
     const query = new FormData(event.target).get("query").trim();
     if (!query) return;
 
-    history.push(
-      `/q/${encodeURIComponent(new FormData(event.target).get("query"))}`
-    );
+    history.push(`/q/${encodeURIComponent(query)}`);
   }, []);
 
   const speak = useCallback(() => {
-    if (!settings) return;
-    const query = matchQuery(history.location.pathname);
-    if (!query) return;
+    if (!settings || !query) return;
     const langs = detectLanguage(query);
     if (!langs.length) return;
     const utterance = new SpeechSynthesisUtterance(query);
@@ -71,44 +73,7 @@ const Root = () => {
       ? settings.kanjiPronounciation
       : langs[0];
     speechSynthesis.speak(utterance);
-  }, [settings]);
-
-  const requestQuery = useCallback(
-    (query) => {
-      if (!settings) return;
-      if (settings.autoPronounce) speak();
-      setContents({});
-      settings.dictionaryIds.forEach((dictId) => {
-        dictionaries[dictId](query).then((node) => {
-          if (!node) {
-            setContents((prev) => ({
-              ...prev,
-              [dictId]: false,
-            }));
-            return;
-          }
-          if (node instanceof Node) {
-            const container = document.createElement("div");
-            container.appendChild(node);
-            setContents((prev) => ({
-              ...prev,
-              [dictId]: (
-                <div
-                  dangerouslySetInnerHTML={{ __html: container.innerHTML }}
-                ></div>
-              ),
-            }));
-          } else if (React.isValidElement(node)) {
-            setContents((prev) => ({
-              ...prev,
-              [dictId]: node,
-            }));
-          }
-        });
-      });
-    },
-    [settings, speak]
-  );
+  }, [settings, query]);
 
   const handleAddDictionary = useCallback((dictId) => {
     setSettings((prev) => ({
@@ -138,31 +103,66 @@ const Root = () => {
 
   const handleSettingsChange = useCallback(({ key, value }) => {
     setSettings((prev) => ({ ...prev, [key]: value }));
-  });
+  }, []);
 
+  useEffect(() => {
+    const unlisten = history.listen(({ pathname }) => {
+      setQuery((inputRef.current.value = matchQuery(pathname) || ""));
+    });
+    setQuery(matchQuery(history.location.pathname) || "");
+    return unlisten;
+  }, []);
+
+  // load settings
   useEffect(() => {
     getSettings().then((settings) => setSettings(settings));
   }, []);
 
+  // save settings
   useEffect(() => {
     if (settings) updateSettings(settings);
   }, [settings]);
 
+  // auto TTS
   useEffect(() => {
-    const unlisten = history.listen(({ pathname }) => {
-      window.ga("set", "page", pathname);
-      window.ga("send", "pageview");
-      const query = matchQuery(history.location.pathname);
-      if (!query) return;
-      inputRef.current.value = query;
-      requestQuery(query);
-    });
-    return unlisten;
-  }, [requestQuery]);
+    if (!settings || !query) return;
+    if (!settings.autoPronounce) return;
+    speak();
+  }, [settings, query, speak]);
 
+  // query dictionaries
   useEffect(() => {
-    if (initQuery) requestQuery(initQuery);
-  }, [requestQuery]);
+    if (!settings || !query) return;
+    setContents({});
+    settings.dictionaryIds.forEach((dictId) => {
+      dictionaries[dictId](query).then((node) => {
+        if (!node) {
+          setContents((prev) => ({
+            ...prev,
+            [dictId]: false,
+          }));
+          return;
+        }
+        if (node instanceof Node) {
+          const container = document.createElement("div");
+          container.appendChild(node);
+          setContents((prev) => ({
+            ...prev,
+            [dictId]: (
+              <div
+                dangerouslySetInnerHTML={{ __html: container.innerHTML }}
+              ></div>
+            ),
+          }));
+        } else if (React.isValidElement(node)) {
+          setContents((prev) => ({
+            ...prev,
+            [dictId]: node,
+          }));
+        }
+      });
+    });
+  }, [settings, query]);
 
   return (
     <App
