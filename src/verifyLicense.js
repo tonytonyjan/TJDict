@@ -32,14 +32,7 @@ j7v+CfyHqjLGaYQEKJ0J+xUxwVbug01j2Mc=
 -----END PGP PUBLIC KEY BLOCK-----
 `;
 
-export default class LicenseKey {
-  constructor({ email, expiration }) {
-    this.email = email;
-    this.expiration = expiration;
-  }
-}
-
-LicenseKey.verify = async (clearText) => {
+export default async (clearText) => {
   const verified = await verify({
     message: await cleartext.readArmored(clearText),
     publicKeys: (await key.readArmored(publicKey)).keys,
@@ -49,8 +42,5 @@ LicenseKey.verify = async (clearText) => {
     data,
   } = verified;
   if (!valid) throw new Error("license signature is not valid");
-  const { email, expiration } = JSON.parse(data);
-  if (!email || !expiration) throw new Error("license message is not valid");
-  if (isNaN(Date.parse(expiration))) throw new Error("expiration is not valid");
-  return new LicenseKey({ email, expiration: new Date(expiration) });
+  return JSON.parse(data);
 };
