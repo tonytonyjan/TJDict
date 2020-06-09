@@ -52,7 +52,7 @@ const handleNavigate = (name) => {
 const Root = () => {
   const [settings, setSettings] = useState(null);
   const [contents, setContents] = useState({});
-  const [query, setQuery] = useState("");
+  const [query, setQuery] = useState(matchQuery(history.location.pathname));
 
   const inputRef = useRef(null);
 
@@ -107,9 +107,8 @@ const Root = () => {
 
   useEffect(() => {
     const unlisten = history.listen(({ pathname }) => {
-      setQuery((inputRef.current.value = matchQuery(pathname) || ""));
+      setQuery((inputRef.current.value = matchQuery(pathname)));
     });
-    setQuery(matchQuery(history.location.pathname) || "");
     return unlisten;
   }, []);
 
