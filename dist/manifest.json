@@ -5,6 +5,7 @@
   "version": "2.0.0",
   "manifest_version": 2,
   "permissions": [
+    "notifications",
     "contextMenus",
     "*://tw.dictionary.search.yahoo.com/*",
     "*://www.weblio.jp/content/*",

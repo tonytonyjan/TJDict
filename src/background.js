@@ -1,5 +1,6 @@
 import browser from "./browser";
 import settings, { update as updateSettings } from "./settings";
+import changelogs from "./changelogs";
 
 let x = 0,
   y = 0,
@@ -130,4 +131,16 @@ browser.browserAction.onClicked.addListener(() => {
 
 browser.tabs.onRemoved.addListener((id) => {
   if (id === tabId) tabId = browser.tabs.TAB_ID_NONE;
+});
+
+browser.runtime.onInstalled.addListener((details) => {
+  if (details.reason !== "update") return;
+
+  browser.notifications.create({
+    type: "list",
+    title: `已更新至 v${browser.runtime.getManifest().version}`,
+    iconUrl: "../../icons/icon128.png",
+    message: "請重新整理頁面",
+    items: changelogs,
+  });
 });
