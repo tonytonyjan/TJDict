@@ -27,4 +27,7 @@ const yahoo = (query) =>
       return result;
     })
     .catch(() => null);
+
+yahoo.displayName = "Yahoo";
+
 export default yahoo;

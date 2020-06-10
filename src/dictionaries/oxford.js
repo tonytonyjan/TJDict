@@ -20,4 +20,7 @@ const oxford = (query) =>
       return result;
     })
     .catch(() => null);
+
+oxford.displayName = oxford.displayName = "Oxford";
+
 export default oxford;

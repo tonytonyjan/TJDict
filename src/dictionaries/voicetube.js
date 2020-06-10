@@ -59,4 +59,6 @@ const voicetube = (query) =>
     })
     .catch(() => null);
 
+voicetube.displayName = "VoiceTube";
+
 export default voicetube;

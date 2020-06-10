@@ -29,4 +29,7 @@ const weblio = (query) =>
       return fragment;
     })
     .catch(() => null);
+
+weblio.displayName = "Weblio";
+
 export default weblio;

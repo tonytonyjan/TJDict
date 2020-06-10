@@ -45,7 +45,9 @@ const Dictionaries = ({
             className="list-group-item d-flex justify-content-between align-items-center"
             key={dictId}
           >
-            <span className="flex-grow-1">{dictId}</span>
+            <span className="flex-grow-1">
+              {dictionaries[dictId].displayName}
+            </span>
             {index !== 0 && (
               <FontAwesomeIcon
                 size="lg"
@@ -102,7 +104,9 @@ const Dictionaries = ({
                     data-target="#dictionaries-modal"
                     onClick={handleClickDictionary}
                   >
-                    <span className="flex-grow-1">{dictId}</span>
+                    <span className="flex-grow-1">
+                      {dictionaries[dictId].displayName}
+                    </span>
                   </li>
                 ))}
               </ul>

@@ -43,4 +43,7 @@ const urban = (query) =>
       );
     })
     .catch(() => null);
+
+urban.displayName = "Urban";
+
 export default urban;

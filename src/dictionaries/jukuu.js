@@ -29,4 +29,6 @@ const jukuu = (query) =>
     })
     .catch(() => null);
 
+jukuu.displayName = "句酷";
+
 export default jukuu;

@@ -187,7 +187,7 @@ const Root = () => {
                   dictionaries={settings.dictionaryIds
                     .map((dictId) => ({
                       id: dictId,
-                      title: dictId,
+                      title: dictionaries[dictId].displayName,
                       content: contents[dictId],
                     }))
                     .filter((dict) => dict.content)}
