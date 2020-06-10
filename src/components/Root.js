@@ -14,6 +14,7 @@ import Settings from "components/Settings";
 import Dictionaries from "components/Dictionaries";
 import General from "components/General";
 import NotFound from "components/NotFound";
+import Help from "components/Help";
 
 const history = createHashHistory();
 window.ga("set", "page", history.location.pathname);
@@ -43,6 +44,9 @@ const handleNavigate = (name) => {
       break;
     case "about":
       history.push("/about");
+      break;
+    case "help":
+      history.push("/help");
       break;
     default:
       break;
@@ -196,6 +200,9 @@ const Root = () => {
           </Route>
           <Route exact path="/about">
             <About />
+          </Route>
+          <Route exact path="/help">
+            <Help />
           </Route>
           <Route
             path="/settings"

@@ -1,7 +1,12 @@
 import React, { Fragment } from "react";
 import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCog, faInfo, faVolumeDown } from "@fortawesome/free-solid-svg-icons";
+import {
+  faCog,
+  faInfoCircle,
+  faVolumeDown,
+  faQuestionCircle,
+} from "@fortawesome/free-solid-svg-icons";
 
 const App = ({
   query,
@@ -71,7 +76,15 @@ const App = ({
                 className="nav-link btn btn-link"
                 onClick={() => onNavigate("about")}
               >
-                <FontAwesomeIcon fixedWidth icon={faInfo} /> 關於
+                <FontAwesomeIcon fixedWidth icon={faInfoCircle} /> 關於
+              </button>
+            </li>
+            <li className="nav-item active">
+              <button
+                className="nav-link btn btn-link"
+                onClick={() => onNavigate("help")}
+              >
+                <FontAwesomeIcon fixedWidth icon={faQuestionCircle} /> 支援
               </button>
             </li>
           </ul>
