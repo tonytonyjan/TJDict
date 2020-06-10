@@ -4,6 +4,7 @@ import voicetube from "dictionaries/voicetube";
 import urban from "dictionaries/urban";
 import oxford from "dictionaries/oxford";
 import jukuu from "dictionaries/jukuu";
+import cambridge from "dictionaries/cambridge";
 
 export default {
   yahoo,
@@ -12,4 +13,5 @@ export default {
   urban,
   oxford,
   jukuu,
+  cambridge,
 };

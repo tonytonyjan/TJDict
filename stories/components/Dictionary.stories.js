@@ -8,6 +8,7 @@ import voicetube from "dictionaries/voicetube";
 import urban from "dictionaries/urban";
 import oxford from "dictionaries/oxford";
 import jukuu from "dictionaries/jukuu";
+import cambridge from "dictionaries/cambridge";
 
 const DictContainer = ({ query, dict }) => {
   const [content, setContent] = useState(null);
@@ -19,6 +20,8 @@ const DictContainer = ({ query, dict }) => {
         setContent(<div dangerouslySetInnerHTML={{ __html: div.innerHTML }} />);
       } else if (React.isValidElement(node)) {
         setContent(node);
+      } else if (Array.isArray(node)) {
+        setContent(node.filter(React.isValidElement));
       }
     });
   }, [query, dict]);
@@ -53,6 +56,9 @@ export const Oxford = () => (
 );
 export const Jukuu = () => (
   <DictContainer query={text("Query", "test")} dict={jukuu} />
+);
+export const Cambridge = () => (
+  <DictContainer query={text("Query", "test")} dict={cambridge} />
 );
 
 export default {

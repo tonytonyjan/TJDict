@@ -138,32 +138,44 @@ const Root = () => {
     if (!settings || !query) return;
     setContents({});
     settings.dictionaryIds.forEach((dictId) => {
-      dictionaries[dictId](query).then((node) => {
-        if (!node) {
+      dictionaries[dictId](query)
+        .then((node) => {
+          if (!node) {
+            setContents((prev) => ({
+              ...prev,
+              [dictId]: false,
+            }));
+            return;
+          }
+          if (node instanceof Node) {
+            const container = document.createElement("div");
+            container.appendChild(node);
+            setContents((prev) => ({
+              ...prev,
+              [dictId]: (
+                <div
+                  dangerouslySetInnerHTML={{ __html: container.innerHTML }}
+                ></div>
+              ),
+            }));
+          } else if (React.isValidElement(node)) {
+            setContents((prev) => ({
+              ...prev,
+              [dictId]: node,
+            }));
+          } else if (Array.isArray(node)) {
+            setContents((prev) => ({
+              ...prev,
+              [dictId]: node.filter(React.isValidElement),
+            }));
+          }
+        })
+        .catch(() =>
           setContents((prev) => ({
             ...prev,
             [dictId]: false,
-          }));
-          return;
-        }
-        if (node instanceof Node) {
-          const container = document.createElement("div");
-          container.appendChild(node);
-          setContents((prev) => ({
-            ...prev,
-            [dictId]: (
-              <div
-                dangerouslySetInnerHTML={{ __html: container.innerHTML }}
-              ></div>
-            ),
-          }));
-        } else if (React.isValidElement(node)) {
-          setContents((prev) => ({
-            ...prev,
-            [dictId]: node,
-          }));
-        }
-      });
+          }))
+        );
     });
   }, [settings, query]);
 

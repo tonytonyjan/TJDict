@@ -12,7 +12,8 @@
     "*://tw.voicetube.com/*",
     "*://www.urbandictionary.com/*",
     "*://www.lexico.com/*",
-    "*://www.jukuu.com/*"
+    "*://www.jukuu.com/*",
+    "*://dictionary.cambridge.org/*"
   ],
   "icons": {
     "16": "icons/icon16.png",
