@@ -170,12 +170,13 @@ const Root = () => {
             }));
           }
         })
-        .catch(() =>
+        .catch((error) => {
+          console.error(error);
           setContents((prev) => ({
             ...prev,
             [dictId]: false,
-          }))
-        );
+          }));
+        });
     });
   }, [settings, query]);
 
