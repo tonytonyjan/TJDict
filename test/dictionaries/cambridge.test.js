@@ -7,7 +7,9 @@ describe("Cambridge", () => {
   });
   it("found en", async () => {
     actRender(await cambridge("test"), (container) => {
-      expect(container.textContent.includes("a way of discovering")).toBeTrue();
+      const text = container.textContent;
+      expect(text.includes("a way of discovering")).toBeTrue();
+      expect(text.includes("The class are doing")).toBeTrue();
     });
   });
   it("not found", async () => {

@@ -14,12 +14,12 @@ const cambridge = async (query) => {
   if (entries.length === 0) return null;
   return Array.from(entries).map((element, i) => (
     <Fragment key={i}>
-      <h1 className="h3">
+      <h3>
         {element.querySelector(".hw.dhw").textContent}{" "}
         <small className="text-muted">
           {element.querySelector(".posgram").textContent}
         </small>
-      </h1>
+      </h3>
       <div>
         {Array.from(element.querySelectorAll(".def-block")).map((block, i) => {
           const badge = block.querySelector(".def-info").textContent.trim();
