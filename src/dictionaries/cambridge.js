@@ -49,4 +49,3 @@ const cambridge = async (query) => {
 cambridge.displayName = "Cambridge";
 
 export default cambridge;
-// entry-body__el
