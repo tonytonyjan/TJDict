@@ -1,14 +1,12 @@
 import voicetube from "dictionaries/voicetube";
-import { render } from "react-dom";
+import { actRender } from "testHelpers";
 
 describe("Voicetube", () => {
   it("correct ID", () => {
     expect(voicetube.name).toBe("voicetube");
   });
   it("found en", async () => {
-    const result = await voicetube("test");
-    const container = document.createElement("div");
-    render(result, container, () => {
+    actRender(await voicetube("test"), (container) => {
       expect(container.textContent.includes("試驗")).toBeTrue();
     });
   });
