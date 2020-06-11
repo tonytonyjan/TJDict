@@ -5,6 +5,7 @@ import urban from "dictionaries/urban";
 import oxford from "dictionaries/oxford";
 import jukuu from "dictionaries/jukuu";
 import cambridge from "dictionaries/cambridge";
+import thesaurus from "dictionaries/thesaurus";
 
 export default {
   yahoo,
@@ -14,4 +15,5 @@ export default {
   oxford,
   jukuu,
   cambridge,
+  thesaurus,
 };
