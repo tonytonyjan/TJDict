@@ -43,6 +43,12 @@ export const Basic = () => <Dictionary title="title">content</Dictionary>;
 export const Yahoo = () => (
   <DictContainer query={text("Query", "test")} dict={yahoo} />
 );
+export const YahooZh = () => (
+  <DictContainer query={text("Query", "測試")} dict={yahoo} />
+);
+export const YahooAbbr = () => (
+  <DictContainer query={text("Query", "www")} dict={yahoo} />
+);
 export const Weblio = () => (
   <DictContainer query={text("Query", "試験")} dict={weblio} />
 );
