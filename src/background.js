@@ -1,3 +1,4 @@
+import ga from "ga";
 import browser from "./browser";
 import settings, { update as updateSettings } from "./settings";
 import changelogs from "./changelogs";
@@ -66,12 +67,20 @@ browser.runtime.onMessage.addListener((message, sender) => {
         browser.tabs.update(sender.tab.id, {
           url: `index.html#/q/${encodeURIComponent(message.text)}`,
         });
-      else
+      else {
         popup({
           text: message.text,
           x: message.x,
           y: message.y,
         });
+        ga(
+          "send",
+          "event",
+          "engagement",
+          "reading_material_type",
+          new URL(sender.url).origin
+        );
+      }
       break;
     case "RESIZE":
       if (sender.tab.windowId === windowId)
@@ -99,12 +108,20 @@ browser.contextMenus.onClicked.addListener(
       browser.tabs.update(tab.id, {
         url: `index.html#/q/${encodeURIComponent(selectionText)}`,
       });
-    else
+    else {
       popup({
         text: selectionText,
         x,
         y,
       });
+      ga(
+        "send",
+        "event",
+        "engagement",
+        "reading_material_type",
+        new URL(pageUrl).origin
+      );
+    }
   }
 );
 

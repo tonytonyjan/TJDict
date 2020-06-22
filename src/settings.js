@@ -8,6 +8,7 @@ const defaultSettings = {
   autoPronounce: true,
   kanjiPronounciation: "ja",
   autoClose: true,
+  clientId: "",
 };
 const avaliableKeys = Object.keys(defaultSettings);
 

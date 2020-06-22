@@ -1,3 +1,4 @@
+import ga from "ga";
 import React, { useState, useEffect, useCallback, useRef } from "react";
 import App from "components/App";
 import { Router, Switch, Route, Redirect } from "react-router-dom";
@@ -17,12 +18,12 @@ import NotFound from "components/NotFound";
 import Help from "components/Help";
 
 const history = createHashHistory();
-window.ga("set", "page", history.location.pathname);
-window.ga("send", "pageview");
+ga("set", "page", history.location.pathname);
+ga("send", "pageview");
 
 history.listen(({ pathname }) => {
-  window.ga("set", "page", pathname);
-  window.ga("send", "pageview");
+  ga("set", "page", pathname);
+  ga("send", "pageview");
 });
 
 const matchQuery = (pathname) => {
