@@ -41,7 +41,14 @@ module.exports = (_env, argv) => ({
             loader: "postcss-loader",
             ident: "postcss",
             options: {
-              plugins: [require("autoprefixer")],
+              ident: "postcss",
+              postcss: {},
+              plugins: [
+                require("postcss-flexbugs-fixes"),
+                require("autoprefixer")({
+                  flexbox: "no-2009",
+                }),
+              ],
             },
           },
           {

@@ -1,3 +1,4 @@
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const webpackConfig = require("../webpack.config")(process.env, {});
 module.exports = {
   stories: ["../stories/**/*.stories.js"],
@@ -6,45 +7,14 @@ module.exports = {
     "@storybook/addon-actions/register",
   ],
   webpackFinal: (config) => {
+    require("fs").writeFileSync(
+      "out",
+      require("util").inspect(config, { depth: null })
+    );
     return {
       ...config,
       resolve: webpackConfig.resolve,
-      module: {
-        ...config.module,
-        rules: [
-          ...config.module.rules,
-          {
-            test: /\.scss$/i,
-            use: [
-              {
-                loader: "style-loader",
-              },
-              {
-                loader: "css-loader",
-                options: {
-                  importLoaders: 2,
-                },
-              },
-              {
-                loader: "postcss-loader",
-                options: {
-                  ident: "postcss",
-                  postcss: {},
-                  plugins: [
-                    require("postcss-flexbugs-fixes"),
-                    require("autoprefixer")({
-                      flexbox: "no-2009",
-                    }),
-                  ],
-                },
-              },
-              {
-                loader: "sass-loader",
-              },
-            ],
-          },
-        ],
-      },
+      module: webpackConfig.module,
       plugins: [...config.plugins, ...webpackConfig.plugins],
     };
   },
