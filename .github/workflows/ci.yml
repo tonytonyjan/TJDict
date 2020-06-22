@@ -1,0 +1,20 @@
+name: Node CI
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+  schedule:
+    - cron: "0 */12 * * *"
+jobs:
+  lint_test:
+    name: Run Lint and Test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@master
+        with:
+          node-version: "14"
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run test
