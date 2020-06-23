@@ -20,6 +20,12 @@ const yahoo = async (query) => {
   let content;
   if ((content = dom.querySelector("h3.title > span.fz-24")))
     result.push(<h3 key="1">{content.textContent}</h3>);
+  if ((content = dom.querySelector(".compList.d-ib>ul")))
+    result.push(
+      <h5 key="pronunciation" className="text-secondary">
+        {content.textContent}
+      </h5>
+    );
   if (
     (content = dom.querySelectorAll(".first .compList.d-ib>ul>li")).length > 0
   )
@@ -76,23 +82,6 @@ const yahoo = async (query) => {
     );
   }
   return result;
-  //   const content = dom.querySelector(
-  //     ".tab-control-item[data-name=explanation]"
-  //   )
-  //     ? dom.querySelector(".tabsContent-s")
-  //     : dom.querySelector(".grp.grp-main");
-  //   if (!content) return null;
-  //   const kk = dom.querySelector(".compList.d-ib>ul");
-
-  //   const result = document.createDocumentFragment();
-  //   if (kk) result.appendChild(kk);
-  //   result.appendChild(content);
-  //   result
-  //     .querySelectorAll("[class]")
-  //     .forEach((node) => node.removeAttribute("class"));
-  //   return result;
-  // })
-  // .catch(() => null);
 };
 
 yahoo.displayName = "Yahoo";
