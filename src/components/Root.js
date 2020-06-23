@@ -58,6 +58,7 @@ const Root = () => {
   const [settings, setSettings] = useState(null);
   const [contents, setContents] = useState({});
   const [query, setQuery] = useState(matchQuery(history.location.pathname));
+  const [broadcast, setBroadcast] = useState(null);
 
   const inputRef = useRef(null);
 
@@ -181,6 +182,16 @@ const Root = () => {
     });
   }, [settings, query]);
 
+  useEffect(async () => {
+    const response = await fetch(
+      "https://tonytonyjan.net/tjdict-broadcast.txt"
+    );
+    if (!response.ok) return;
+    setBroadcast(
+      <div dangerouslySetInnerHTML={{ __html: await response.text() }}></div>
+    );
+  }, []);
+
   return (
     <App
       query={initQuery}
@@ -209,6 +220,7 @@ const Root = () => {
                       content: contents[dictId],
                     }))
                     .filter((dict) => dict.content)}
+                  broadcast={broadcast}
                 />
               ))}
           </Route>

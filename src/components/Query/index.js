@@ -7,10 +7,13 @@ import React, {
 } from "react";
 import PropTypes from "prop-types";
 import Dictionary from "components/Dictionary";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faVolumeUp } from "@fortawesome/free-solid-svg-icons";
 
-const Query = ({ dictionaries }) => {
+const Query = ({ dictionaries, broadcast }) => {
   const [activeDictId, setActiveDictId] = useState("");
   const dictionaryRefs = useRef({});
+  const dictsContainer = useRef(null);
 
   const handleClickDict = useCallback((dictId) => {
     window.scrollTo({
@@ -21,7 +24,9 @@ const Query = ({ dictionaries }) => {
   const activateNav = useCallback(() => {
     const activeDict = dictionaries
       .filter(
-        ({ id }) => window.scrollY + 140 >= dictionaryRefs.current[id].offsetTop
+        ({ id }) =>
+          window.scrollY + dictsContainer.current.offsetTop >=
+          dictionaryRefs.current[id].offsetTop
       )
       .sort(
         ({ id: a }, { id: b }) =>
@@ -29,7 +34,7 @@ const Query = ({ dictionaries }) => {
           dictionaryRefs.current[a].offsetTop
       )[0];
     if (activeDict) setActiveDictId(activeDict.id);
-  }, [dictionaries]);
+  }, [dictionaries, dictsContainer]);
 
   useEffect(() => {
     window.addEventListener("scroll", activateNav);
@@ -41,6 +46,12 @@ const Query = ({ dictionaries }) => {
 
   return (
     <Fragment>
+      {broadcast && (
+        <div className="d-flex align-items-center ml-3 pl-3 my-3 text-secondary">
+          <FontAwesomeIcon fixedWidth icon={faVolumeUp} size="lg" />
+          <span className="ml-3">{broadcast}</span>
+        </div>
+      )}
       <div className="sticky-top">
         <nav className="navbar navbar-light bg-light">
           <ul className="nav nav-pills flex-grow-1">
@@ -63,7 +74,7 @@ const Query = ({ dictionaries }) => {
           </ul>
         </nav>
       </div>
-      <div className="container">
+      <div ref={dictsContainer} className="container">
         {dictionaries.map(({ id, title, content }) => (
           <Dictionary
             ref={(element) => (dictionaryRefs.current[id] = element)}
@@ -86,6 +97,7 @@ Query.propTypes = {
       content: PropTypes.node.isRequired,
     }).isRequired
   ).isRequired,
+  broadcast: PropTypes.node,
 };
 
 Query.defaultProps = {
