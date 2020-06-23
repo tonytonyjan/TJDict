@@ -248,12 +248,16 @@ const Root = () => {
                           {settings && (
                             <Dictionaries
                               dictionaryIds={settings.dictionaryIds}
-                              unusedDictionaryIds={Object.keys(
-                                dictionaries
-                              ).filter(
-                                (dictId) =>
-                                  !settings.dictionaryIds.includes(dictId)
-                              )}
+                              unusedDictionaryIds={Object.keys(dictionaries)
+                                .filter(
+                                  (dictId) =>
+                                    !settings.dictionaryIds.includes(dictId)
+                                )
+                                .sort((a, b) =>
+                                  dictionaries[a].displayName.localeCompare(
+                                    dictionaries[b].displayName
+                                  )
+                                )}
                               onAddDictionary={handleAddDictionary}
                               onMoveUpDictionary={handleMoveUpDictionary}
                               onRemoveDictionary={handleRemoveDictionary}
