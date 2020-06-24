@@ -9,6 +9,7 @@ import urban from "dictionaries/urban";
 import oxford from "dictionaries/oxford";
 import jukuu from "dictionaries/jukuu";
 import cambridge from "dictionaries/cambridge";
+import cambridgeEnZh from "dictionaries/cambridgeEnZh";
 import thesaurus from "dictionaries/thesaurus";
 
 const DictContainer = ({ query, dict }) => {
@@ -66,6 +67,9 @@ export const Jukuu = () => (
 );
 export const Cambridge = () => (
   <DictContainer query={text("Query", "test")} dict={cambridge} />
+);
+export const CambridgeEnZh = () => (
+  <DictContainer query={text("Query", "test")} dict={cambridgeEnZh} />
 );
 export const Thesaurus = () => (
   <DictContainer query={text("Query", "test")} dict={thesaurus} />

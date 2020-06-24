@@ -5,6 +5,7 @@ import urban from "dictionaries/urban";
 import oxford from "dictionaries/oxford";
 import jukuu from "dictionaries/jukuu";
 import cambridge from "dictionaries/cambridge";
+import cambridgeEnZh from "dictionaries/cambridgeEnZh";
 import thesaurus from "dictionaries/thesaurus";
 
 export default {
@@ -16,4 +17,5 @@ export default {
   jukuu,
   cambridge,
   thesaurus,
+  cambridgeEnZh,
 };
