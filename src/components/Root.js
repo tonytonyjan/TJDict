@@ -182,14 +182,16 @@ const Root = () => {
     });
   }, [settings, query]);
 
-  useEffect(async () => {
-    const response = await fetch(
-      "https://tonytonyjan.net/tjdict-broadcast.txt"
-    );
-    if (!response.ok) return;
-    setBroadcast(
-      <div dangerouslySetInnerHTML={{ __html: await response.text() }}></div>
-    );
+  useEffect(() => {
+    (async () => {
+      const response = await fetch(
+        "https://tonytonyjan.net/tjdict-broadcast.txt"
+      );
+      if (!response.ok) return;
+      setBroadcast(
+        <div dangerouslySetInnerHTML={{ __html: await response.text() }}></div>
+      );
+    })();
   }, []);
 
   return (
