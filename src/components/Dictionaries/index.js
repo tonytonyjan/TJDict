@@ -21,7 +21,11 @@ const Dictionaries = ({
     []
   );
   const handleClickArrowUp = useCallback(
-    ({ currentTarget: { dataset: dictId } }) => onMoveUpDictionary(dictId),
+    ({
+      currentTarget: {
+        dataset: { dictId },
+      },
+    }) => onMoveUpDictionary(dictId),
     []
   );
   const handleClickTrash = useCallback(
