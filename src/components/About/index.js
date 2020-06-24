@@ -4,6 +4,7 @@ import { faEnvelope, faHome } from "@fortawesome/free-solid-svg-icons";
 import { faGithub } from "@fortawesome/free-brands-svg-icons";
 import avatar from "./avatar.png";
 import banana from "./banana.png";
+import dictionaries from "dictionaries";
 
 const About = () => (
   <div className="container py-3">
@@ -32,6 +33,15 @@ const About = () => (
         </a>
         ，你的鼓勵與意見會是筆者持續開發的動力：）
       </p>
+      <h2 className="pb-2 mb-2 border-bottom">收錄字典</h2>
+      <ul>
+        {Object.values(dictionaries)
+          .sort((a, b) => a.displayName.localeCompare(b.displayName))
+          .map((dict) => (
+            <li key={dict.name}>{dict.displayName}</li>
+          ))}
+        <li>持續增加中</li>
+      </ul>
       <h2 className="pb-2 mb-2 border-bottom">筆者與他的快樂夥伴</h2>
       <div className="media">
         <div className="d-flex flex-column align-items-center">
