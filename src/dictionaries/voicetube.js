@@ -59,6 +59,6 @@ const voicetube = (query) =>
     })
     .catch(() => null);
 
-voicetube.displayName = "VoiceTube";
+voicetube.displayName = "VoiceTube 英漢 影音";
 
 export default voicetube;

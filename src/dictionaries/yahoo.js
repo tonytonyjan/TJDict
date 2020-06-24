@@ -84,6 +84,6 @@ const yahoo = async (query) => {
   return result;
 };
 
-yahoo.displayName = "Yahoo";
+yahoo.displayName = "Yahoo 英漢";
 
 export default yahoo;

@@ -44,6 +44,6 @@ const urban = (query) =>
     })
     .catch(() => null);
 
-urban.displayName = "Urban";
+urban.displayName = "Urban 英英 俚語";
 
 export default urban;

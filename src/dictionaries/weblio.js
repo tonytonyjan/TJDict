@@ -30,6 +30,6 @@ const weblio = (query) =>
     })
     .catch(() => null);
 
-weblio.displayName = "Weblio";
+weblio.displayName = "Weblio 日日";
 
 export default weblio;

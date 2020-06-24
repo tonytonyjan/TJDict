@@ -29,6 +29,6 @@ const jukuu = async (query) => {
   );
 };
 
-jukuu.displayName = "句酷";
+jukuu.displayName = "句酷 英漢 句庫";
 
 export default jukuu;

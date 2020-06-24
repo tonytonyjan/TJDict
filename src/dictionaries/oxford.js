@@ -21,6 +21,6 @@ const oxford = (query) =>
     })
     .catch(() => null);
 
-oxford.displayName = oxford.displayName = "Oxford";
+oxford.displayName = oxford.displayName = "Oxford 英英";
 
 export default oxford;

@@ -46,6 +46,6 @@ const cambridge = async (query) => {
   ));
 };
 
-cambridge.displayName = "Cambridge";
+cambridge.displayName = "Cambridge 英英";
 
 export default cambridge;
