@@ -3,7 +3,7 @@ import db from "db";
 const defaultSettings = {
   width: 575,
   height: 355,
-  dictionaryIds: ["yahoo", "oxford", "jukuu"],
+  dictionaryIds: ["yahoo", "cambridge", "thesaurus", "voicetube"],
   display: "window",
   autoPronounce: true,
   kanjiPronounciation: "ja",
