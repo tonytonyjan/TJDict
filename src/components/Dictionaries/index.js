@@ -37,7 +37,7 @@ const Dictionaries = ({
     <div className="container-fluid">
       <div className="row">
         <div className="col-6">
-          <h6>顯示這些字典</h6>
+          <h6>啟用中的字典</h6>
           <ul className="list-group">
             {dictionaryIds.map((dictId, index) => (
               <li
@@ -70,7 +70,7 @@ const Dictionaries = ({
           </ul>
         </div>
         <div className="col-6">
-          <h6>隱藏這些字典</h6>
+          <h6>未啟用的字典</h6>
           <ul className="list-group">
             {unusedDictionaryIds.map((dictId) => (
               <li
