@@ -31,7 +31,7 @@ const init = new Promise((resolve) => {
     });
     window.ga("set", "checkProtocolTask", null);
     settings.dictionaryIds.forEach((dict, index) => {
-      window.ga("send", "event", "setting", "dictionary_order", dict, index, {
+      window.ga("send", "event", "settings", "dictionary_order", dict, index, {
         nonInteraction: true,
       });
     });
