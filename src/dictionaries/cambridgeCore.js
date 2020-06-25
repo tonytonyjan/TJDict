@@ -8,12 +8,13 @@ export default async (fetchPromise) => {
   const dom = new DOMParser().parseFromString(body, "text/html");
   const entries = dom.querySelectorAll(".entry-body__el");
   if (entries.length === 0) return null;
+  let tmp;
   return Array.from(entries).map((element, i) => (
     <Fragment key={i}>
       <h3>
         {element.querySelector(".hw.dhw").textContent}{" "}
         <small className="text-muted">
-          {element.querySelector(".posgram").textContent}
+          {(tmp = element.querySelector(".posgram")) && tmp.textContent}
         </small>
       </h3>
       <div>

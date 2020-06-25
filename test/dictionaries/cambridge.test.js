@@ -12,6 +12,12 @@ describe("Cambridge", () => {
       expect(text.includes("The class are doing")).toBeTrue();
     });
   });
+  it("these", async () => {
+    actRender(await cambridge("these"), (container) => {
+      const text = container.textContent;
+      expect(text).toMatch(/plural\s+of\s+this/);
+    });
+  });
   it("not found", async () => {
     expect(await cambridge("123123123")).toBeNull();
   });
