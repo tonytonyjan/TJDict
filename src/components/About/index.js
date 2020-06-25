@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope, faHome } from "@fortawesome/free-solid-svg-icons";
 import { faGithub } from "@fortawesome/free-brands-svg-icons";
@@ -6,7 +7,7 @@ import avatar from "./avatar.png";
 import banana from "./banana.png";
 import dictionaries from "dictionaries";
 
-const About = () => (
+const About = ({ reviewUrl }) => (
   <div className="container py-3">
     <article>
       <h1 className="pb-2 mb-2 border-bottom">
@@ -24,11 +25,7 @@ const About = () => (
       </p>
       <p>
         筆者自上線以來不斷用工作之餘的時間開發，若你也喜歡這個軟體，不妨
-        <a
-          href="https://chrome.google.com/webstore/detail/caafmojgjlbflohillejdmnghkpcjjpp/reviews"
-          target="_blank"
-          rel="noreferrer noopener"
-        >
+        <a href={reviewUrl} target="_blank" rel="noreferrer noopener">
           給 TJDict 一些星星
         </a>
         ，你的鼓勵與意見會是筆者持續開發的動力：）
@@ -116,4 +113,9 @@ const About = () => (
     </article>
   </div>
 );
+
+About.propTypes = {
+  reviewUrl: PropTypes.string,
+};
+
 export default About;

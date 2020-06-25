@@ -17,6 +17,21 @@ import General from "components/General";
 import NotFound from "components/NotFound";
 import Help from "components/Help";
 
+const reviewUrl = (() => {
+  switch (process.env.BROWSER) {
+    case "chrome":
+      return "https://chrome.google.com/webstore/detail/caafmojgjlbflohillejdmnghkpcjjpp/reviews";
+    case "firefox":
+      return "https://addons.mozilla.org/developers/addon/tjdict";
+    default:
+      return "";
+  }
+})();
+const supportUrl =
+  process.env.BROWSER === "chrome"
+    ? "https://chrome.google.com/webstore/detail/caafmojgjlbflohillejdmnghkpcjjpp/support"
+    : "https://www.surveycake.com/s/mDznr";
+
 const history = createHashHistory();
 ga("set", "page", history.location.pathname);
 ga("send", "pageview");
@@ -206,7 +221,7 @@ const Root = () => {
       <Router history={history}>
         <Switch>
           <Route exact path="/">
-            <Home />
+            <Home supportUrl={supportUrl} reviewUrl={reviewUrl} />
           </Route>
           <Route exact path="/q/:query">
             {settings &&
@@ -228,10 +243,10 @@ const Root = () => {
               ))}
           </Route>
           <Route exact path="/about">
-            <About />
+            <About reviewUrl={reviewUrl} />
           </Route>
           <Route exact path="/help">
-            <Help />
+            <Help supportUrl={supportUrl} />
           </Route>
           <Route
             path="/settings"

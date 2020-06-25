@@ -1,9 +1,10 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faComment, faWrench } from "@fortawesome/free-solid-svg-icons";
 import coverImage from "./cover.png";
 
-const Home = () => (
+const Home = ({ reviewUrl, supportUrl }) => (
   <div className="container-fluid">
     <div className="row">
       <div className="col-md">
@@ -24,7 +25,7 @@ const Home = () => (
           </li>
         </ul>
         <a
-          href="https://chrome.google.com/webstore/detail/caafmojgjlbflohillejdmnghkpcjjpp/reviews"
+          href={reviewUrl}
           target="_blank"
           rel="noreferrer noopener"
           className="btn btn-primary btn-lg"
@@ -33,7 +34,7 @@ const Home = () => (
           <FontAwesomeIcon fixedWidth icon={faComment} /> 評論
         </a>
         <a
-          href="https://chrome.google.com/webstore/detail/caafmojgjlbflohillejdmnghkpcjjpp/support"
+          href={supportUrl}
           target="_blank"
           rel="noreferrer noopener"
           className="btn btn-primary btn-lg ml-1"
@@ -45,4 +46,10 @@ const Home = () => (
     </div>
   </div>
 );
+
+Home.propTypes = {
+  reviewUrl: PropTypes.string,
+  supportUrl: PropTypes.string,
+};
+
 export default Home;
