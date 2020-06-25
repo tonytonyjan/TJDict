@@ -2,7 +2,7 @@
   "name": "TJDict 線上字典",
   "short_name": "TJDict",
   "description": "TJDict 是一款方便快速的整合型網路字典，支援英漢、漢英、英英、日日，只要查詢一個單字，就能得到多本字典的查詢結果。再也不用開一堆分頁找單字，節省你的寶貴時間。",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "manifest_version": 2,
   "permissions": [
     "notifications",
