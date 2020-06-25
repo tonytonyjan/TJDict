@@ -14,3 +14,11 @@
 
 1. `npm run package:all`
 2. All packages are located in `pkg` directory.
+
+# Release
+
+1. Bump version in `dist/manifest.json`
+2. Run `npm run version`
+3. Commit `dist/manifest.json` and `CHANGELOG.md` files
+4. Tag
+5. Push
