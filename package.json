@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "clean": "git clean -dfx dist pkg",
+    "clean": "git clean -dfx dist",
     "start": "npm run clean && webpack --watch --mode development",
     "build": "npm run clean && webpack --mode production",
     "package:all": "BROWSER=chrome npm run package; BROWSER=firefox npm run package; BROWSER=edge npm run package",
