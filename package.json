@@ -9,7 +9,8 @@
     "server": "webpack-dev-server",
     "test": "karma start",
     "lint": "eslint src test",
-    "storybook": "start-storybook --ci --port 9000"
+    "storybook": "start-storybook --ci --port 9000",
+    "version": "npx conventional-changelog-cli -p angular -c dist/manifest.json -i CHANGELOG.md -s && git add CHANGELOG.md dist/manifest.json"
   },
   "devDependencies": {
     "@babel/core": "^7.10.3",
