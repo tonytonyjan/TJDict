@@ -22,7 +22,7 @@ const reviewUrl = (() => {
     case "chrome":
       return "https://chrome.google.com/webstore/detail/caafmojgjlbflohillejdmnghkpcjjpp/reviews";
     case "firefox":
-      return "https://addons.mozilla.org/developers/addon/tjdict";
+      return "https://addons.mozilla.org/firefox/addon/tjdict";
     default:
       return "";
   }
