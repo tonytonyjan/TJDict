@@ -18,6 +18,12 @@ describe("Cambridge", () => {
       expect(text).toMatch(/plural\s+of\s+this/);
     });
   });
+  it("indicate", async () => {
+    actRender(await cambridge("indicate"), (container) => {
+      const text = container.textContent;
+      expect(text.includes("to show, point, or make")).toBeTrue();
+    });
+  });
   it("not found", async () => {
     expect(await cambridge("123123123")).toBeNull();
   });

@@ -19,30 +19,32 @@ export default async (fetchPromise) => {
       </h3>
       <div>
         {Array.from(element.querySelectorAll(".def-block")).map((block, i) => {
-          const badge = block.querySelector(".def-info").textContent.trim();
-          const trans = block.querySelector(".def-body > .trans:first-child");
           return (
             <div key={i}>
               <p className="lead">
-                {badge && (
-                  <span className="badge badge-secondary">{badge}</span>
+                {(tmp = block.querySelector(".def-info")) && (
+                  <span className="badge badge-secondary">
+                    {tmp.textContent.trim()}
+                  </span>
                 )}{" "}
-                {block.querySelector(".def").textContent}
+                {(tmp = block.querySelector(".def")) && tmp.textContent}
               </p>
-              <p className="lead text-muted">{trans && trans.textContent}</p>
+              <p className="lead text-muted">
+                {(tmp = block.querySelector(
+                  ".def-body > .trans:first-child"
+                )) && tmp.textContent}
+              </p>
               <ul>
                 {Array.from(block.querySelectorAll(".examp")).map(
                   (examp, i) => {
-                    const secondLine = examp.querySelector("span:nth-child(2)");
                     return (
                       <li key={i}>
-                        {examp.querySelector("span:first-child").textContent}
-                        {secondLine && (
+                        {(tmp = examp.querySelector("span:first-child")) &&
+                          tmp.textContent}
+                        {(tmp = examp.querySelector("span:nth-child(2)")) && (
                           <Fragment>
                             <br />
-                            <p className="text-muted">
-                              {secondLine.textContent}
-                            </p>
+                            <p className="text-muted">{tmp.textContent}</p>
                           </Fragment>
                         )}
                       </li>
