@@ -27,8 +27,14 @@ const popup = ({ text, x, y }) => {
           ({ id }) => {
             windowId = id;
             // workaround for firefox bug 1271047
-            if (navigator.userAgent.toLowerCase().indexOf("firefox") > -1)
-              browser.windows.update(id, { left: x, top: y });
+            if (process.env.BROWSER === "firefox")
+              browser.windows.update(id, {
+                left: x,
+                top:
+                  y + settings.height > window.screen.height
+                    ? window.screen.height - settings.height
+                    : y,
+              });
           }
         );
         break;
