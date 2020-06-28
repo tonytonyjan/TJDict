@@ -394,6 +394,7 @@ const Root = () => {
                       .map(({ id, query }) => ({ id: id.toString(), query })),
                     onClickMore: () => history.push("/history"),
                     onRemoveRecord: handleRemoveRecord,
+                    hasMore: historyRecords.length > 5,
                   }}
                 />
               ))}
