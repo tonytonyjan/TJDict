@@ -32,19 +32,21 @@ const HistoryPanel = ({ records, onRemoveRecord, onClickMore, hasMore }) => {
             />
           </li>
         ))}
-        <li className="list-group-item">
-          {records.length === 0
-            ? "目前無資料"
-            : hasMore && (
-                <button
-                  type="button"
-                  className="btn btn-link"
-                  onClick={onClickMore}
-                >
-                  查看更多
-                </button>
-              )}
-        </li>
+        {(records.length === 0 || hasMore) && (
+          <li className="list-group-item">
+            {records.length === 0
+              ? "目前無資料"
+              : hasMore && (
+                  <button
+                    type="button"
+                    className="btn btn-link"
+                    onClick={onClickMore}
+                  >
+                    查看更多
+                  </button>
+                )}
+          </li>
+        )}
       </ul>
     </Fragment>
   );
