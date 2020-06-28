@@ -12,7 +12,20 @@ const dictionaries = [
   { id: "buz", title: "BUZ", content: longContent },
 ];
 
-export const Basic = () => <Query dictionaries={dictionaries} />;
+const historyRecords = [
+  { id: "1", query: "test" },
+  { id: "2", query: "test" },
+  { id: "3", query: "test" },
+  { id: "4", query: "test" },
+  { id: "5", query: "test" },
+];
+
+export const Basic = () => (
+  <Query
+    dictionaries={dictionaries}
+    historyPanelProps={{ records: historyRecords, hasMore: true }}
+  />
+);
 export const WithBroadcast = () => (
   <Query
     broadcast={
@@ -26,6 +39,7 @@ export const WithBroadcast = () => (
       </a>
     }
     dictionaries={dictionaries}
+    historyPanelProps={{ records: historyRecords, hasMore: true }}
   />
 );
 

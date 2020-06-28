@@ -1,5 +1,11 @@
 import ga from "ga";
-import React, { useState, useEffect, useCallback, useRef } from "react";
+import React, {
+  useState,
+  useEffect,
+  useCallback,
+  useRef,
+  useMemo,
+} from "react";
 import App from "components/App";
 import { Router, Switch, Route, Redirect } from "react-router-dom";
 import { matchPath } from "react-router";
@@ -16,6 +22,8 @@ import Dictionaries from "components/Dictionaries";
 import General from "components/General";
 import NotFound from "components/NotFound";
 import Help from "components/Help";
+import History from "components/History";
+import db from "db";
 
 const reviewUrl = (() => {
   switch (process.env.BROWSER) {
@@ -71,6 +79,7 @@ const handleNavigate = (name) => {
 
 const Root = () => {
   const [settings, setSettings] = useState(null);
+  const [historyRecords, setHistoryRecords] = useState([]);
   const [contents, setContents] = useState({});
   const [query, setQuery] = useState(matchQuery(history.location.pathname));
   const [broadcast, setBroadcast] = useState(null);
@@ -126,6 +135,89 @@ const Root = () => {
   const handleSettingsChange = useCallback(({ key, value }) => {
     setSettings((prev) => ({ ...prev, [key]: value }));
   }, []);
+
+  const handleRemoveRecord = useCallback((_id) => {
+    const id = parseInt(_id);
+    db.then((db) => {
+      const objectStore = db
+        .transaction(["history"], "readwrite")
+        .objectStore("history");
+      objectStore.delete(id).onsuccess = () => {
+        setHistoryRecords((prev) => prev.filter((record) => record.id !== id));
+      };
+    });
+  }, []);
+
+  const handleClearHistory = useCallback(() => {
+    db.then((db) => {
+      db
+        .transaction(["history"], "readwrite")
+        .objectStore("history")
+        .clear().onsuccess = () => {
+        setHistoryRecords([]);
+      };
+    });
+  }, []);
+
+  const historyMemo = useMemo(() => {
+    if (historyRecords.length === 0) return [];
+
+    const now = new Date();
+    let titles = [
+      {
+        timeLessThan: new Date(
+          now.getFullYear(),
+          now.getMonth(),
+          now.getDate() - 7
+        ),
+        name: "較舊",
+      },
+      {
+        timeLessThan: new Date(
+          now.getFullYear(),
+          now.getMonth(),
+          now.getDate() - 1
+        ),
+        name: "本週",
+      },
+      {
+        timeLessThan: new Date(
+          now.getFullYear(),
+          now.getMonth(),
+          now.getDate()
+        ),
+        name: "昨天",
+      },
+      {
+        timeLessThan: Infinity,
+        name: "今天",
+      },
+    ];
+    titles = titles.slice(
+      0,
+      titles.findIndex(
+        ({ timeLessThan }) => historyRecords[0].id < timeLessThan
+      ) + 1
+    );
+    const result = [];
+    historyRecords.forEach(({ id, query }) => {
+      if (
+        titles[titles.length - 1] &&
+        id < titles[titles.length - 1].timeLessThan
+      )
+        result.push({
+          type: "text",
+          text: titles.pop().name,
+        });
+      result.push({
+        type: "data",
+        id: id.toString(),
+        time: new Date(id).toLocaleString(),
+        query,
+      });
+    });
+    return result;
+  }, [historyRecords]);
 
   useEffect(() => {
     const unlisten = history.listen(({ pathname }) => {
@@ -210,6 +302,36 @@ const Root = () => {
     })();
   }, []);
 
+  // load history
+  useEffect(() => {
+    db.then((db) => {
+      const now = new Date();
+      const twoWeeksAgo = now - 3600000 * 24 * 14;
+      const result = [];
+      const objectStore = db.transaction("history").objectStore("history");
+      objectStore.openCursor(
+        IDBKeyRange.lowerBound(twoWeeksAgo, true),
+        "prev"
+      ).onsuccess = ({ target: { result: cursor } }) => {
+        if (cursor) {
+          result.push({ id: cursor.key, query: cursor.value });
+          cursor.continue();
+        } else setHistoryRecords(result);
+      };
+    });
+  }, [query]);
+
+  // store history
+  useEffect(() => {
+    if (!query) return;
+    db.then((db) => {
+      const objectStore = db
+        .transaction(["history"], "readwrite")
+        .objectStore("history");
+      objectStore.add(query, Date.now());
+    });
+  }, [query]);
+
   return (
     <App
       query={initQuery}
@@ -221,7 +343,18 @@ const Root = () => {
       <Router history={history}>
         <Switch>
           <Route exact path="/">
-            <Home supportUrl={supportUrl} reviewUrl={reviewUrl} />
+            <Home
+              supportUrl={supportUrl}
+              reviewUrl={reviewUrl}
+              historyPanelProps={{
+                records: historyRecords
+                  .slice(0, 5)
+                  .map(({ id, query }) => ({ id: id.toString(), query })),
+                onClickMore: () => history.push("/history"),
+                onRemoveRecord: handleRemoveRecord,
+                hasMore: historyRecords.length > 5,
+              }}
+            />
           </Route>
           <Route exact path="/q/:query">
             {settings &&
@@ -239,6 +372,13 @@ const Root = () => {
                     }))
                     .filter((dict) => dict.content)}
                   broadcast={broadcast}
+                  historyPanelProps={{
+                    records: historyRecords
+                      .slice(0, 5)
+                      .map(({ id, query }) => ({ id: id.toString(), query })),
+                    onClickMore: () => history.push("/history"),
+                    onRemoveRecord: handleRemoveRecord,
+                  }}
                 />
               ))}
           </Route>
@@ -301,6 +441,13 @@ const Root = () => {
               </Switch>
             )}
           ></Route>
+          <Route exact path="/history">
+            <History
+              records={historyMemo}
+              onRemoveRecord={handleRemoveRecord}
+              onClearHistory={handleClearHistory}
+            />
+          </Route>
           <Route path="*">
             <h1>Not Found</h1>
           </Route>
