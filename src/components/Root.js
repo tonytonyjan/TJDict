@@ -332,6 +332,22 @@ const Root = () => {
     });
   }, [query]);
 
+  // send query frequency (per minute) to ga
+  useEffect(() => {
+    if (!query) return;
+    db.then((db) => {
+      const oneMinuteAgo = Date.now() - 60000;
+      db
+        .transaction("history")
+        .objectStore("history")
+        .count(IDBKeyRange.lowerBound(oneMinuteAgo, true)).onsuccess = ({
+        target: { result: count },
+      }) => {
+        ga("send", "event", "engagement", "query_frequency", undefined, count);
+      };
+    });
+  }, [query]);
+
   return (
     <App
       query={initQuery}
