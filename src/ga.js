@@ -27,7 +27,9 @@ const init = new Promise((resolve) => {
       clientId: settings.clientId,
     });
     window.ga((tracker) => {
-      updateSettings({ clientId: tracker.get("clientId") });
+      const clientId = tracker.get("clientId");
+      updateSettings({ clientId });
+      window.ga("set", "dimension1", clientId);
     });
     window.ga("set", "checkProtocolTask", null);
     settings.dictionaryIds.forEach((dict, index) => {
