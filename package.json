@@ -5,7 +5,7 @@
     "build": "npm run clean && webpack --mode production",
     "package:all": "BROWSER=chrome npm run package; BROWSER=firefox npm run package; BROWSER=edge npm run package",
     "package": "export BROWSER=${BROWSER:-chrome} && npm run build && mkdir -p pkg && cd dist && zip -r $(node -e 'console.log(`../pkg/TJDict-${require(\"./manifest.json\").version}.${process.env.BROWSER}.zip`)') .",
-    "package:source": "mkdir -p pkg && git archive -o pkg/TJDict2-$(node -e 'console.log(require(\"./src/manifest.json\").version)').source.zip HEAD",
+    "package:source": "mkdir -p pkg && git archive -o pkg/TJDict2-$(git rev-parse --short HEAD).source.zip HEAD",
     "server": "webpack-dev-server",
     "test": "karma start",
     "lint": "eslint src test",
