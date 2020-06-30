@@ -1,5 +1,6 @@
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const { EnvironmentPlugin } = require("webpack");
+const CopyPlugin = require("copy-webpack-plugin");
 
 const path = require("path");
 
@@ -72,6 +73,20 @@ module.exports = (_env, argv) => ({
     new MiniCssExtractPlugin(),
     new EnvironmentPlugin({
       BROWSER: "chrome",
+    }),
+    new CopyPlugin({
+      patterns: [
+        {
+          from: "src/manifest.json",
+          to: "manifest.json",
+          transform: (content) => {
+            const manifest = JSON.parse(content);
+            if (process.env.BROWSER === "firefox")
+              delete manifest.content_security_policy;
+            return JSON.stringify(manifest, null, 2);
+          },
+        },
+      ],
     }),
   ],
   devServer: {

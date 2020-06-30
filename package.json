@@ -5,12 +5,12 @@
     "build": "npm run clean && webpack --mode production",
     "package:all": "BROWSER=chrome npm run package; BROWSER=firefox npm run package; BROWSER=edge npm run package",
     "package": "export BROWSER=${BROWSER:-chrome} && npm run build && mkdir -p pkg && cd dist && zip -r $(node -e 'console.log(`../pkg/TJDict-${require(\"./manifest.json\").version}.${process.env.BROWSER}.zip`)') .",
-    "package:source": "mkdir -p pkg && git archive -o pkg/TJDict2-$(node -e 'console.log(require(\"./dist/manifest.json\").version)').source.zip HEAD",
+    "package:source": "mkdir -p pkg && git archive -o pkg/TJDict2-$(node -e 'console.log(require(\"./src/manifest.json\").version)').source.zip HEAD",
     "server": "webpack-dev-server",
     "test": "karma start",
     "lint": "eslint src test",
     "storybook": "start-storybook --ci --port 9000",
-    "version": "npx conventional-changelog-cli -p angular -c dist/manifest.json -i CHANGELOG.md -s && git add CHANGELOG.md dist/manifest.json"
+    "version": "npx conventional-changelog-cli -p angular -c src/manifest.json -i CHANGELOG.md -s && git add CHANGELOG.md src/manifest.json"
   },
   "devDependencies": {
     "@babel/core": "^7.10.3",
@@ -25,6 +25,7 @@
     "autoprefixer": "^9.8.2",
     "babel-loader": "^8.1.0",
     "bootstrap": "^4.5.0",
+    "copy-webpack-plugin": "^6.0.2",
     "css-loader": "^3.6.0",
     "eslint": "^7.3.0",
     "eslint-config-prettier": "^6.11.0",
