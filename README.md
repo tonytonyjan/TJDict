@@ -17,8 +17,8 @@
 
 # Release
 
-1. Bump version in `dist/manifest.json`
+1. Bump version in `src/manifest.json`
 2. Run `npm run version`
-3. Commit `dist/manifest.json` and `CHANGELOG.md` files
+3. Commit `src/manifest.json` and `CHANGELOG.md` files
 4. Tag
 5. Push
