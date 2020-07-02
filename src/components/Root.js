@@ -31,6 +31,8 @@ const reviewUrl = (() => {
       return "https://chrome.google.com/webstore/detail/caafmojgjlbflohillejdmnghkpcjjpp/reviews";
     case "firefox":
       return "https://addons.mozilla.org/firefox/addon/tjdict";
+    case "edge":
+      return "https://microsoftedge.microsoft.com/addons/detail/dejpinkibingbiepjnnlicpakinppjpm";
     default:
       return "";
   }
