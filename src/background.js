@@ -28,7 +28,10 @@ const popup = ({ text, x, y }) => {
             // workaround for firefox bug 1271047
             if (process.env.BROWSER === "firefox")
               browser.windows.update(id, {
-                left: x,
+                left:
+                  x + settings.width > window.screen.width
+                    ? window.screen.width - settings.width
+                    : x,
                 top:
                   y + settings.height > window.screen.height
                     ? window.screen.height - settings.height
