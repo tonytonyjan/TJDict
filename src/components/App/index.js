@@ -6,6 +6,7 @@ import {
   faInfoCircle,
   faVolumeDown,
   faQuestionCircle,
+  faDonate,
 } from "@fortawesome/free-solid-svg-icons";
 
 const App = ({
@@ -15,6 +16,7 @@ const App = ({
   onNavigate,
   onSubmit,
   onClickSpeak,
+  showDonate,
 }) => (
   <Fragment>
     <header>
@@ -87,6 +89,16 @@ const App = ({
                 <FontAwesomeIcon fixedWidth icon={faQuestionCircle} /> 支援
               </button>
             </li>
+            {showDonate && (
+              <li className="nav-item active">
+                <button
+                  className="nav-link btn btn-link"
+                  onClick={() => onNavigate("donate")}
+                >
+                  <FontAwesomeIcon fixedWidth icon={faDonate} /> 贊助
+                </button>
+              </li>
+            )}
           </ul>
         </div>
       </nav>
@@ -103,6 +115,7 @@ App.propTypes = {
   onNavigate: PropTypes.func,
   onSubmit: PropTypes.func,
   onClickSpeak: PropTypes.func,
+  showDonate: PropTypes.bool,
 };
 
 App.defaultProps = {

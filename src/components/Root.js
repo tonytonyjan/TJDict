@@ -23,6 +23,7 @@ import General from "components/General";
 import NotFound from "components/NotFound";
 import Help from "components/Help";
 import History from "components/History";
+import Donate from "components/Donate";
 import db from "db";
 
 const reviewUrl = (() => {
@@ -74,6 +75,9 @@ const handleNavigate = (name) => {
     case "help":
       history.push("/help");
       break;
+    case "donate":
+      history.push("/donate");
+      break;
     default:
       break;
   }
@@ -85,6 +89,8 @@ const Root = () => {
   const [contents, setContents] = useState({});
   const [query, setQuery] = useState(matchQuery(history.location.pathname));
   const [broadcast, setBroadcast] = useState(null);
+  const [products, setProducts] = useState([]);
+  const [path, setPath] = useState(history.location.pathname);
 
   const inputRef = useRef(null);
 
@@ -161,6 +167,20 @@ const Root = () => {
     });
   }, []);
 
+  const handleDonate = useCallback(({ id }) => {
+    window.google.payments.inapp.buy({
+      parameters: { env: "prod" },
+      sku: id,
+      success: () => {
+        setProducts((prev) => {
+          prev.find((product) => product.id === id).disabled = true;
+          return [...prev];
+        });
+      },
+      failure: console.error,
+    });
+  }, []);
+
   const historyMemo = useMemo(() => {
     if (historyRecords.length === 0) return [];
 
@@ -223,6 +243,7 @@ const Root = () => {
 
   useEffect(() => {
     const unlisten = history.listen(({ pathname }) => {
+      setPath(pathname);
       setQuery((inputRef.current.value = matchQuery(pathname)));
     });
     return unlisten;
@@ -350,6 +371,45 @@ const Root = () => {
     });
   }, [query]);
 
+  useEffect(() => {
+    if (path !== "/donate") return;
+    window.google.payments.inapp.getSkuDetails({
+      parameters: { env: "prod" },
+      success: ({
+        response: {
+          details: { inAppProducts: products },
+        },
+      }) => {
+        setProducts(
+          products
+            .sort((a, b) => a.prices[0].valueMicros - b.prices[0].valueMicros)
+            .map((product) => ({
+              id: product.sku,
+              name: product.localeData[0].title,
+              description: product.localeData[0].description,
+              price: product.prices[0].valueMicros / 1000000,
+              disabled: false,
+            }))
+        );
+        window.google.payments.inapp.getPurchases({
+          parameters: { env: "prod" },
+          success: ({ response: { details } }) => {
+            setProducts((prev) => {
+              details
+                .filter(({ state }) => state === "ACTIVE")
+                .forEach(({ sku }) => {
+                  prev.find((product) => product.id === sku).disabled = true;
+                });
+              return [...prev];
+            });
+          },
+          failure: console.error,
+        });
+      },
+      failure: console.error,
+    });
+  }, [path]);
+
   return (
     <App
       query={initQuery}
@@ -357,6 +417,7 @@ const Root = () => {
       onNavigate={handleNavigate}
       onSubmit={handleSubmit}
       onClickSpeak={speak}
+      showDonate={process.env.BROWSER === "chrome"}
     >
       <Router history={history}>
         <Switch>
@@ -465,6 +526,14 @@ const Root = () => {
               records={historyMemo}
               onRemoveRecord={handleRemoveRecord}
               onClearHistory={handleClearHistory}
+            />
+          </Route>
+          <Route exact path="/donate">
+            <Donate
+              items={products}
+              reviewUrl={reviewUrl}
+              onDonate={handleDonate}
+              smile={!!products.find(({ disabled }) => disabled)}
             />
           </Route>
           <Route path="*">
