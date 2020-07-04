@@ -123,7 +123,6 @@ const Root = () => {
   const handleMoveUpDictionary = useCallback((dictId) => {
     setSettings((prev) => {
       const index = prev.dictionaryIds.indexOf(dictId);
-      console.log(dictId, index);
       prev.dictionaryIds.splice(
         index - 1,
         0,

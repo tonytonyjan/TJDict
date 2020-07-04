@@ -105,7 +105,6 @@ browser.contextMenus.create({
   contexts: ["selection"],
 });
 
-browser.contextMenus.onClicked.addListener(console.log);
 browser.contextMenus.onClicked.addListener(
   ({ menuItemId, selectionText, pageUrl }, tab) => {
     if (menuItemId !== "tjdict-query") return;
