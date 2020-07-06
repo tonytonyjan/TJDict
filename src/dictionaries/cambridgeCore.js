@@ -8,54 +8,56 @@ export default async (fetchPromise) => {
   const dom = new DOMParser().parseFromString(body, "text/html");
   const entries = dom.querySelectorAll(".entry-body__el");
   if (entries.length === 0) return null;
-  let tmp;
-  return Array.from(entries).map((element, i) => (
-    <Fragment key={i}>
-      <h3>
-        {element.querySelector(".hw.dhw").textContent}{" "}
-        <small className="text-muted">
-          {(tmp = element.querySelector(".posgram")) && tmp.textContent}
-        </small>
-      </h3>
-      <div>
-        {Array.from(element.querySelectorAll(".def-block")).map((block, i) => {
-          return (
-            <div key={i}>
-              <p className="lead">
-                {(tmp = block.querySelector(".def-info")) && (
-                  <span className="badge badge-secondary">
-                    {tmp.textContent.trim()}
-                  </span>
-                )}{" "}
-                {(tmp = block.querySelector(".def")) && tmp.textContent}
-              </p>
-              <p className="lead text-muted">
-                {(tmp = block.querySelector(
-                  ".def-body > .trans:first-child"
-                )) && tmp.textContent}
-              </p>
-              <ul>
-                {Array.from(block.querySelectorAll(".examp")).map(
-                  (examp, i) => {
-                    return (
-                      <li key={i}>
-                        {(tmp = examp.querySelector("span:first-child")) &&
-                          tmp.textContent}
-                        {(tmp = examp.querySelector("span:nth-child(2)")) && (
-                          <Fragment>
-                            <br />
-                            <p className="text-muted">{tmp.textContent}</p>
-                          </Fragment>
-                        )}
-                      </li>
-                    );
-                  }
-                )}
-              </ul>
-            </div>
-          );
-        })}
-      </div>
-    </Fragment>
-  ));
+  return Array.from(entries).map((element, i) => {
+    const title = element.querySelector(".hw.dhw")?.textContent;
+    const partOfSpeech = element.querySelector(".posgram")?.textContent;
+    const pronunciations = Array.from(
+      element.querySelectorAll(".pron.dpron")
+    ).map((i) => i.textContent);
+    const blocks = Array.from(element.querySelectorAll(".def-block")).map(
+      (i) => ({
+        badge: i.querySelector(".def-info")?.textContent.trim(),
+        definition: i.querySelector(".def")?.textContent,
+        trans: i.querySelector(".trans:first-child")?.textContent,
+        examples: Array.from(i.querySelectorAll(".examp")).map(
+          (i) => i.textContent
+        ),
+      })
+    );
+    return (
+      <Fragment key={i}>
+        {title && <div className="lead">{title}</div>}
+        {partOfSpeech && <div className="text-second">{partOfSpeech}</div>}
+        {pronunciations.length > 0 && (
+          <ul className="list-inline">
+            {pronunciations.map((i, index) => (
+              <li key={index} className="list-inline-item text-secondary">
+                {i}
+              </li>
+            ))}
+          </ul>
+        )}
+        {blocks.map(({ badge, definition, trans, examples }, index) => (
+          <ul key={index} className="list-unstyled">
+            <li>
+              {badge && (
+                <span className="badge badge-secondary mr-1">{badge}</span>
+              )}
+              {definition && <span>{definition}</span>}
+              {trans && <div>{trans}</div>}
+              {examples.length > 0 && (
+                <ul>
+                  {examples.map((i, index) => (
+                    <li key={index} className="text-secondary">
+                      {i}
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </li>
+          </ul>
+        ))}
+      </Fragment>
+    );
+  });
 };
