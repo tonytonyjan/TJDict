@@ -9,9 +9,8 @@ import PropTypes from "prop-types";
 import Dictionary from "components/Dictionary";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faVolumeUp } from "@fortawesome/free-solid-svg-icons";
-import HistoryPanel from "components/HistoryPanel";
 
-const Query = ({ dictionaries, broadcast, historyPanelProps }) => {
+const Query = ({ dictionaries, broadcast }) => {
   const [activeDictId, setActiveDictId] = useState("");
   const dictionaryRefs = useRef({});
   const dictsContainer = useRef(null);
@@ -76,34 +75,21 @@ const Query = ({ dictionaries, broadcast, historyPanelProps }) => {
         </nav>
       </div>
       <div ref={dictsContainer} className="container-fluid">
-        <div className="row">
-          <div className="col-12 col-sm-8 col-md-9">
-            {dictionaries.map(({ id, title, content }) => (
-              <Dictionary
-                ref={(element) => (dictionaryRefs.current[id] = element)}
-                title={title}
-                key={title}
-              >
-                {content}
-              </Dictionary>
-            ))}
-          </div>
-          <div className="col-sm-4 col-md-3 d-none d-sm-block">
-            <HistoryPanel {...historyPanelProps} />{" "}
-          </div>
-        </div>
+        {dictionaries.map(({ id, title, content }) => (
+          <Dictionary
+            ref={(element) => (dictionaryRefs.current[id] = element)}
+            title={title}
+            key={title}
+          >
+            {content}
+          </Dictionary>
+        ))}
       </div>
     </Fragment>
   );
 };
 
 Query.propTypes = {
-  historyRecords: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      query: PropTypes.string.isRequired,
-    }).isRequired
-  ).isRequired,
   dictionaries: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.string.isRequired,
@@ -112,17 +98,10 @@ Query.propTypes = {
     }).isRequired
   ).isRequired,
   broadcast: PropTypes.node,
-  onClickMore: PropTypes.func,
-  onRemoveRecord: PropTypes.func,
-  historyPanelProps: PropTypes.exact(HistoryPanel.propTypes),
 };
 
 Query.defaultProps = {
   dictionaries: [],
-  onQuery: () => {},
-  historyRecords: [],
-  onClickMore: () => {},
-  onRemoveRecord: () => {},
 };
 
 export default Query;
