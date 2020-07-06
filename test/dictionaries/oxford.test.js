@@ -1,16 +1,17 @@
 import oxford from "dictionaries/oxford";
+import { actRender } from "testHelpers";
 
 describe("Oxford", () => {
   it("correct ID", () => {
     expect(oxford.name).toBe("oxford");
   });
   it("found en", async () => {
-    const result = await oxford("test");
-    expect(
-      result.textContent.includes(
-        "A procedure intended to establish the quality"
-      )
-    ).toBeTrue();
+    actRender(await oxford("test"), (container) => {
+      const text = container.textContent;
+      expect(
+        text.includes("A procedure intended to establish the quality")
+      ).toBeTrue();
+    });
   });
 
   it("not found", async () => {
