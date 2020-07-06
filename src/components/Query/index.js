@@ -47,7 +47,7 @@ const Query = ({ dictionaries, broadcast }) => {
   return (
     <Fragment>
       {broadcast && (
-        <div className="d-flex align-items-center ml-3 pl-3 my-3 text-secondary">
+        <div className="d-flex align-items-center ml-3 pl-3 my-1 text-secondary">
           <FontAwesomeIcon fixedWidth icon={faVolumeUp} size="lg" />
           <span className="ml-3">{broadcast}</span>
         </div>
