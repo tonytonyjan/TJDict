@@ -91,6 +91,7 @@ const Root = () => {
   const [broadcast, setBroadcast] = useState(null);
   const [products, setProducts] = useState([]);
   const [path, setPath] = useState(history.location.pathname);
+  const [dataList, setDataList] = useState([]);
 
   const inputRef = useRef(null);
 
@@ -178,6 +179,19 @@ const Root = () => {
       },
       failure: console.error,
     });
+  }, []);
+
+  const handleInputChange = useCallback(({ target: { value } }) => {
+    (async () => {
+      const response = await fetch(
+        `https://tw.search.yahoo.com/sugg/gossip/gossip-tw-vertical_ss/?output=json&pubid=1306&command=${encodeURIComponent(
+          value
+        )}`
+      );
+      if (!response.ok) throw new Error("not ok");
+      const result = await response.json();
+      setDataList(result.gossip.results.map((i) => i.key));
+    })();
   }, []);
 
   const historyMemo = useMemo(() => {
@@ -417,6 +431,8 @@ const Root = () => {
       onSubmit={handleSubmit}
       onClickSpeak={speak}
       showDonate={process.env.BROWSER === "chrome"}
+      onInputChange={handleInputChange}
+      dataList={dataList.slice(0, 8)}
     >
       <Router history={history}>
         <Switch>

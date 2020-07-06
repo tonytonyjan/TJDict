@@ -11,12 +11,14 @@ import {
 
 const App = ({
   query,
+  dataList,
   inputRef,
   children,
   onNavigate,
   onSubmit,
   onClickSpeak,
   showDonate,
+  onInputChange,
 }) => (
   <Fragment>
     <header>
@@ -42,7 +44,14 @@ const App = ({
               autoComplete="off"
               autoFocus
               defaultValue={query}
+              list="autocomplete-list"
+              onChange={onInputChange}
             />
+            <datalist id="autocomplete-list">
+              {dataList.map((i) => (
+                <option key={i}>{i}</option>
+              ))}
+            </datalist>
             <div className="input-group-append">
               <button className="btn btn-primary" type="button">
                 <FontAwesomeIcon
@@ -116,6 +125,8 @@ App.propTypes = {
   onSubmit: PropTypes.func,
   onClickSpeak: PropTypes.func,
   showDonate: PropTypes.bool,
+  dataList: PropTypes.arrayOf(PropTypes.string).isRequired,
+  onInputChange: PropTypes.func,
 };
 
 App.defaultProps = {
@@ -123,6 +134,8 @@ App.defaultProps = {
   onNavigate: () => {},
   onSubmit: () => {},
   onClickSpeak: () => {},
+  dataList: [],
+  onInputChange: () => {},
 };
 
 export default App;
