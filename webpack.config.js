@@ -23,6 +23,8 @@ module.exports = (_env, argv) => ({
           loader: "babel-loader",
           options: {
             presets: ["@babel/preset-react"],
+            // https://github.com/webpack/webpack/issues/10227
+            plugins: ["@babel/plugin-proposal-optional-chaining"],
           },
         },
       },

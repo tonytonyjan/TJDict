@@ -16,72 +16,72 @@ const yahoo = async (query) => {
     !dom.querySelector(".grp.grp-main")
   )
     return null;
-  const result = [];
-  let content;
-  if ((content = dom.querySelector("h3.title > span.fz-24")))
-    result.push(<h3 key="1">{content.textContent}</h3>);
-  if ((content = dom.querySelector(".compList.d-ib>ul")))
-    result.push(
-      <h5 key="pronunciation" className="text-secondary">
-        {content.textContent}
-      </h5>
-    );
-  if (
-    (content = dom.querySelectorAll(".first .compList.d-ib>ul>li")).length > 0
-  )
-    <ul className="list-unstyled d-flex">
-      {Array.from(content).map((element, i) => (
-        <li key={i} className="ml-2">
-          {element.textContent}
-        </li>
-      ))}
-    </ul>;
-  if ((content = dom.querySelector(".grp-tab-content-explanation"))) {
-    const titles = Array.from(content.querySelectorAll(".compTitle") || []);
-    const lists = content.querySelectorAll(".compTextList");
-    const pairs = titles.map((e, i) => [e, lists[i]]);
-    result.push(
-      <div key="2">
-        {pairs.map(([title, list], i) => (
-          <section key={i}>
-            <h3 className="d-flex align-items-center">
-              <span className="badge badge-primary">
-                {title.querySelector(".pos_button").textContent}
-              </span>
-              <span className="ml-1">
-                {title.querySelector(".title").textContent}
-              </span>
-            </h3>
+  const title = dom.querySelector("h3.title > span.fz-24")?.textContent;
+  const pronunciation = dom.querySelector(".compList.d-ib>ul")?.textContent;
+  const compList = Array.from(
+    dom.querySelectorAll(".compList.p-rel > ul > li")
+  );
+  const compArticleList = Array.from(
+    dom.querySelectorAll(".dictionaryWordCard ul.compArticleList > li")
+  );
+  const explanation = dom.querySelector(".grp-tab-content-explanation");
+  const titles = Array.from(explanation?.querySelectorAll(".compTitle") || []);
+  const list = explanation?.querySelectorAll(".compTextList") || [];
+  const pairs = titles.map((e, i) => ({
+    partOfSpeech: e.textContent,
+    definitions: Array.from(list[i]?.querySelectorAll("li") || []).map(
+      (item) => ({
+        definition: item.querySelector(".d-i")?.textContent,
+        examples: Array.from(item.querySelectorAll(".fc-2nd")).map(
+          (i) => i.textContent
+        ),
+      })
+    ),
+  }));
+  return (
+    <div>
+      {title && <div>{title}</div>}
+      {pronunciation && <div className="text-secondary">{pronunciation}</div>}
+
+      {compList.length > 0 && (
+        <ul className="list-unstyled">
+          {compList.map((item, index) => (
+            <li key={index}>{item.textContent}</li>
+          ))}
+        </ul>
+      )}
+
+      {compArticleList.length > 0 && (
+        <ul className="list-unstyled">
+          {compArticleList.map((item, index) => (
+            <li key={index}>{item.textContent}</li>
+          ))}
+        </ul>
+      )}
+
+      <ul className="list-unstyled">
+        {pairs.map(({ partOfSpeech, definitions }) => (
+          <li key={partOfSpeech}>
+            {partOfSpeech}
             <ol>
-              {Array.from(list.querySelectorAll("li")).map((element, i) => (
-                <li key={i}>
-                  <span className="lead">
-                    {element.querySelector(".d-i").textContent}
-                  </span>
+              {definitions.map(({ definition, examples }) => (
+                <li key={definition}>
+                  {definition}
                   <ul className="list-unstyled">
-                    {Array.from(element.querySelectorAll(".fc-2nd")).map(
-                      (example, i) => (
-                        <li key={i} className="text-muted">
-                          {example.textContent}
-                        </li>
-                      )
-                    )}
+                    {examples.map((example) => (
+                      <li key={example} className="text-secondary">
+                        {example}
+                      </li>
+                    ))}
                   </ul>
                 </li>
               ))}
             </ol>
-          </section>
+          </li>
         ))}
-      </div>
-    );
-  } else if ((content = dom.querySelector(".first .dictionaryExplanation"))) {
-    result.push(
-      <div key="3" className="lead">
-        {content.textContent}
-      </div>
-    );
-  }
-  return result;
+      </ul>
+    </div>
+  );
 };
 
 yahoo.displayName = "Yahoo 英漢";
