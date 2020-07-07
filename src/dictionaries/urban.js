@@ -1,48 +1,62 @@
 import React from "react";
 
-const urban = (query) =>
-  fetch(
+const urban = async (query) => {
+  const response = await fetch(
     `https://www.urbandictionary.com/define.php?term=${encodeURIComponent(
       query
     )}`
-  )
-    .then((response) => {
-      if (!response.ok) throw new Error("not ok");
-      return response.text();
-    })
-    .then((body) => {
-      const dom = new DOMParser().parseFromString(body, "text/html");
-      return (
-        <div>
-          {Array.from(dom.querySelectorAll(".def-panel[data-defid]")).map(
-            (i, index) => (
-              <div className="panel panel-info" key={index}>
-                <div className="panel-heading">
-                  <h3 className="panel-title">
-                    {i.querySelector(".word").childNodes[0].nodeValue}
-                  </h3>
-                </div>
-                <div
-                  className="panel-body"
-                  dangerouslySetInnerHTML={{
-                    __html: i.querySelector(".meaning").innerHTML,
-                  }}
-                ></div>
-                <div className="panel-footer">
-                  <h5>Example</h5>
-                  <div
-                    dangerouslySetInnerHTML={{
-                      __html: i.querySelector(".example").innerHTML,
-                    }}
-                  ></div>
-                </div>
-              </div>
-            )
-          )}
+  );
+  if (!response.ok) throw new Error("not ok");
+  const dom = new DOMParser().parseFromString(
+    await response.text(),
+    "text/html"
+  );
+  const panels = Array.from(dom.querySelectorAll(".def-panel[data-defid]"))
+    .filter(
+      (i) =>
+        !i.querySelector(".ribbon")?.textContent?.includes("Word of the Day")
+    )
+    .map((i) => ({
+      title: i.querySelector(".def-header")?.textContent,
+      meanings: Array.from(i.querySelector(".meaning")?.childNodes || [])
+        .reduce((accumulator, current) => {
+          accumulator.push(
+            current instanceof HTMLBRElement ? "\n" : current.textContent
+          );
+          return accumulator;
+        }, [])
+        .join("")
+        .split(/\n+/),
+      examples: Array.from(i.querySelector(".example")?.childNodes || [])
+        .reduce((accumulator, current) => {
+          accumulator.push(
+            current instanceof HTMLBRElement ? "\n" : current.textContent
+          );
+          return accumulator;
+        }, [])
+        .join("")
+        .split(/\n+/),
+    }));
+  return (
+    <div>
+      {panels.map(({ title, meanings, examples }, index) => (
+        <div key={index}>
+          <div className="lead">{title}</div>
+          <ul>
+            {meanings.map((i, index) => (
+              <li key={index}>{i}</li>
+            ))}
+          </ul>
+          <ul className="text-secondary">
+            {examples.map((i, index) => (
+              <li key={index}>{i}</li>
+            ))}
+          </ul>
         </div>
-      );
-    })
-    .catch(() => null);
+      ))}
+    </div>
+  );
+};
 
 urban.displayName = "Urban 英英 俚語";
 
