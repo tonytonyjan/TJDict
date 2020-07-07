@@ -6,6 +6,7 @@ const urban = async (query) => {
       query
     )}`
   );
+  if (response.status === 404) return null;
   if (!response.ok) throw new Error("not ok");
   const dom = new DOMParser().parseFromString(
     await response.text(),
