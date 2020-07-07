@@ -39,17 +39,21 @@ const thesaurus = async (query) => {
   if (pageName === "noresult") return null;
   return (
     <div>
+      <div className="d-flex align-items-center">
+        <div className="bg-primary" style={{ width: 16, height: 16 }}></div>{" "}
+        <span className="ml-1">MOST RELEVANT</span>
+      </div>
       {data.map(({ definition, pos, synonyms }, i) => (
         <section key={i}>
-          <h3>
+          <div className="lead">
             {definition} <small className="text-muted">{pos}</small>
-          </h3>
+          </div>
           <ul className="d-flex list-unstyled flex-wrap">
             {synonyms.map(({ term, similarity }, i) => {
               const sim = parseInt(similarity);
               return (
                 <li
-                  className="m-1 p-1 lead"
+                  className="m-1 p-1"
                   style={{
                     backgroundColor: `rgba(0, 163, 233, ${sim / 100})`,
                     color: sim > 50 ? "white" : null,
@@ -61,10 +65,6 @@ const thesaurus = async (query) => {
               );
             })}
           </ul>
-          <div className="d-flex align-items-center">
-            <div className="bg-primary" style={{ width: 16, height: 16 }}></div>{" "}
-            <span className="ml-1">MOST RELEVANT</span>
-          </div>
         </section>
       ))}
     </div>
