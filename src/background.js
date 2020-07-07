@@ -160,10 +160,29 @@ browser.tabs.onRemoved.addListener((id) => {
 browser.runtime.onInstalled.addListener((details) => {
   if (details.reason !== "update") return;
 
-  browser.notifications.create({
-    type: "basic",
-    title: `已更新至 v${browser.runtime.getManifest().version}`,
-    iconUrl: "../../icons/icon128.png",
-    message: "請重新整理頁面",
-  });
+  browser.notifications.create(
+    {
+      type: "basic",
+      title: `已更新至 v${browser.runtime.getManifest().version}`,
+      iconUrl: "../../icons/icon128.png",
+      message: "點我查看更新內容",
+    },
+    (notificationId) => {
+      const handleClickNotification = (id) => {
+        if (notificationId === id) {
+          browser.notifications.clear(id, () => {
+            browser.tabs.create(
+              { url: "https://blog.tjdict.com", active: true },
+              () => {
+                browser.notifications.onClicked.removeListener(
+                  handleClickNotification
+                );
+              }
+            );
+          });
+        }
+      };
+      browser.notifications.onClicked.addListener(handleClickNotification);
+    }
+  );
 });
