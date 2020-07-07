@@ -1,5 +1,4 @@
 import React from "react";
-import { Switch } from "react-router-dom";
 
 const voicetube = async (query) => {
   const response = await fetch(
