@@ -1,34 +1,61 @@
+import React from "react";
+
 const regex = /weblio\.jp\/content\/([^/]+)/;
 
-const weblio = (query) =>
-  fetch(`https://www.weblio.jp/content/${encodeURIComponent(query)}`)
-    .then((response) => {
-      if (!response.ok) throw new Error("not ok");
-      return response.text();
-    })
-    .then((body) => {
-      const dom = new DOMParser().parseFromString(body, "text/html");
-      const titles = dom.querySelectorAll(".pbarTL");
-      if (titles.length === 0) return null;
-      const contents = dom.querySelectorAll(".kiji");
-      dom
-        .querySelectorAll('[href*="weblio.jp/content/"]')
-        .forEach((a) => (a.href = `/index.html#/q/${a.href.match(regex)[1]}`));
-      const minSize =
-        titles.length < contents.length ? titles.length : contents.length;
-      const fragment = document.createDocumentFragment();
-      for (let i = 0; i < minSize; i++) {
-        const h3 = document.createElement("h3");
-        h3.appendChild(document.createTextNode(titles[i].textContent));
-        fragment.appendChild(h3);
-        fragment.appendChild(contents[i]);
+const weblio = async (query) => {
+  const response = await fetch(
+    `https://www.weblio.jp/content/${encodeURIComponent(query)}%20%20`
+  );
+  if (!response.ok) throw new Error("not ok");
+  const dom = new DOMParser().parseFromString(
+    await response.text(),
+    "text/html"
+  );
+  const sections = Array.from(
+    dom.getElementById("cont")?.querySelectorAll(".pbarT,.kijiWrp>.kiji") || []
+  ).reduce(
+    (acc, i) => {
+      if (i.classList.contains("pbarT")) {
+        acc.tmp.title = i.querySelector(".pbarTL")?.textContent;
+        return acc;
+      } else if (i.classList.contains("kiji")) {
+        i.querySelectorAll("[class],[style]").forEach((node) => {
+          node.removeAttribute("class");
+          node.removeAttribute("style");
+        });
+        i.querySelectorAll("h2").forEach((node) => {
+          const h4 = document.createElement("h4");
+          h4.append(...node.childNodes);
+          node.replaceWith(h4);
+        });
+        i.querySelectorAll("h3").forEach((node) => {
+          const h5 = document.createElement("h5");
+          h5.append(...node.childNodes);
+          node.replaceWith(h5);
+        });
+        i.querySelectorAll('[href*="weblio.jp/content/"]').forEach(
+          (a) => (a.href = `/index.html#/q/${a.href.match(regex)[1]}`)
+        );
+        acc.tmp.html = i.innerHTML;
+        acc.list.push(acc.tmp);
+        acc.tmp = {};
+        return acc;
       }
-      fragment
-        .querySelectorAll("[class]")
-        .forEach((node) => node.removeAttribute("class"));
-      return fragment;
-    })
-    .catch(() => null);
+    },
+    { list: [], tmp: {} }
+  ).list;
+  if (sections.length === 0) return null;
+  return (
+    <div>
+      {sections.map(({ title, html }, index) => (
+        <div key={index}>
+          <h3>{title}</h3>
+          <div dangerouslySetInnerHTML={{ __html: html }} />
+        </div>
+      ))}
+    </div>
+  );
+};
 
 weblio.displayName = "Weblio 日日";
 
