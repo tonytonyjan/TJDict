@@ -13,7 +13,8 @@
     "*://www.urbandictionary.com/*",
     "*://www.lexico.com/*",
     "*://www.jukuu.com/*",
-    "*://dictionary.cambridge.org/*"
+    "*://dictionary.cambridge.org/*",
+    "*://www.thesaurus.com/*"
   ],
   "icons": {
     "16": "icons/icon16.png",
