@@ -8,6 +8,7 @@
     "notifications",
     "contextMenus",
     "*://tw.dictionary.search.yahoo.com/*",
+    "*://tw.search.yahoo.com/*",
     "*://www.weblio.jp/content/*",
     "*://tw.voicetube.com/*",
     "*://www.urbandictionary.com/*",
