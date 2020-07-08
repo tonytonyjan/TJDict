@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { actions } from "@storybook/addon-actions";
 import App from "components/App";
 
@@ -8,6 +8,7 @@ export const Basic = () => (
   <App
     query="test"
     dataList={dataList}
+    phoneticTranscription="test"
     {...actions("onNavigate", "onSubmit", "onClickSpeak")}
   />
 );

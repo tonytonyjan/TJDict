@@ -92,6 +92,7 @@ const Root = () => {
   const [products, setProducts] = useState([]);
   const [path, setPath] = useState(history.location.pathname);
   const [dataList, setDataList] = useState([]);
+  const [phoneticTranscription, setPhoneticTranscription] = useState("");
 
   const inputRef = useRef(null);
 
@@ -423,6 +424,25 @@ const Root = () => {
     });
   }, [path]);
 
+  useEffect(() => {
+    if (!query) return;
+    (async () => {
+      const response = await fetch(
+        `https://tw.dictionary.search.yahoo.com/search?p=${encodeURIComponent(
+          query
+        )}`
+      );
+      if (!response.ok) return;
+      const dom = new DOMParser().parseFromString(
+        await response.text(),
+        "text/html"
+      );
+      setPhoneticTranscription(
+        dom.querySelector(".compList.d-ib>ul")?.textContent?.trim() || ""
+      );
+    })();
+  }, [query]);
+
   return (
     <App
       query={initQuery}
@@ -433,6 +453,7 @@ const Root = () => {
       showDonate={process.env.BROWSER === "chrome"}
       onInputChange={handleInputChange}
       dataList={dataList.slice(0, 8)}
+      phoneticTranscription={phoneticTranscription}
     >
       <Router history={history}>
         <Switch>
