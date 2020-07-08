@@ -152,6 +152,7 @@ const oxford = async (query) => {
   });
 };
 
-oxford.displayName = oxford.displayName = "Oxford 英英";
+oxford.displayName = "Oxford";
+oxford.fullName = "Oxford 牛津英英詞典";
 
 export default oxford;

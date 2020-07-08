@@ -540,8 +540,8 @@ const Root = () => {
                                     !settings.dictionaryIds.includes(dictId)
                                 )
                                 .sort((a, b) =>
-                                  dictionaries[a].displayName.localeCompare(
-                                    dictionaries[b].displayName
+                                  dictionaries[a].fullName.localeCompare(
+                                    dictionaries[b].fullName
                                   )
                                 )}
                               onAddDictionary={handleAddDictionary}

@@ -59,6 +59,7 @@ const urban = async (query) => {
   );
 };
 
-urban.displayName = "Urban 英英 俚語";
+urban.displayName = "Urban";
+urban.fullName = "Urban 英語俚語詞彙庫";
 
 export default urban;

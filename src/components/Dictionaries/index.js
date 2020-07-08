@@ -49,7 +49,7 @@ const Dictionaries = ({
                 key={dictId}
               >
                 <span className="flex-grow-1">
-                  {dictionaries[dictId].displayName}
+                  {dictionaries[dictId].fullName}
                 </span>
                 {index !== 0 && (
                   <FontAwesomeIcon
@@ -82,7 +82,7 @@ const Dictionaries = ({
                 key={dictId}
               >
                 <span className="flex-grow-1">
-                  {dictionaries[dictId].displayName}
+                  {dictionaries[dictId].fullName}
                 </span>
                 <FontAwesomeIcon
                   size="lg"

@@ -71,6 +71,7 @@ const thesaurus = async (query) => {
   );
 };
 
-thesaurus.displayName = "Thesaurus 英英 同義詞";
+thesaurus.displayName = "Thesaurus";
+thesaurus.fullName = "Thesaurus 英語同義詞詞典";
 
 export default thesaurus;

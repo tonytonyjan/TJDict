@@ -102,6 +102,7 @@ const voicetube = async (query) => {
   );
 };
 
-voicetube.displayName = "VoiceTube 英漢 影音";
+voicetube.displayName = "VoiceTube";
+voicetube.fullName = "Voicetube 英漢影音字典";
 
 export default voicetube;

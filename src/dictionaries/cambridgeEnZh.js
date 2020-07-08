@@ -9,6 +9,7 @@ const cambridgeEnZh = async (query) =>
     )
   );
 
-cambridgeEnZh.displayName = "Cambridge 英中";
+cambridgeEnZh.displayName = "CambridgeZH";
+cambridgeEnZh.fullName = "Cambridge 劍橋英漢詞典";
 
 export default cambridgeEnZh;

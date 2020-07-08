@@ -35,7 +35,7 @@ const About = ({ reviewUrl }) => (
         {Object.values(dictionaries)
           .sort((a, b) => a.displayName.localeCompare(b.displayName))
           .map((dict) => (
-            <li key={dict.name}>{dict.displayName}</li>
+            <li key={dict.name}>{dict.fullName}</li>
           ))}
         <li>持續增加中</li>
       </ul>

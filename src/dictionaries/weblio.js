@@ -57,6 +57,7 @@ const weblio = async (query) => {
   );
 };
 
-weblio.displayName = "Weblio 日日";
+weblio.displayName = "Weblio";
+weblio.fullName = "Weblio 日語詞典";
 
 export default weblio;
