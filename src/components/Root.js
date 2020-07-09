@@ -443,6 +443,11 @@ const Root = () => {
     })();
   }, [query]);
 
+  useEffect(() => {
+    if (!query) return;
+    inputRef.current?.setSelectionRange(0, query.length);
+  }, [query]);
+
   return (
     <App
       query={initQuery}
