@@ -7,58 +7,77 @@ let x = 0,
   windowId = browser.windows.WINDOW_ID_NONE,
   tabId = browser.tabs.TAB_ID_NONE;
 
-const popup = ({ text, x, y }) => {
+const popup = ({ text, x, y, tab, pageUrl }) => {
   const url = `index.html#/q/${encodeURIComponent(text)}`;
-  settings().then((settings) => {
-    switch (settings.display) {
-      case "window":
-        if (windowId !== browser.windows.WINDOW_ID_NONE)
-          browser.windows.remove(windowId);
-        browser.windows.create(
-          {
-            url,
-            type: "popup",
-            left: x,
-            top: y,
-            width: settings.width,
-            height: settings.height,
-          },
-          ({ id }) => {
-            windowId = id;
-            // workaround for firefox bug 1271047
-            if (process.env.BROWSER === "firefox")
-              browser.windows.update(id, {
-                left:
-                  x + settings.width > window.screen.width
-                    ? window.screen.width - settings.width
-                    : x,
-                top:
-                  y + settings.height > window.screen.height
-                    ? window.screen.height - settings.height
-                    : y,
-              });
-          }
-        );
-        break;
-      case "tab":
-        if (tabId === browser.tabs.TAB_ID_NONE)
-          browser.tabs.create({ url, active: true }, ({ id }) => {
-            tabId = id;
-          });
-        else
-          browser.tabs.update(tabId, { url, active: true }, () => {
-            if (browser.runtime.lastError) {
-              console.error(browser.runtime.lastError.message);
-              browser.tabs.create({ url, active: true }, ({ id }) => {
-                tabId = id;
-              });
+  if (
+    pageUrl.startsWith(browser.runtime.getURL("/")) &&
+    windowId === tab.windowId
+  )
+    browser.tabs.update(tab.id, { url });
+  else
+    settings().then((settings) => {
+      switch (settings.display) {
+        case "window":
+          if (windowId !== browser.windows.WINDOW_ID_NONE)
+            browser.windows.remove(windowId);
+          browser.windows.create(
+            {
+              url,
+              type: "popup",
+              left: x,
+              top: y,
+              width: settings.width,
+              height: settings.height,
+            },
+            ({ id }) => {
+              windowId = id;
+              // workaround for firefox bug 1271047
+              if (process.env.BROWSER === "firefox")
+                browser.windows.update(id, {
+                  left:
+                    x + settings.width > window.screen.width
+                      ? window.screen.width - settings.width
+                      : x,
+                  top:
+                    y + settings.height > window.screen.height
+                      ? window.screen.height - settings.height
+                      : y,
+                });
             }
-          });
-        break;
-      default:
-        break;
-    }
-  });
+          );
+          break;
+        case "tab":
+          if (tabId === browser.tabs.TAB_ID_NONE)
+            browser.tabs.create(
+              { url, index: tab.index + 1, active: true },
+              ({ id }) => {
+                tabId = id;
+              }
+            );
+          else
+            browser.tabs.update(tabId, { url, active: true }, () => {
+              if (browser.runtime.lastError) {
+                console.error(browser.runtime.lastError.message);
+                browser.tabs.create(
+                  { url, index: tab.index + 1, active: true },
+                  ({ id }) => {
+                    tabId = id;
+                  }
+                );
+              }
+            });
+          break;
+        default:
+          break;
+      }
+      ga(
+        "send",
+        "event",
+        "engagement",
+        "reading_material_type",
+        new URL(pageUrl).origin
+      );
+    });
 };
 
 browser.runtime.onMessage.addListener((message, sender) => {
@@ -68,27 +87,13 @@ browser.runtime.onMessage.addListener((message, sender) => {
       y = message.y;
       break;
     case "QUERY":
-      if (
-        sender.url.startsWith(browser.runtime.getURL("/")) &&
-        windowId === sender.tab.windowId
-      )
-        browser.tabs.update(sender.tab.id, {
-          url: `index.html#/q/${encodeURIComponent(message.text)}`,
-        });
-      else {
-        popup({
-          text: message.text,
-          x: message.x,
-          y: message.y,
-        });
-        ga(
-          "send",
-          "event",
-          "engagement",
-          "reading_material_type",
-          new URL(sender.url).origin
-        );
-      }
+      popup({
+        text: message.text,
+        x: message.x,
+        y: message.y,
+        tab: sender.tab,
+        pageUrl: sender.url,
+      });
       break;
     case "RESIZE":
       if (sender.tab.windowId === windowId)
@@ -108,27 +113,13 @@ browser.contextMenus.create({
 browser.contextMenus.onClicked.addListener(
   ({ menuItemId, selectionText, pageUrl }, tab) => {
     if (menuItemId !== "tjdict-query") return;
-    if (
-      pageUrl.startsWith(browser.runtime.getURL("/")) &&
-      windowId === tab.windowId
-    )
-      browser.tabs.update(tab.id, {
-        url: `index.html#/q/${encodeURIComponent(selectionText)}`,
-      });
-    else {
-      popup({
-        text: selectionText,
-        x,
-        y,
-      });
-      ga(
-        "send",
-        "event",
-        "engagement",
-        "reading_material_type",
-        new URL(pageUrl).origin
-      );
-    }
+    popup({
+      text: selectionText,
+      x,
+      y,
+      tab,
+      pageUrl,
+    });
   }
 );
 
