@@ -112,6 +112,7 @@ const Root = () => {
     utterance.lang = langs.includes(settings.kanjiPronounciation)
       ? settings.kanjiPronounciation
       : langs[0];
+    if (utterance.lang === "en") utterance.lang = "en-US";
     speechSynthesis.speak(utterance);
   }, [settings, query]);
 
