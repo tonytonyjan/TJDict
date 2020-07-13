@@ -207,7 +207,8 @@ browser.webRequest.onBeforeSendHeaders.addListener(
   },
   (() => {
     const list = ["blocking", "requestHeaders"];
-    if (process.env.BROWSER === "chrome") list.push("extraHeaders");
+    if (process.env.BROWSER === "chrome" || process.env.BROWSER === "edge")
+      list.push("extraHeaders");
     return list;
   })()
 );
