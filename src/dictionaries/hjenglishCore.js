@@ -95,8 +95,10 @@ export default async (fetchPromise) => {
     <div>
       {panes.map((i, index) => (
         <div key={index}>
-          <div className="lead">
-            {i.word} <span className="text-secondary">{i.pronunciation}</span>
+          <div>
+            <div className="lead">
+              {i.word} <span className="text-secondary">{i.pronunciation}</span>
+            </div>
             {/* <div dangerouslySetInnerHTML={{ __html: i.simpleHtml }} /> */}
             {i.groups.map((i, index) => (
               <div key={index}>
