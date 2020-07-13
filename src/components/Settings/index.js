@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 
 const navigations = [
-  { id: "general", name: "設定" },
+  { id: "general", name: "偏好" },
   { id: "dictionaries", name: "字典" },
 ];
 
