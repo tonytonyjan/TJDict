@@ -13,6 +13,7 @@ import cambridgeEnZh from "dictionaries/cambridgeEnZh";
 import thesaurus from "dictionaries/thesaurus";
 import hjenglish from "dictionaries/hjenglish";
 import hjenglishKo from "dictionaries/hjenglishKo";
+import hjenglishFr from "dictionaries/hjenglishFr";
 
 const DictContainer = ({ query, dict }) => {
   const [content, setContent] = useState(null);
@@ -81,6 +82,9 @@ export const Hjenglish = () => (
 );
 export const HjenglishKo = () => (
   <DictContainer query={text("Query", "포옹")} dict={hjenglishKo} />
+);
+export const HjenglishFr = () => (
+  <DictContainer query={text("Query", "angélique")} dict={hjenglishFr} />
 );
 
 export default {
