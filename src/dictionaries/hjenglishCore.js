@@ -46,8 +46,50 @@ export default async (fetchPromise) => {
           })),
         })
       ),
+      groupsEn: Array.from(i.querySelectorAll(".enen-groups > dl")).map(
+        (i) => ({
+          partOfSpeech: i.querySelector("dt").textContent.trim(),
+          definitions: Array.from(i.querySelectorAll("dd")).map((i) => ({
+            summary: i.textContent?.trim(),
+          })),
+        })
+      ),
+      analytics: Array.from(
+        i.querySelectorAll(
+          ".word-details-item.analyzes > .word-details-item-content > *"
+        )
+      ).reduce(
+        ({ result, title }, current) => {
+          if (current.classList.contains("analyzes-title"))
+            return { result, title: current.textContent };
+          if (current.classList.contains("analyzes-items")) {
+            const items = Array.from(current.querySelectorAll("li")).map(
+              (i) => ({
+                primary: i.querySelector("a")?.textContent,
+                secondary: i.querySelector("p")?.textContent,
+              })
+            );
+            result.push({ title, items });
+            return { result, title: "" };
+          }
+        },
+        { result: [] }
+      ).result,
+      phrases: Array.from(i.querySelectorAll(".phrase-items > li")).map(
+        (i) => ({
+          from: i.querySelector("span:first-child")?.textContent?.trim(),
+          to: i.querySelector("span.phrase-def")?.textContent?.trim(),
+        })
+      ),
+      inflections: Array.from(
+        i.querySelectorAll(".inflections-items > li")
+      ).map((i) => ({
+        name: i.querySelector("span:first-child")?.textContent?.trim(),
+        value: i.querySelector("a:last-child")?.textContent?.trim(),
+      })),
     })
   );
+  console.log(panes);
   if (panes.length === 0) return null;
   return (
     <div>
@@ -77,6 +119,73 @@ export default async (fetchPromise) => {
                 </ol>
               </div>
             ))}
+            {i.phrases.length > 0 && (
+              <div>
+                <div className="lead">片語</div>
+                <ol>
+                  {i.phrases.map((i, index) => (
+                    <li key={index}>
+                      {i.from}
+                      <br />
+                      <span className="text-secondary">{i.to}</span>
+                    </li>
+                  ))}
+                </ol>
+              </div>
+            )}
+            {i.groupsEn.length > 0 && (
+              <div>
+                <div className="lead">英英釋義</div>
+                {i.groupsEn.map((i, index) => (
+                  <div key={index}>
+                    <div className="lead">{i.partOfSpeech}</div>
+                    <ol>
+                      {i.definitions.map((i, index) => (
+                        <li key={index}>{i.summary} </li>
+                      ))}
+                    </ol>
+                  </div>
+                ))}
+              </div>
+            )}
+            {i.analytics.length > 0 && (
+              <div>
+                <div className="lead">詞意分析</div>
+                <ul className="list-unstyled">
+                  {i.analytics.map((i, index) => (
+                    <li key={index}>
+                      {i.title}
+                      <ol>
+                        {i.items.map((i, index) => (
+                          <li key={index}>
+                            {i.primary}
+                            <br />
+                            <span className="text-secondary">
+                              {i.secondary}
+                            </span>
+                          </li>
+                        ))}
+                      </ol>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+            {i.inflections.length > 0 && (
+              <div>
+                <div className="lead">詞性變化</div>
+                <table className="table" style={{ maxWidth: 300 }}>
+                  <tbody>
+                    {i.inflections.map((i, index) => (
+                      <tr key={index}>
+                        <td>{i.name}</td>
+                        <td className="text-secondary">{i.value}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
           </div>
         </div>
       ))}

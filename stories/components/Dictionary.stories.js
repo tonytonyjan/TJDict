@@ -14,6 +14,7 @@ import thesaurus from "dictionaries/thesaurus";
 import hjenglish from "dictionaries/hjenglish";
 import hjenglishKo from "dictionaries/hjenglishKo";
 import hjenglishFr from "dictionaries/hjenglishFr";
+import hjenglishEn from "dictionaries/hjenglishEn";
 
 const DictContainer = ({ query, dict }) => {
   const [content, setContent] = useState(null);
@@ -85,6 +86,9 @@ export const HjenglishKo = () => (
 );
 export const HjenglishFr = () => (
   <DictContainer query={text("Query", "angélique")} dict={hjenglishFr} />
+);
+export const HjenglishEn = () => (
+  <DictContainer query={text("Query", "test")} dict={hjenglishEn} />
 );
 
 export default {

@@ -10,6 +10,7 @@ import thesaurus from "dictionaries/thesaurus";
 import hjenglish from "dictionaries/hjenglish";
 import hjenglishKo from "dictionaries/hjenglishKo";
 import hjenglishFr from "dictionaries/hjenglishFr";
+import hjenglishEn from "dictionaries/hjenglishEn";
 
 export default {
   yahoo,
@@ -24,4 +25,5 @@ export default {
   hjenglish,
   hjenglishKo,
   hjenglishFr,
+  hjenglishEn,
 };
