@@ -77,8 +77,8 @@ export default async (fetchPromise) => {
       ).result,
       phrases: Array.from(i.querySelectorAll(".phrase-items > li")).map(
         (i) => ({
-          from: i.querySelector("span:first-child")?.textContent?.trim(),
-          to: i.querySelector("span.phrase-def")?.textContent?.trim(),
+          from: i.querySelector("*:first-child")?.textContent?.trim(),
+          to: i.querySelector(".phrase-def")?.textContent?.trim(),
         })
       ),
       inflections: Array.from(
