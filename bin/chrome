@@ -1,8 +1,17 @@
 #!/bin/sh
-data_dir=tmp/chrome-user-data-dir
-"$CHROME_BIN" \
-  --disable-web-security \
-  --user-data-dir=$data_dir \
-  --no-first-run \
-  --no-default-browser-check $@ &&
-  rm -rf $data_dir >/dev/null &
+CHROME_BIN=$(node -e 'console.log(require("puppeteer").executablePath())') &&
+  data_dir=$(mktemp -d -t 'chrome-user-data-dir') &&
+  "$CHROME_BIN" \
+    --user-data-dir=$data_dir \
+    --no-default-browser-check \
+    --no-first-run \
+    --disable-default-apps \
+    --disable-popup-blocking \
+    --disable-translate \
+    --disable-background-timer-throttling \
+    --disable-renderer-backgrounding \
+    --disable-device-discovery-notifications \
+    --load-extension=dist \
+    --disable-web-security \
+    $@ &>/dev/null &&
+  rm -rf $data_dir &
