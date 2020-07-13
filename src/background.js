@@ -202,7 +202,7 @@ browser.webRequest.onBeforeSendHeaders.addListener(
     return { requestHeaders };
   },
   {
-    urls: ["https://dict.hjenglish.com/jp/jc/*"],
+    urls: ["https://dict.hjenglish.com/*"],
     types: ["xmlhttprequest"],
   },
   (() => {

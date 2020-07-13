@@ -8,6 +8,7 @@ import cambridge from "dictionaries/cambridge";
 import cambridgeEnZh from "dictionaries/cambridgeEnZh";
 import thesaurus from "dictionaries/thesaurus";
 import hjenglish from "dictionaries/hjenglish";
+import hjenglishKo from "dictionaries/hjenglishKo";
 
 export default {
   yahoo,
@@ -20,4 +21,5 @@ export default {
   thesaurus,
   cambridgeEnZh,
   hjenglish,
+  hjenglishKo,
 };
