@@ -177,3 +177,37 @@ browser.runtime.onInstalled.addListener((details) => {
     }
   );
 });
+
+const uuidv4 = () =>
+  "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function (c) {
+    var r = (Math.random() * 16) | 0,
+      v = c == "x" ? r : (r & 0x3) | 0x8;
+    return v.toString(16);
+  });
+
+browser.webRequest.onBeforeSendHeaders.addListener(
+  (details) => {
+    console.log(details);
+    const { requestHeaders } = details;
+    const cookie = requestHeaders.find(
+      ({ name }) => name.toLowerCase() === "cookie"
+    );
+    const value = `HJ_UID=${uuidv4()}; HJ_SID=${uuidv4()}'`;
+    if (cookie) cookie.value = value;
+    else
+      requestHeaders.push({
+        name: "cookie",
+        value,
+      });
+    return { requestHeaders };
+  },
+  {
+    urls: ["https://dict.hjenglish.com/jp/jc/*"],
+    types: ["xmlhttprequest"],
+  },
+  (() => {
+    const list = ["blocking", "requestHeaders"];
+    if (process.env.BROWSER === "chrome") list.push("extraHeaders");
+    return list;
+  })()
+);

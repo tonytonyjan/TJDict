@@ -7,6 +7,7 @@ import jukuu from "dictionaries/jukuu";
 import cambridge from "dictionaries/cambridge";
 import cambridgeEnZh from "dictionaries/cambridgeEnZh";
 import thesaurus from "dictionaries/thesaurus";
+import hjenglish from "dictionaries/hjenglish";
 
 export default {
   yahoo,
@@ -18,4 +19,5 @@ export default {
   cambridge,
   thesaurus,
   cambridgeEnZh,
+  hjenglish,
 };

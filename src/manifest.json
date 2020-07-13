@@ -15,7 +15,10 @@
     "*://www.lexico.com/*",
     "*://www.jukuu.com/*",
     "*://dictionary.cambridge.org/*",
-    "*://www.thesaurus.com/*"
+    "*://www.thesaurus.com/*",
+    "*://dict.hjenglish.com/*",
+    "webRequest",
+    "webRequestBlocking"
   ],
   "icons": {
     "16": "icons/icon16.png",
