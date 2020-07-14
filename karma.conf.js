@@ -9,7 +9,7 @@ module.exports = function (config) {
         timeoutInterval: 30000,
       },
     },
-    files: ["test/**/*.js"],
+    files: ["test/**/*.test.js"],
     preprocessors: {
       "test/**/*.test.js": ["webpack", "sourcemap"],
     },
