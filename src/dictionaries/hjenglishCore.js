@@ -89,7 +89,6 @@ export default async (fetchPromise) => {
       })),
     })
   );
-  console.log(panes);
   if (panes.length === 0) return null;
   return (
     <div>
