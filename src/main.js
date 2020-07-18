@@ -4,7 +4,6 @@ import { render } from "react-dom";
 import Root from "./components/Root";
 import browser from "./browser";
 import "bootstrap";
-import "./buy";
 import "./main.scss";
 import "./content";
 

@@ -18,7 +18,6 @@ const App = ({
   onNavigate,
   onSubmit,
   onClickSpeak,
-  showDonate,
   onInputChange,
   phoneticTranscription,
 }) => {
@@ -114,16 +113,14 @@ const App = ({
                   <FontAwesomeIcon fixedWidth icon={faQuestionCircle} /> 支援
                 </button>
               </li>
-              {showDonate && (
-                <li className="nav-item active">
-                  <button
-                    className="nav-link btn btn-link"
-                    onClick={() => onNavigate("donate")}
-                  >
-                    <FontAwesomeIcon fixedWidth icon={faDonate} /> 贊助
-                  </button>
-                </li>
-              )}
+              <li className="nav-item active">
+                <a
+                  href="https://tjdict.com/donate/"
+                  className="nav-link btn btn-link"
+                >
+                  <FontAwesomeIcon fixedWidth icon={faDonate} /> 贊助
+                </a>
+              </li>
             </ul>
           </div>
         </nav>
@@ -141,7 +138,6 @@ App.propTypes = {
   onNavigate: PropTypes.func,
   onSubmit: PropTypes.func,
   onClickSpeak: PropTypes.func,
-  showDonate: PropTypes.bool,
   dataList: PropTypes.arrayOf(PropTypes.string).isRequired,
   onInputChange: PropTypes.func,
   phoneticTranscription: PropTypes.string,

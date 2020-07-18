@@ -85,9 +85,6 @@ module.exports = (_env, argv) => ({
             const manifest = JSON.parse(content);
             if (process.env.BROWSER === "firefox")
               delete manifest.content_security_policy;
-            if (process.env.BROWSER === "chrome")
-              manifest.key =
-                "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDxe7EOVTTF6Fxu3geDsJ37HIiJYs7sEVs06nKxugc2zZOsrlQ6/HLT2Wb3SkE6ljjA5rEUcuencJBTaQHdulQXK8Sle7qIY1U+4/pp03tFfKj9nYFOpN8I25hMQC+gubBW6K97SIrtjOlDqOgR6mxoL37loKkPAdeFblMViWzLBQIDAQAB";
             if (argv.mode === "development")
               manifest.permissions.push("http://localhost:9000/*");
             return JSON.stringify(manifest, null, 2);
