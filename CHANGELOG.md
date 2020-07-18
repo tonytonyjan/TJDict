@@ -1,3 +1,24 @@
+# [2.2.0](https://github.com/tonytonyjan/TJDict/compare/v2.1.0...v2.2.0) (2020-07-18)
+
+
+### Bug Fixes
+
+* **edge:** support hjenglish for edge browser ([f790964](https://github.com/tonytonyjan/TJDict/commit/f79096481b6d13951be21c450015bae3549b4f83))
+* **hjenglishcore:** fix font size for hjenglishCore ([1a10e4e](https://github.com/tonytonyjan/TJDict/commit/1a10e4e12b9cfa0378b8ed66acad889e2f688da6))
+* **hjenglishcore:** fix phrases parser ([27dc1d0](https://github.com/tonytonyjan/TJDict/commit/27dc1d054d81189d92ca6a0b86cc4ebfaf48308d))
+
+
+### Features
+
+* **hjenglish:** add hjenglish dictionary ([d27a735](https://github.com/tonytonyjan/TJDict/commit/d27a7357c5c933e8fe33f07942d6263c04b7b5cb))
+* **hjenglishen:** add hjenglishEn dictionary ([5193614](https://github.com/tonytonyjan/TJDict/commit/5193614d778b38688d538246b56a27241bd63943))
+* **hjenglishfr:** add hjenglishFr dictionary ([48a4d7f](https://github.com/tonytonyjan/TJDict/commit/48a4d7f849a4c6b63a9a15edca2063f41651f297))
+* **hjenglishko:** add hjenglishKo dictionary ([0925b90](https://github.com/tonytonyjan/TJDict/commit/0925b90e467797044f0e2a07328f16d4231956b0))
+* select whole query string in text field automatically ([509e53c](https://github.com/tonytonyjan/TJDict/commit/509e53cb1884440dc03c4763bdc01cac2462cad7))
+* set the pop-up tab's index to make it succeed the current page ([607f712](https://github.com/tonytonyjan/TJDict/commit/607f712fdd91c5f43bc6fa8d24476c3f8ec38a71))
+
+
+
 # [2.1.0](https://github.com/tonytonyjan/TJDict2/compare/v2.0.2...v2.1.0) (2020-07-08)
 
 
