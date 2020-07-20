@@ -7,7 +7,7 @@ import {
   faVolumeDown,
   faQuestionCircle,
   faDonate,
-  faHistory
+  faHistory,
 } from "@fortawesome/free-solid-svg-icons";
 import jquery from "jquery";
 
