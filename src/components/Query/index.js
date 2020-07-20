@@ -75,15 +75,17 @@ const Query = ({ dictionaries, broadcast }) => {
         </nav>
       </div>
       <div ref={dictsContainer} className="container-fluid">
-        {dictionaries.map(({ id, title, content }) => (
-          <Dictionary
-            ref={(element) => (dictionaryRefs.current[id] = element)}
-            title={title}
-            key={title}
-          >
-            {content}
-          </Dictionary>
-        ))}
+        <div style={{ maxWidth: 650 }}>
+          {dictionaries.map(({ id, title, content }) => (
+            <Dictionary
+              ref={(element) => (dictionaryRefs.current[id] = element)}
+              title={title}
+              key={title}
+            >
+              {content}
+            </Dictionary>
+          ))}
+        </div>
       </div>
     </Fragment>
   );
