@@ -123,10 +123,7 @@ const App = ({
                 </button>
               </li>
               <li className="nav-item active">
-                <a
-                  href="https://tjdict.com/donate/"
-                  className="nav-link btn btn-link"
-                >
+                <a href="https://tjdict.com/donate/" className="nav-link">
                   <FontAwesomeIcon fixedWidth icon={faDonate} /> 贊助
                 </a>
               </li>
