@@ -7,6 +7,7 @@ import {
   faVolumeDown,
   faQuestionCircle,
   faDonate,
+  faHistory
 } from "@fortawesome/free-solid-svg-icons";
 import jquery from "jquery";
 
@@ -89,6 +90,14 @@ const App = ({
           </button>
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav">
+              <li className="nav-item active">
+                <button
+                  className="nav-link btn btn-link"
+                  onClick={() => onNavigate("history")}
+                >
+                  <FontAwesomeIcon fixedWidth icon={faHistory} /> 歷史紀錄
+                </button>
+              </li>
               <li className="nav-item active">
                 <button
                   className="nav-link btn btn-link"

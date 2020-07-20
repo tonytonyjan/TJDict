@@ -74,6 +74,9 @@ const handleNavigate = (name) => {
     case "help":
       history.push("/help");
       break;
+    case "history":
+      history.push("/history");
+      break;
     default:
       break;
   }
