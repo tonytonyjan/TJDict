@@ -23,15 +23,21 @@ const App = ({
   phoneticTranscription,
 }) => {
   const speakerRef = useRef(null);
+  const historyBtnRef = useRef(null);
+  const settingsBtnRef = useRef(null);
   useEffect(() => {
     const $speaker = jquery(speakerRef.current);
     $speaker.tooltip("dispose");
     if (phoneticTranscription) $speaker.tooltip();
   }, [phoneticTranscription]);
+  useEffect(() => {
+    jquery(historyBtnRef.current).tooltip();
+    jquery(settingsBtnRef.current).tooltip();
+  }, []);
   return (
     <Fragment>
       <header>
-        <nav className="navbar navbar-expand-sm navbar-dark bg-primary">
+        <nav className="navbar navbar-expand-md navbar-dark bg-primary">
           <span
             style={{ cursor: "pointer" }}
             className="navbar-brand d-none d-sm-inline-block"
@@ -80,17 +86,41 @@ const App = ({
               </div>
             </div>
           </form>
-          <button
-            className="navbar-toggler"
-            type="button"
-            data-toggle="collapse"
-            data-target="#navbarSupportedContent"
-          >
-            <span className="navbar-toggler-icon"></span>
-          </button>
+          <div className="btn-group">
+            <button
+              ref={historyBtnRef}
+              data-toggle="tooltip"
+              data-placement="bottom"
+              title="歷史紀錄"
+              className="btn text-light d-block d-md-none"
+              type="button"
+              onClick={() => onNavigate("history")}
+            >
+              <FontAwesomeIcon fixedWidth icon={faHistory} size="lg" />
+            </button>
+            <button
+              ref={settingsBtnRef}
+              data-toggle="tooltip"
+              data-placement="bottom"
+              title="設定"
+              className="btn text-light d-block d-md-none"
+              type="button"
+              onClick={() => onNavigate("settings")}
+            >
+              <FontAwesomeIcon fixedWidth icon={faCog} size="lg" />
+            </button>
+            <button
+              className="navbar-toggler"
+              type="button"
+              data-toggle="collapse"
+              data-target="#navbarSupportedContent"
+            >
+              <span className="navbar-toggler-icon"></span>
+            </button>
+          </div>
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav">
-              <li className="nav-item active">
+              <li className="nav-item active d-none d-md-block">
                 <button
                   className="nav-link btn btn-link"
                   onClick={() => onNavigate("history")}
@@ -98,7 +128,7 @@ const App = ({
                   <FontAwesomeIcon fixedWidth icon={faHistory} /> 歷史紀錄
                 </button>
               </li>
-              <li className="nav-item active">
+              <li className="nav-item active d-none d-md-block">
                 <button
                   className="nav-link btn btn-link"
                   onClick={() => onNavigate("settings")}
