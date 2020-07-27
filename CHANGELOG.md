@@ -1,3 +1,13 @@
+## [2.2.1](https://github.com/tonytonyjan/TJDict/compare/v2.2.0...v2.2.1) (2020-07-27)
+
+
+### Bug Fixes
+
+* fix donation link style ([7719989](https://github.com/tonytonyjan/TJDict/commit/77199890a527212f6f89f7f6c9ebe0bedb0445df))
+* **cambridge:** fix parser ([25a13db](https://github.com/tonytonyjan/TJDict/commit/25a13db18f4e20e91235f47ae001efd2d0568070))
+
+
+
 # [2.2.0](https://github.com/tonytonyjan/TJDict/compare/v2.1.0...v2.2.0) (2020-07-18)
 
 
