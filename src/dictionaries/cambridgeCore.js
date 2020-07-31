@@ -1,4 +1,5 @@
 import React from "react";
+import DTypography from "components/DictionaryTypography";
 
 export default async (fetchPromise) => {
   const response = await fetchPromise;
@@ -7,42 +8,82 @@ export default async (fetchPromise) => {
   const body = await response.text();
   const entries = parse(body);
   if (!entries) return null;
-  return entries.map((i, index) => (
+  return entries.slice(0, 1).map((i, index) => (
     <div key={index}>
-      <div>
-        {i.title} <small className="text-secondary">{i.partOfSpeech}</small>
-      </div>
-      <div className="text-secondary">
-        {i.pronunciations
-          .filter((i) => i.value)
-          .map((i) => `${i.region} ${i.value}`)
-          .join(" ")}
-      </div>
+      <DTypography variant="h1">{i.title}</DTypography>
+      <div style={{ height: 4 }} />
+      <DTypography variant="h2">{i.partOfSpeech}</DTypography>
+      <div style={{ height: 4 }} />
+      <ul className="list-inline mb-0">
+        {i.pronunciations.map((i, index) => (
+          <li key={index} className="list-inline-item">
+            <DTypography component="span" variant="h3">
+              {i.region}
+            </DTypography>{" "}
+            <DTypography component="span" variant="h4">
+              {i.value}
+            </DTypography>
+          </li>
+        ))}
+      </ul>
+      <div style={{ height: 8 }} />
       <div>
         {i.senses.map((i, index) => (
           <div key={index}>
-            <div>{i.title}</div>
+            <DTypography variant="h2">{i.title}</DTypography>
             <div>
               {i.blocks.map((i, index) => (
                 <div key={index}>
                   <div>
-                    <span className="badge badge-secondary">{i.label}</span>{" "}
-                    <span className="text-secondary">{i.gram}</span>{" "}
-                    <span className="text-secondary">
-                      {i.pronunciations
-                        .filter((i) => i.value)
-                        .map((i) => `${i.region} ${i.value}`)
-                        .join(" ")}
-                    </span>{" "}
-                    <span>{i.inflections.join(" | ")}</span>
+                    {i.label && (
+                      <DTypography component="span" variant="h5">
+                        {i.label}
+                      </DTypography>
+                    )}{" "}
+                    <DTypography component="span" variant="h2">
+                      {i.gram}
+                    </DTypography>
+                    <div style={{ height: 2 }} />
+                    <ul className="list-inline mb-0">
+                      {i.pronunciations.map((i, index) => (
+                        <li key={index} className="list-inline-item">
+                          <DTypography component="span" variant="h3">
+                            {i.region}
+                          </DTypography>{" "}
+                          <DTypography component="span" variant="h4">
+                            {i.value}
+                          </DTypography>
+                        </li>
+                      ))}
+                    </ul>{" "}
+                    <DTypography variant="s5">
+                      {i.inflections.join(" | ")}
+                    </DTypography>
                   </div>
-                  <div>{i.definition}</div>
-                  <div>{i.translation}</div>
-                  <ul>
+                  <div style={{ height: 2 }} />
+                  <DTypography variant="s1">{i.definition}</DTypography>
+                  <DTypography variant="s3">{i.translation}</DTypography>
+                  <ul className="mb-2">
                     {i.examples.map(({ from, to }, index) => (
                       <li key={index}>
-                        {from}
-                        {to && <div className="text-secondary">{to}</div>}
+                        <DTypography variant="s2">{from}</DTypography>
+                        {to && <DTypography variant="s4">{to}</DTypography>}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+              {i.phrases.map((i, index) => (
+                <div key={index}>
+                  <DTypography variant="h1">{i.title}</DTypography>
+                  <div style={{ height: 4 }} />
+                  <DTypography variant="s1">{i.definition}</DTypography>
+                  <div style={{ height: 4 }} />
+                  <ul className="mb-2">
+                    {i.examples.map(({ from, to }, index) => (
+                      <li key={index}>
+                        <DTypography variant="s2">{from}</DTypography>
+                        {to && <DTypography variant="s4">{to}</DTypography>}
                       </li>
                     ))}
                   </ul>
@@ -87,6 +128,15 @@ export const parse = (html) => {
           ),
           definition: i.querySelector(".def")?.textContent,
           translation: i.querySelector(".trans")?.textContent,
+          examples: Array.from(i.querySelectorAll(".examp")).map((i) => ({
+            from: i.querySelector(".eg")?.textContent,
+            to: i.querySelector(".trans")?.textContent,
+          })),
+        })),
+        phrases: Array.from(i.querySelectorAll(".phrase-block")).map((i) => ({
+          title: i.querySelector(".phrase-title")?.textContent,
+          label: i.querySelector(".epp-xref")?.textContent,
+          definition: i.querySelector(".def")?.textContent,
           examples: Array.from(i.querySelectorAll(".examp")).map((i) => ({
             from: i.querySelector(".eg")?.textContent,
             to: i.querySelector(".trans")?.textContent,

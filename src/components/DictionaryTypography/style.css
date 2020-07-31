@@ -4,7 +4,7 @@
   font-family: Roboto;
   font-style: normal;
   font-weight: bold;
-  font-size: 1.125;
+  font-size: 112.5%;
   line-height: 1.3125;
   color: black;
 }
@@ -12,7 +12,7 @@
   font-family: Roboto;
   font-style: normal;
   font-weight: 500;
-  font-size: 0.875;
+  font-size: 87.5%;
   line-height: 1;
   color: #fb5607;
 }
@@ -20,7 +20,7 @@
   font-family: Roboto;
   font-style: normal;
   font-weight: 500;
-  font-size: 0.875;
+  font-size: 87.5%;
   line-height: 1;
   text-transform: uppercase;
   color: #6d3d14;
@@ -29,7 +29,7 @@
   font-family: Roboto;
   font-style: normal;
   font-weight: normal;
-  font-size: 0.875;
+  font-size: 87.5%;
   line-height: 1;
   color: #828282;
 }
@@ -37,18 +37,19 @@
   font-family: Roboto;
   font-style: normal;
   font-weight: 500;
-  font-size: 0.75;
+  font-size: 75%;
   line-height: 0.875;
   text-transform: uppercase;
   color: #ffffff;
   background: #4f4f4f;
   border-radius: 2px;
+  padding: 0 4px;
 }
 .dictionary-typography--s1 {
   font-family: Roboto;
   font-style: normal;
   font-weight: 500;
-  font-size: 1;
+  font-size: 100%;
   line-height: 1.1875;
   color: #000000;
 }
@@ -56,7 +57,7 @@
   font-family: Roboto;
   font-style: italic;
   font-weight: normal;
-  font-size: 1;
+  font-size: 100%;
   line-height: 1.1875;
   color: #4f4f4f;
 }
@@ -64,7 +65,7 @@
   font-family: Noto Sans TC;
   font-style: normal;
   font-weight: normal;
-  font-size: 1;
+  font-size: 100%;
   line-height: 1.4375;
   color: #4f4f4f;
 }
@@ -72,7 +73,7 @@
   font-family: Noto Sans TC;
   font-style: normal;
   font-weight: 300;
-  font-size: 1;
+  font-size: 100%;
   line-height: 1.4375;
   color: #4f4f4f;
 }
@@ -80,7 +81,7 @@
   font-family: Roboto;
   font-style: normal;
   font-weight: normal;
-  font-size: 0.875;
+  font-size: 87.5%;
   line-height: 1;
   color: #000000;
 }
@@ -89,7 +90,7 @@
   font-family: Roboto;
   font-style: normal;
   font-weight: normal;
-  font-size: 0.875;
+  font-size: 87.5%;
   line-height: 1;
   color: #000000;
 }
@@ -98,7 +99,7 @@
   font-family: Roboto;
   font-style: normal;
   font-weight: normal;
-  font-size: 0.875;
+  font-size: 87.5%;
   line-height: 1;
   color: #000000;
 }
@@ -107,7 +108,7 @@
   font-family: Roboto;
   font-style: normal;
   font-weight: normal;
-  font-size: 0.875;
+  font-size: 87.5%;
   line-height: 1;
   color: #000000;
 }
