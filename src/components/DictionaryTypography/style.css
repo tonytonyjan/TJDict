@@ -1,0 +1,113 @@
+.dictionary-typography {
+}
+.dictionary-typography--h1 {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 1.125;
+  line-height: 1.3125;
+  color: black;
+}
+.dictionary-typography--h2 {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 0.875;
+  line-height: 1;
+  color: #fb5607;
+}
+.dictionary-typography--h3 {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 0.875;
+  line-height: 1;
+  text-transform: uppercase;
+  color: #6d3d14;
+}
+.dictionary-typography--h4 {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 0.875;
+  line-height: 1;
+  color: #828282;
+}
+.dictionary-typography--h5 {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 0.75;
+  line-height: 0.875;
+  text-transform: uppercase;
+  color: #ffffff;
+  background: #4f4f4f;
+  border-radius: 2px;
+}
+.dictionary-typography--s1 {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 1;
+  line-height: 1.1875;
+  color: #000000;
+}
+.dictionary-typography--s2 {
+  font-family: Roboto;
+  font-style: italic;
+  font-weight: normal;
+  font-size: 1;
+  line-height: 1.1875;
+  color: #4f4f4f;
+}
+.dictionary-typography--s3 {
+  font-family: Noto Sans TC;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 1;
+  line-height: 1.4375;
+  color: #4f4f4f;
+}
+.dictionary-typography--s4 {
+  font-family: Noto Sans TC;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 1;
+  line-height: 1.4375;
+  color: #4f4f4f;
+}
+.dictionary-typography--s5 {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 0.875;
+  line-height: 1;
+  color: #000000;
+}
+.dictionary-typography--b1 {
+  background: rgba(0, 163, 233, 0.5);
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 0.875;
+  line-height: 1;
+  color: #000000;
+}
+.dictionary-typography--b2 {
+  background: rgba(0, 163, 233, 0.25);
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 0.875;
+  line-height: 1;
+  color: #000000;
+}
+.dictionary-typography--b3 {
+  background: rgba(0, 163, 233, 0.12);
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 0.875;
+  line-height: 1;
+  color: #000000;
+}
