@@ -77,6 +77,9 @@ const handleNavigate = (name) => {
     case "history":
       history.push("/history");
       break;
+    case "settings/dictionaries":
+      history.push("/settings/dictionaries");
+      break;
     default:
       break;
   }
@@ -407,6 +410,7 @@ const Root = () => {
         <Switch>
           <Route exact path="/">
             <Home
+              onNavigate={handleNavigate}
               supportUrl={supportUrl}
               reviewUrl={reviewUrl}
               historyPanelProps={{
