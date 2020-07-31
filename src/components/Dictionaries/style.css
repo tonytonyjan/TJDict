@@ -1,3 +1,7 @@
 .dictionaries__action {
   cursor: pointer;
 }
+
+.dictionaries__arrow {
+  color: #fb5607;
+}

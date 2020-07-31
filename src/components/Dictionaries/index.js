@@ -42,6 +42,16 @@ const Dictionaries = ({
       <div className="row">
         <div className="col-lg-6">
           <h6>啟用中的字典</h6>
+          <div style={{ height: 32 }}>
+            可透過
+            <FontAwesomeIcon
+              size="lg"
+              fixedWidth
+              className="dictionaries__arrow"
+              icon={faArrowUp}
+            />
+            排序字典
+          </div>
           <ul className="list-group">
             {dictionaryIds.map((dictId, index) => (
               <li
@@ -55,7 +65,7 @@ const Dictionaries = ({
                   <FontAwesomeIcon
                     size="lg"
                     fixedWidth
-                    className="text-secondary dictionaries__action"
+                    className="dictionaries__arrow dictionaries__action"
                     icon={faArrowUp}
                     data-dict-id={dictId}
                     onClick={handleClickArrowUp}
@@ -75,6 +85,7 @@ const Dictionaries = ({
         </div>
         <div className="col-lg-6">
           <h6>未啟用的字典</h6>
+          <div style={{ height: 32 }} />
           <ul className="list-group">
             {unusedDictionaryIds.map((dictId) => (
               <li
