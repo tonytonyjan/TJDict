@@ -8,7 +8,7 @@ describe("Weblio", () => {
   it("found", async () => {
     actRender(await weblio("仕事"), (container) => {
       const text = container.textContent;
-      expect(text.includes("するべきこと")).toBeTrue();
+      expect(text.includes("何かを作り出す")).toBeTrue();
     });
   });
   it("not found", async () => {
