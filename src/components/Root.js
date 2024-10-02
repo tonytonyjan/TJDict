@@ -1,4 +1,3 @@
-import ga from "ga";
 import React, {
   useState,
   useEffect,
@@ -43,13 +42,6 @@ const supportUrl =
     : "https://www.surveycake.com/s/mDznr";
 
 const history = createHashHistory();
-ga("set", "page", history.location.pathname);
-ga("send", "pageview");
-
-history.listen(({ pathname }) => {
-  ga("set", "page", pathname);
-  ga("send", "pageview");
-});
 
 const matchQuery = (pathname) => {
   const match = matchPath(pathname, {
@@ -352,22 +344,6 @@ const Root = () => {
         .transaction(["history"], "readwrite")
         .objectStore("history");
       objectStore.add(query, Date.now());
-    });
-  }, [query]);
-
-  // send query frequency (per minute) to ga
-  useEffect(() => {
-    if (!query) return;
-    db.then((db) => {
-      const oneMinuteAgo = Date.now() - 60000;
-      db
-        .transaction("history")
-        .objectStore("history")
-        .count(IDBKeyRange.lowerBound(oneMinuteAgo, true)).onsuccess = ({
-        target: { result: count },
-      }) => {
-        ga("send", "event", "engagement", "query_frequency", undefined, count);
-      };
     });
   }, [query]);
 

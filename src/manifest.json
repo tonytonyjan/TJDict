@@ -3,10 +3,9 @@
   "short_name": "TJDict",
   "description": "TJDict 是一款方便快速的整合型網路字典，支援英漢、漢英、英英、日日，只要查詢一個單字，就能得到多本字典的查詢結果。再也不用開一堆分頁找單字，節省你的寶貴時間。",
   "version": "2.2.1",
-  "manifest_version": 2,
-  "permissions": [
-    "notifications",
-    "contextMenus",
+  "manifest_version": 3,
+  "permissions": ["notifications", "contextMenus", "webRequest"],
+  "host_permissions": [
     "*://tw.dictionary.search.yahoo.com/*",
     "*://tw.search.yahoo.com/*",
     "*://www.weblio.jp/content/*",
@@ -15,10 +14,7 @@
     "*://www.lexico.com/*",
     "*://www.jukuu.com/*",
     "*://dictionary.cambridge.org/*",
-    "*://www.thesaurus.com/*",
-    "*://dict.hjenglish.com/*",
-    "webRequest",
-    "webRequestBlocking"
+    "*://www.thesaurus.com/*"
   ],
   "icons": {
     "16": "icons/icon16.png",
@@ -26,7 +22,8 @@
     "128": "icons/icon128.png"
   },
   "background": {
-    "scripts": ["background.js"]
+    "service_worker": "background.js",
+    "type": "module"
   },
   "content_scripts": [
     {
@@ -35,7 +32,7 @@
       "all_frames": true
     }
   ],
-  "browser_action": {
+  "action": {
     "default_icon": {
       "16": "icons/icon16.png",
       "48": "icons/icon48.png",
@@ -43,6 +40,7 @@
     },
     "default_title": "TJDict"
   },
-  "content_security_policy": "script-src 'self' https://*.google-analytics.com; object-src 'self';",
-  "web_accessible_resources": ["index.html"]
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self';"
+  }
 }

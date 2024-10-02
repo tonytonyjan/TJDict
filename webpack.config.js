@@ -86,7 +86,7 @@ module.exports = (_env, argv) => ({
             if (process.env.BROWSER === "firefox")
               delete manifest.content_security_policy;
             if (argv.mode === "development")
-              manifest.permissions.push("http://localhost:9000/*");
+              manifest.host_permissions.push("http://localhost:9000/*");
             return JSON.stringify(manifest, null, 2);
           },
         },
